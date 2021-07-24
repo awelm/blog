@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Akila Welihinda</title>
-    <link>https://awelm.com/</link>
+    <link>https://www.awelm.com/</link>
     <description>Recent content on Akila Welihinda</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Wed, 21 Jul 2021 16:48:51 -0700</lastBuildDate><atom:link href="https://awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jul 2021 16:48:51 -0700</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Post</title>
-      <link>https://awelm.com/posts/my-first-post/</link>
+      <link>https://www.awelm.com/posts/my-first-post/</link>
       <pubDate>Wed, 21 Jul 2021 16:48:51 -0700</pubDate>
       
-      <guid>https://awelm.com/posts/my-first-post/</guid>
+      <guid>https://www.awelm.com/posts/my-first-post/</guid>
       <description>Hello World. My name is Akila Welihinda and this is my first post.</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>https://awelm.com/about/</link>
+      <link>https://www.awelm.com/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://awelm.com/about/</guid>
+      <guid>https://www.awelm.com/about/</guid>
       <description>Hello this is my about page.</description>
     </item>
     
