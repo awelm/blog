@@ -1,4 +1,4 @@
-baseURL = "https://awelm.github.io/blog/"
+baseURL = "https://awelm.com/"
 languageCode = "en-us"
 title = "Akila Welihinda"
 theme = "hugo-ink"
@@ -15,7 +15,7 @@ pygmentscodefencesguesssyntax = true
 # Your Google analytics code.
 googleAnalytics = "UA-123-45"
 # Your Disqus sortname.
-disqusShortname = "localhost"
+disqusShortname = "awelm"
 
 # Number of posts to show in recent posts list (Optional). Defaults to 10.
 paginate = 10
