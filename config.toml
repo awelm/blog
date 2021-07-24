@@ -2,6 +2,8 @@ baseURL = "https://awelm.com/"
 languageCode = "en-us"
 title = "Akila Welihinda"
 theme = "hugo-ink"
+# docs subfolder required for Github pages
+publishDir = "docs"
 
 copyright = "© Akila Welihinda"
 
@@ -20,7 +22,6 @@ paginate = 10
 
 # Number of characters to show in summary.
 summaryLength = 20
-
 
 [params]
     # Blog subtitle which appears below blog title. Supports markdown.

@@ -6,7 +6,7 @@
     <description>Recent content in Posts on Akila Welihinda</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>© Copyright notice</copyright>
+    <copyright>© Akila Welihinda</copyright>
     <lastBuildDate>Wed, 21 Jul 2021 16:48:51 -0700</lastBuildDate><atom:link href="https://awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My First Post</title>
@@ -14,7 +14,7 @@
       <pubDate>Wed, 21 Jul 2021 16:48:51 -0700</pubDate>
       
       <guid>https://awelm.com/posts/my-first-post/</guid>
-      <description>Hello World My name is Akila Welihinda and this is my first post.</description>
+      <description>Hello World. My name is Akila Welihinda and this is my first post.</description>
     </item>
     
   </channel>
