@@ -23,4 +23,4 @@ Unfortunately I'm not yet able to discuss the biggest and most interesting proje
 
 ### Leaving Databricks
 
-Although working at Databricks was an amazing experience, I recently decided to leave in order to build my own company. I now feel that I have the technical chops and experience to build my own SaaS business. As you may have noticed by now, I optimize for ownership and learning above everything else. Building my own company will push me to the next level and I can't wait to write about these new experiences. Thanks for reading and stay tuned!
+Although working at Databricks was an amazing experience, I recently decided to leave in order to build my own company. I've noticed some gaps in the dev tools market while working at Databricks and I now feel that I have the technical chops to build a solution. As you may have noticed by now, I optimize for ownership and learning above everything else. Building my own company will push me to the next level and I can't wait to write about these new experiences. Thanks for reading and stay tuned!
