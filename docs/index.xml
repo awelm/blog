@@ -7,14 +7,14 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Wed, 21 Jul 2021 16:48:51 -0700</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 29 Jul 2021 14:39:29 -0700</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>My First Post</title>
-      <link>https://www.awelm.com/posts/my-first-post/</link>
-      <pubDate>Wed, 21 Jul 2021 16:48:51 -0700</pubDate>
+      <title>My Journey at Databricks</title>
+      <link>https://www.awelm.com/posts/my-databricks-journey/</link>
+      <pubDate>Thu, 29 Jul 2021 14:39:29 -0700</pubDate>
       
-      <guid>https://www.awelm.com/posts/my-first-post/</guid>
-      <description>Hello World. My name is Akila Welihinda and this is my first post.</description>
+      <guid>https://www.awelm.com/posts/my-databricks-journey/</guid>
+      <description>Finding Databricks When I was working on batch scheduling team at Facebook, I noticed something unusual about one of our sister teams.</description>
     </item>
     
     <item>
