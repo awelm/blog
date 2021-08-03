@@ -15,7 +15,7 @@ pygmentscodefencesguesssyntax = true
 # Your Google analytics code.
 googleAnalytics = "UA-203462770-1"
 # Your Disqus sortname.
-disqusShortname = "awelm"
+#disqusShortname = "awelm"
 
 # Number of posts to show in recent posts list (Optional). Defaults to 10.
 paginate = 10
