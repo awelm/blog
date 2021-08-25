@@ -28,57 +28,57 @@ As per step 1, lets run `kubectl apply` to create a Deployment in the `default` 
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
 ```
 
-For step 2, fire up Click by typing `click` in your terminal. Click operates by reading your local Kubeconfig file, so it doesn't require any additional setup. Notice that Click automatically selects the Kubernetes context `arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster` and namespace `default` from my previous Click session. The prompt displays `none` at the end because we haven't selected a pod yet.
+For step 2, fire up Click by typing `click` in your terminal. Click operates by reading your local Kubeconfig file, so it doesn't require any additional setup. Notice that Click automatically selects the Kubernetes context `demo-cluster` and namespace `default` from my previous Click session. The prompt displays `none` at the end because we haven't selected a pod yet.
 
 ```bash
 ~ click                                                                                                                                                                                                                                                                                            ✔  49s  01:00:06 PM
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [none] >
+[demo-cluster] [default] [none] >
 ```
 
 Type `deployments` to see the existing deployments in our currently selected `default` namespace:
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [none] > deployments
+[demo-cluster] [default] [none] > deployments
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   2/3     3            2           103s
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [none] >
+[demo-cluster] [default] [none] >
 ```
 
 Hmm thats odd. Only 2 of the 3 pods are ready. Let's type `pods` to dig deeper:
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [none] > pods
+[demo-cluster] [default] [none] > pods
  ####  Name                               Ready    Phase    Age     Restarts
 -----------------------------------------------------------------------------
     0  nginx-deployment-66b6c48dd5-72mc5  1/1      Running  3m 27s  0
     1  nginx-deployment-66b6c48dd5-nplcc  Unknown  Pending  3m 27s  0
     2  nginx-deployment-66b6c48dd5-zdc87  1/1      Running  3m 27s  0
 -----------------------------------------------------------------------------
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [none] >
+[demo-cluster] [default] [none] >
 ```
 
 Pod #1 isn't running yet so lets inspect what's going on by entering `1` and then typing `events` to view the pod 1 events. Notice that after typing `1`, the command prompt will continue to remember the selected pod is `nginx-deployment-66b6c48dd5-nplcc`.
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [none] > 1
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > events
+[demo-cluster] [default] [none] > 1
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > events
 2021-08-17 13:18:11 -07:00 - 0/2 nodes are available: 2 Too many pods.
  count: 9
  reason: FailedScheduling
 
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
 ```
 
 Aha! So there aren't enough nodes in the Kubernetes cluster to schedule all the pods in our Deployment. Let's quickly view the list of nodes in the cluster by typing in `nodes`. The output of this command is dependent on the selected context and not the selected namespace or pod. This is because nodes are a context-level resource in Kubernetes.
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > nodes
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > nodes
  ####  Name                                        State  Age
 -----------------------------------------------------------------
     0  ip-172-31-30-75.us-west-2.compute.internal  Ready  2d 19h
     1  ip-172-31-51-26.us-west-2.compute.internal  Ready  1d 8h
 -----------------------------------------------------------------
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
 ```
 
 To fix the error we saw above, I'm going to go to increase the size of my EKS cluster Node Group from 2→3 nodes:
@@ -88,34 +88,34 @@ To fix the error we saw above, I'm going to go to increase the size of my EKS cl
 Now let's verify the new node shows up in Click:
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > nodes
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > nodes
  ####  Name                                        State  Age
 -----------------------------------------------------------------
     0  ip-172-31-0-38.us-west-2.compute.internal   Ready  1m 3s
     1  ip-172-31-30-75.us-west-2.compute.internal  Ready  2d 19h
     2  ip-172-31-51-26.us-west-2.compute.internal  Ready  1d 8h
 -----------------------------------------------------------------
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
 ```
 
 And now finally we should see all 3 pods scheduled and healthy:
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > pods
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > pods
  ####  Name                               Ready  Phase    Age      Restarts
 ----------------------------------------------------------------------------
     0  nginx-deployment-66b6c48dd5-72mc5  1/1    Running  21m 23s  0
     1  nginx-deployment-66b6c48dd5-nplcc  1/1    Running  21m 23s  0
     2  nginx-deployment-66b6c48dd5-zdc87  1/1    Running  21m 23s  0
 ----------------------------------------------------------------------------
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
 ```
 
 Now let's check the pod 1 service logs to make sure there are no stack traces. In this example, our nginx containers don't actually log anything so the pod logs are empty.
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > logs
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > logs
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] >
 ```
 
 As a summary, here are all the inputs we've entered so far:
@@ -139,7 +139,7 @@ Below are the commands needed to perform the same investigation using `kubectl`.
 
 ```bash
 kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
-kubectl config use-context arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster
+kubectl config use-context demo-cluster
 kubectl config current-context # I always do this to make sure I don't nuke prod
 kubectl get deployments --namespace default
 kubectl get pods --namespace default
@@ -161,9 +161,9 @@ You can pipe the output of any Click command into any bash command. I often use 
 If you often run the same Click command for selected resources, it's helpful to use a shorter Click alias instead. For example, I'd often need to SSH into a selected pod using `exec bash -i`. Even this command was too long for my taste and I'd occasionally forget it. So I created an `ssh` alias and haven't had a hiccup since. See below:
 
 ```bash
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > alias ssh 'exec bash -i'
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > alias ssh 'exec bash -i'
 aliased ssh = 'exec bash -i'
-[arn:aws:eks:us-west-2:472405206808:cluster/demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > ssh
+[demo-cluster] [default] [nginx-deployment-66b6c48dd5-nplcc] > ssh
 root@nginx-deployment-66b6c48dd5-nplcc:/#
 ```
 
