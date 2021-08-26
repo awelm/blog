@@ -40,7 +40,6 @@ summaryLength = 20
 
     # Switch to dark mode or auto detect mode from OS (Optional).
     # "dark" will set mode to dark and "auto" will switch to dark mode if OS is in dark mode.
-    mode = "dark" # "dark" or "auto"
 
 # Main menu which appears below site header.
 [[menu.main]]
