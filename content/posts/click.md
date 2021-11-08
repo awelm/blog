@@ -83,7 +83,7 @@ Aha! So there aren't enough nodes in the Kubernetes cluster to schedule all the 
 
 To fix the error we saw above, I'm going to go to increase the size of my EKS cluster Node Group from 2→3 nodes:
 
-![EKS cluster image](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a7b4060f-1b9b-401e-97ed-736a596be466/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAT73L2G45O3KS52Y5%2F20211108%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20211108T154050Z&X-Amz-Expires=86400&X-Amz-Signature=34560e7914e2b8bf4b87cc63c4c2c5b65a88478d5926078a11340f9aba70cb38&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22)
+![EKS cluster image](https://i.ibb.co/2dXX90L/Untitled.png)
 
 Now let's verify the new node shows up in Click:
 
