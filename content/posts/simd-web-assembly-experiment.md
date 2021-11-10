@@ -26,7 +26,7 @@ Below is the Web Assembly I've written to create our all-white image using SIMD 
 
 3. During each iteration, set all the bits in the allocated memory buffer to 1
 
-```wasm
+```asm
 (module
   ;; Allocate a memory buffer of 1000 64KB pages (64MB total) for our image
   (memory (export "memory") 1000 1000)
@@ -62,7 +62,7 @@ Below is the Web Assembly I've written to create our all-white image using SIMD 
           )
         )
 
-				;; Increment currentIteration by 1
+        ;; Increment currentIteration by 1
         (set_local $currentIteration (i32.add (get_local $currentIteration) (i32.const 1))) 
         (br $allIterationsTop) 
       ) 
