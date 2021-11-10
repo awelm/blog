@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Wed, 25 Aug 2021 08:43:52 -0700</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Nov 2021 13:14:33 -0500</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring SIMD performance improvements in Web Assembly</title>
+      <link>https://www.awelm.com/posts/simd-web-assembly-experiment/</link>
+      <pubDate>Wed, 10 Nov 2021 13:14:33 -0500</pubDate>
+      
+      <guid>https://www.awelm.com/posts/simd-web-assembly-experiment/</guid>
+      <description>In this blog post, we&amp;rsquo;re going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions.</description>
+    </item>
+    
     <item>
       <title>Click: My Primary Kubernetes Tool</title>
       <link>https://www.awelm.com/posts/click/</link>
