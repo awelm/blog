@@ -4,7 +4,7 @@ date: 2021-11-10T13:14:33-05:00
 draft: false
 ---
 
-In this blog post, we're going to run some [SIMD](http://ftp.cvut.cz/kernel/people/geoff/cell/ps3-linux-docs/CellProgrammingTutorial/BasicsOfSIMDProgramming.html) (Single Instruction Multiple Data) performance experiments in [Web Assembly](https://webassembly.org/) and see whether the results agree with our theoretical predictions. I chose to do this in Web Assembly because it's an exciting technology that I wanted to learn more about.
+In this blog post, we are going to run some [SIMD](http://ftp.cvut.cz/kernel/people/geoff/cell/ps3-linux-docs/CellProgrammingTutorial/BasicsOfSIMDProgramming.html) (Single Instruction Multiple Data) performance experiments in [Web Assembly](https://webassembly.org/) and see whether the results agree with our theoretical predictions. I chose to do this in Web Assembly because it's an exciting technology that I wanted to learn more about.
 
 ### What is SIMD
 

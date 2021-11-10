@@ -14,7 +14,7 @@
       <pubDate>Wed, 10 Nov 2021 13:14:33 -0500</pubDate>
       
       <guid>https://www.awelm.com/posts/simd-web-assembly-experiment/</guid>
-      <description>In this blog post, we&amp;rsquo;re going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions.</description>
+      <description>In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions.</description>
     </item>
     
     <item>

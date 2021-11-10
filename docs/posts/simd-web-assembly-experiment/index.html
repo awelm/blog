@@ -4,11 +4,11 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Exploring SIMD performance improvements in Web Assembly - Akila Welihinda</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta itemprop="name" content="Exploring SIMD performance improvements in Web Assembly">
-<meta itemprop="description" content="In this blog post, we&rsquo;re going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions."><meta itemprop="datePublished" content="2021-11-10T13:14:33-05:00" />
+<meta itemprop="description" content="In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions."><meta itemprop="datePublished" content="2021-11-10T13:14:33-05:00" />
 <meta itemprop="dateModified" content="2021-11-10T13:14:33-05:00" />
-<meta itemprop="wordCount" content="761">
+<meta itemprop="wordCount" content="762">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="Exploring SIMD performance improvements in Web Assembly" />
-<meta property="og:description" content="In this blog post, we&rsquo;re going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions." />
+<meta property="og:description" content="In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.awelm.com/posts/simd-web-assembly-experiment/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-10T13:14:33-05:00" />
@@ -16,7 +16,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Exploring SIMD performance improvements in Web Assembly"/>
-<meta name="twitter:description" content="In this blog post, we&rsquo;re going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions."/>
+<meta name="twitter:description" content="In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions."/>
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display:700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" media="screen" href="https://www.awelm.com/css/normalize.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="https://www.awelm.com/css/main.css" />
@@ -79,7 +79,7 @@
 			</div>
 					
 			<div class="markdown">
-				<p>In this blog post, we&rsquo;re going to run some <a href="http://ftp.cvut.cz/kernel/people/geoff/cell/ps3-linux-docs/CellProgrammingTutorial/BasicsOfSIMDProgramming.html">SIMD</a> (Single Instruction Multiple Data) performance experiments in <a href="https://webassembly.org/">Web Assembly</a> and see whether the results agree with our theoretical predictions. I chose to do this in Web Assembly because it&rsquo;s an exciting technology that I wanted to learn more about.</p>
+				<p>In this blog post, we are going to run some <a href="http://ftp.cvut.cz/kernel/people/geoff/cell/ps3-linux-docs/CellProgrammingTutorial/BasicsOfSIMDProgramming.html">SIMD</a> (Single Instruction Multiple Data) performance experiments in <a href="https://webassembly.org/">Web Assembly</a> and see whether the results agree with our theoretical predictions. I chose to do this in Web Assembly because it&rsquo;s an exciting technology that I wanted to learn more about.</p>
 <h3 id="what-is-simd">What is SIMD</h3>
 <p>SIMD is a technique for running a single CPU instruction on multiple data operands in parallel. This is done by packing multiple data operands into a special, wide CPU register and then using a dedicated SIMD instruction to operate on all the packed operands at once. SIMD is used to speed up repetitive computations that can be done in parallel, which frequently show up graphics or data processing. When I was working at Databricks, my sister team <a href="https://databricks.com/blog/2021/06/17/announcing-photon-public-preview-the-next-generation-query-engine-on-the-databricks-lakehouse-platform.html">rewrote</a> the Apache Spark engine to utilize SIMD instructions (referred to as a &ldquo;native vectorized engine&rdquo;). This rewrite along with other projects my team shipped led to us <a href="https://databricks.com/blog/2021/11/02/databricks-sets-official-data-warehousing-performance-record.html">doubling</a> the previous TPC-DS world record for data warehouse performance! I mention this to hopefully convince you that SIMD is important and can actually make a real world impact.</p>
 <h3 id="sample-problem">Sample Problem</h3>
