@@ -46,8 +46,7 @@ Below is the Web Assembly I've written to create our all-white image using SIMD 
         ;; Loop while currentIteration < numIterations 
         (br_if $breakAllIterations (i32.eq (get_local $numIterations) (get_local $currentIteration)))
 
-        ;; Set bufferPtr=0 so we start the current iteration at the
-				;; beginning of the buffer
+        ;; Set bufferPtr=0 so we start the current iteration at the beginning of the buffer
         (set_local $bufferPtr (i32.const 0))
 
         (block $breakCurrentIteration
@@ -84,8 +83,10 @@ wat2wasm --enable-simd fillBufferWithSIMD.wat && wasmer fillBufferWithSIMD.wasm 
 
 ### Performance Comparison
 
-| numIterations | 128-bit SIMD Time (sec) | 32-bit Time (sec) | Ratio |
-| ------------- | ----------------------- | ----------------- | ----- |
+Here is a table summarizing the image creation performance as we increase the number of iterations.
+
+| numIterations | 128-bit SIMD Time (sec) | 32-bit Time (sec) | Speedup Ratio |
+| :------------- | :----------------------- | :----------------- | :----- |
 | 1 | 0.052 | 0.069 | 1.33 |
 | 10 | 0.065 | 0.142 | 2.18 |
 | 100 | 0.297 | 1.055 | 3.55 |
