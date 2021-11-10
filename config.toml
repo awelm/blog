@@ -25,7 +25,7 @@ summaryLength = 20
 
 [params]
     # Blog subtitle which appears below blog title. Supports markdown.
-    subtitle = "Personal blog and portfolio of my past works"
+    subtitle = "My technical blog and past works"
 
     avatar = "https://pbs.twimg.com/profile_images/1409607398256381955/o1XFWZcd_400x400.jpg"
 
