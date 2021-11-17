@@ -1,10 +1,10 @@
 ---
-title: "Exploring SIMD performance improvements in Web Assembly"
+title: "Exploring SIMD performance improvements in WebAssembly"
 date: 2021-11-10T13:14:33-05:00
 draft: false
 ---
 
-In this blog post, we are going to run some [SIMD](http://ftp.cvut.cz/kernel/people/geoff/cell/ps3-linux-docs/CellProgrammingTutorial/BasicsOfSIMDProgramming.html) (Single Instruction Multiple Data) performance experiments in [Web Assembly](https://webassembly.org/) and see whether the results agree with our theoretical predictions. I chose to do this in Web Assembly because it's an exciting technology that I wanted to learn more about.
+In this blog post, we are going to run some [SIMD](http://ftp.cvut.cz/kernel/people/geoff/cell/ps3-linux-docs/CellProgrammingTutorial/BasicsOfSIMDProgramming.html) (Single Instruction Multiple Data) performance experiments in [WebAssembly](https://webassembly.org/) and see whether the results agree with our theoretical predictions. I chose to do this in WebAssembly because it's an exciting technology that I wanted to learn more about.
 
 ### What is SIMD
 
@@ -18,7 +18,7 @@ Let's imagine that we want to create an image that only contains white pixels. T
 
 ### Creating the Image
 
-Below is the Web Assembly I've written to create our all-white image using SIMD instructions. Here's a rundown of what the code does:
+Below is the WebAssembly I've written to create our all-white image using SIMD instructions. Here's a rundown of what the code does:
 
 1. Allocates a 64MB portion of memory. Usually images are much smaller, but using a larger size will give us more accurate measurements
 
@@ -71,13 +71,13 @@ Below is the Web Assembly I've written to create our all-white image using SIMD 
 )
 ```
 
-We can compile and run this Web Assembly program using the command below. Notice that we specify the `numIteration=10000` at the end.
+We can compile and run this WebAssembly program using the command below. Notice that we specify the `numIteration=10000` at the end.
 
 ```bash
 wat2wasm --enable-simd fillBufferWithSIMD.wat && wasmer fillBufferWithSIMD.wasm -i fillBufferWithSIMD 10000
 ```
 
-[Here](https://github.com/awelm/simd-wasm-profiling/blob/master/fillBufferWithoutSIMD.wat) is the Web Assembly code for creating our image 32 bits at a time without using SIMD. It's very similar, except we use CPU instructions with 32-bit operands and we advance the buffer pointer by 32 bits.
+[Here](https://github.com/awelm/simd-wasm-profiling/blob/master/fillBufferWithoutSIMD.wat) is the WebAssembly code for creating our image 32 bits at a time without using SIMD. It's very similar, except we use CPU instructions with 32-bit operands and we advance the buffer pointer by 32 bits.
 
 
 

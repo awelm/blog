@@ -9,12 +9,12 @@
     <copyright>© Akila Welihinda</copyright>
     <lastBuildDate>Wed, 10 Nov 2021 13:14:33 -0500</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Exploring SIMD performance improvements in Web Assembly</title>
+      <title>Exploring SIMD performance improvements in WebAssembly</title>
       <link>https://www.awelm.com/posts/simd-web-assembly-experiment/</link>
       <pubDate>Wed, 10 Nov 2021 13:14:33 -0500</pubDate>
       
       <guid>https://www.awelm.com/posts/simd-web-assembly-experiment/</guid>
-      <description>In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in Web Assembly and see whether the results agree with our theoretical predictions.</description>
+      <description>In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in WebAssembly and see whether the results agree with our theoretical predictions.</description>
     </item>
     
     <item>
