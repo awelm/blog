@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Wed, 10 Nov 2021 13:14:33 -0500</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Nov 2021 18:01:35 -0500</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tools That Improved My Engineering Productivity</title>
+      <link>https://www.awelm.com/posts/eng-productivity-tools/</link>
+      <pubDate>Wed, 17 Nov 2021 18:01:35 -0500</pubDate>
+      
+      <guid>https://www.awelm.com/posts/eng-productivity-tools/</guid>
+      <description>My friends and coworkers often ask me what tools I use because they know I am a productivity enthusiast. I have always enjoyed improving my productivity because the feeling of efficiency makes working more enjoyable for me.</description>
+    </item>
+    
     <item>
       <title>Exploring SIMD performance improvements in WebAssembly</title>
       <link>https://www.awelm.com/posts/simd-web-assembly-experiment/</link>

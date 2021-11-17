@@ -1,7 +1,7 @@
 ---
 title: "Tools That Improved My Engineering Productivity"
 date: 2021-11-17T18:01:35-05:00
-draft: true
+draft: false
 ---
 
 My friends and coworkers often ask me what tools I use because they know I am a productivity enthusiast. I have always enjoyed improving my productivity because the feeling of efficiency makes working more enjoyable for me. And when working is fun, I work longer and happily get more things done. This post shares my favorite productivity tools and tips I've amassed over the last 5 years.
