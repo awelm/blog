@@ -31,11 +31,11 @@ We spend a huge amount of time in our browsers, so making our web browsing exper
 
 ### Terminal and IDE Extensions
 
-I'm assuming that you are using iTerm2 with a ZSH shell.
+I'm assuming that you are using [iTerm2](https://iterm2.com/) with a [ZSH](https://opensource.com/article/19/9/getting-started-zsh) shell.
 
 1. [vscodevim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) (or Emacs equivalent): As programmers we spend so much time editing text, so it makes a lot of sense to use a tool like Vim that was specifically designed for text editing. However, I've found it impractical to use CLI Vim at work because it lacks the internal tooling that companies typically build around their preferred IDE. By using a Vim IDE extension instead, you retain your Vim superpowers and your access to internal tooling. Most IDEs will have extensions that provide Vim or Emacs emulation, so you don't necessarily need to use VS Code.
-2.  [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) (or Emacs equivalent): This ZSH plugin lets you compose your shell command in a Vim fashion.
+2.  [zsh-vi-mode](https://github.com/jeffreytse/zsh-vi-mode) (or Emacs equivalent): This ZSH plugin lets you compose shell commands and navigate your terminal in a Vim fashion.
 3. [fzf](https://github.com/junegunn/fzf): `Control-R` is great, but its way better when it uses fuzzy search. fzf lets you add fuzzy search to multiple aspects of your command line but I only use it modify my `Control-R`.
-4. [iTerm2 tmux Integration](https://iterm2.com/documentation-tmux-integration.html): If you frequently connect to a remote server to do non-trivial things, tmux is an indispensable tool. tmux lets you create new tabs, split windows, and restore state once you re-login. tmux is unwieldy to use though, and this integration lets you perform tmux actions using the iTerm2 native shortcuts that you're probably already familiar with. For example, you can use the trackpad to scroll through past outputs instead of pressing `Control-B` and then `[`.
+4. [iTerm2 tmux Integration](https://iterm2.com/documentation-tmux-integration.html): If you frequently connect to a remote server to do non-trivial things, tmux is an indispensable tool. tmux lets you create new tabs, split windows, and restore your session state once you re-login. tmux is unwieldy to use though, and this integration lets you perform tmux actions using the iTerm2 native shortcuts that you're probably already familiar with. For example, you can use the trackpad to scroll through past outputs instead of pressing `Control-B` and then `[`.
 
 
