@@ -43,7 +43,7 @@ When writing business logic, there are often necessary special cases or error ha
 
 #### Option
 
-The Option monad is a wrapper around a value that is possibly `null`. For example if you want to store a nullable integer in Scala, you should create a variable with type `Option[Int]`. If the Option contains the integer `5`, then the variable will have the value `Some(5)`. If the Option is empty (aka the integer is `null`), the variable will have the value `None`. `Some` and `None` are both child classes of the Option class. Because we specified nullability in the type system by using the Option type, the compiler will force us to handle null cases when dereferencing the Option. Below are some examples of using Options.
+The Option monad is a wrapper around a value that is possibly `null`. For example if you want to store a nullable integer in Scala, you should create a variable with type `Option[Int]`. If the Option contains the integer `5`, then the variable will have the value `Some(5)`. If the Option is empty (aka the integer is `null`), the variable will have the value `None`. `Some` and `None` are both child classes of the Option class. If we store a nullable value in an Option, the compiler will force us to handle null cases when dereferencing the Option. Below are some examples of using Options.
 
 ```scala
 // Note all variables declared with `val` are immutable
@@ -106,10 +106,10 @@ else:
 	viewerId = user.getId()
 ```
 
-Yes we can shorten the code above by eagerly initializing `viewerId = user.getId()` but let's ignore example-specific optimizations because they don't solve the null-checking hell problem. Below is the Scala version with function return types included for clarity.
+Yes we can shorten the code above by eagerly initializing `viewerId = user.getId()` but let's ignore example-specific optimizations because they won't protect us from null-checking hell in general. Below is the Scala version with function return types included for clarity.
 
 ```scala
-val viewerId = user.getSubscriptionOpt    // type: Option[Subscription]
+val viewerId = user.getSubscriptionOpt      // type: Option[Subscription]
 	.flatMap(_.getPremiumTierOpt)           // type: Option[Tier]
 	.flatMap(_.getPremiumIdOpt)             // type: Option[ID]
 	.getOrElse(user.getId())                // type: ID
@@ -167,9 +167,9 @@ Now let's imagine we want to compute some string and then persist that string's 
 
 ```python
 async def storeWords():
-	computedString = await computeString() 
-  words = computedString.split(" ")
-  await persistWords(words)
+    computedString = await computeString() 
+    words = computedString.split(" ")
+    await persistWords(words)
 
 asyncio.run(storeWords())
 ```
@@ -219,8 +219,8 @@ failedTry match {
 	case Failure(ex: ArithmeticException) =>
 		println(s"Oops we divided by 0")
 
-  case Failure(ex) =>
-    println(s"Received unknown exception $ex")
+    case Failure(ex) =>
+        println(s"Received unknown exception $ex")
 }
 ```
 
@@ -252,4 +252,4 @@ One central Scala idiom is to make all objects immutable unless there is good re
 
 #### [Every Expression Returns a Value](https://www.oreilly.com/library/view/learning-scala/9781449368814/ch03.html)
 
-Every expression in Scala returns a value. Functions, pattern matches, if-statements, etc will all implicitly return the value of the last evaluated statement. It's considered best practice to rely on these implicit returns instead of using the `return` keyword. This starts to make sense when we recognize that `return` is used to manage program control-flow. Remember that functional languages like Scala encourage you to focus on data flow via functional composition instead. And because every statement returns a value, we're actually able to create a program by wiring statements together in a functional manner. The free use of `return` makes programs more complicated because we must consider cases where a function returns early and how that can affect other code.
+Every expression in Scala returns a value. Functions, pattern matches, if-statements, etc will all implicitly return the value of the last evaluated statement. It's considered best practice to rely on these implicit returns instead of using the `return` keyword. This starts to make sense when we recognize that `return` is used to manage program control-flow. Remember that functional languages like Scala encourage you to focus on data flow via functional composition instead. And because every statement returns a value, we're actually able to create a program by wiring statements together in a functional manner.
