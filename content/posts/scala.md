@@ -4,8 +4,6 @@ date: 2021-12-08T12:35:14-08:00
 draft: false
 ---
 
-## Introduction
-
 My last job required me to learn Scala, which is considered to be a functional-OOP hybrid language. Seeing real-world applications of Scala was what ultimately sold me on the language's concepts, and now I'm very grateful for the big perspective shift Scala has given me. Because I don't often hear engineers using Scala or other functional-leaning languages on the job, I'm excited to share my experiences here. I will introduce specific language features and concepts in Scala that have made a lasting impression in how I translate my thoughts into code.
 
 ## Powerful Pattern Matching
