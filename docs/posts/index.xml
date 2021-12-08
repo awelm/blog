@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Wed, 17 Nov 2021 18:01:35 -0500</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 08 Dec 2021 12:35:14 -0800</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Scala Changed My Perspective on Programming</title>
+      <link>https://www.awelm.com/posts/scala/</link>
+      <pubDate>Wed, 08 Dec 2021 12:35:14 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/scala/</guid>
+      <description>Introduction My last job required me to learn Scala, which is considered to be a functional-OOP hybrid language. Seeing real-world applications of Scala was what ultimately sold me on the language&amp;rsquo;s concepts, and now I&amp;rsquo;m very grateful for the big perspective shift Scala has given me.</description>
+    </item>
+    
     <item>
       <title>Tools That Improved My Engineering Productivity</title>
       <link>https://www.awelm.com/posts/eng-productivity-tools/</link>
