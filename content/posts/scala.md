@@ -1,7 +1,7 @@
 ---
 title: "How Scala Changed My Perspective on Programming"
 date: 2021-12-08T12:35:14-08:00
-draft: true
+draft: false
 ---
 
 ## Introduction
