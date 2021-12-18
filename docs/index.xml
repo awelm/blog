@@ -14,7 +14,7 @@
       <pubDate>Sat, 18 Dec 2021 11:09:07 -0800</pubDate>
       
       <guid>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</guid>
-      <description>In this post I will discuss the story behind my first open-source contribution .
+      <description>In this post I will discuss the story behind my first open-source contribution.
 Have you ever wondered how computers calculate trigonometric functions like sin and cos?</description>
     </item>
     
@@ -42,7 +42,7 @@ Have you ever wondered how computers calculate trigonometric functions like sin 
       <pubDate>Wed, 10 Nov 2021 13:14:33 -0500</pubDate>
       
       <guid>https://www.awelm.com/posts/simd-web-assembly-experiment/</guid>
-      <description>In this blog post, we are going to run some SIMD  (Single Instruction Multiple Data) performance experiments in WebAssembly  and see whether the results agree with our theoretical predictions.</description>
+      <description>In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in WebAssembly and see whether the results agree with our theoretical predictions.</description>
     </item>
     
     <item>
@@ -51,7 +51,7 @@ Have you ever wondered how computers calculate trigonometric functions like sin 
       <pubDate>Wed, 25 Aug 2021 08:43:52 -0700</pubDate>
       
       <guid>https://www.awelm.com/posts/click/</guid>
-      <description>Click  has made my Kubernetes experience a pleasure. I adopted Click after joining Databricks because using kubectl was too inconvenient.</description>
+      <description>Click has made my Kubernetes experience a pleasure. I adopted Click after joining Databricks because using kubectl was too inconvenient. There aren&amp;rsquo;t many articles or blog posts discussing Click, so I decided to write one in hopes of convincing you to try it out.</description>
     </item>
     
     <item>
