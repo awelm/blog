@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Wed, 08 Dec 2021 12:35:14 -0800</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Dec 2021 11:09:07 -0800</lastBuildDate><atom:link href="https://www.awelm.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Simplifying the GNU C Sine Function</title>
+      <link>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</link>
+      <pubDate>Sat, 18 Dec 2021 11:09:07 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</guid>
+      <description>In this post I will discuss the story behind my first open-source contribution .
+Have you ever wondered how computers calculate trigonometric functions like sin and cos?</description>
+    </item>
+    
     <item>
       <title>How Scala Changed My Perspective on Programming</title>
       <link>https://www.awelm.com/posts/scala/</link>
