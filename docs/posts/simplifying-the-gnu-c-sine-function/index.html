@@ -7,7 +7,7 @@
 <meta itemprop="description" content="In this post I will discuss the story behind my first open-source contribution.
 Have you ever wondered how computers calculate trigonometric functions like sin and cos?"><meta itemprop="datePublished" content="2021-12-18T11:09:07-08:00" />
 <meta itemprop="dateModified" content="2021-12-18T11:09:07-08:00" />
-<meta itemprop="wordCount" content="946">
+<meta itemprop="wordCount" content="945">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="Simplifying the GNU C Sine Function" />
 <meta property="og:description" content="In this post I will discuss the story behind my first open-source contribution.
 Have you ever wondered how computers calculate trigonometric functions like sin and cos?" />
@@ -124,7 +124,7 @@ $$</p>
 \tag{5} sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + (d_a-\frac{a^2d_a}{2}-\frac{ad_a^2}{2}-\frac{d^3}{6})
 $$</p>
 <p>We can drop $\frac{ad_a^2}{2}$ and $\frac{d^3}{6}$ because they are higher powers of the tiny value $d_a$, so the precision recovery term in Figure 5 simplifies to $d_a-\frac{a^2d_a}{2}$. This is different from the precision recovery term of $d_a\frac{(1-a^2)}{2}$ that is included in the comment. If we look at the <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L62" target="_blank">source code</a> shown below, we&rsquo;ll see the TAYLOR_SIN macro actually uses our derived version of the precision recovery term when evaluating the intermediate value <code>t</code>. So it appears the comment isn&rsquo;t correct.</p>
-<p>It&rsquo;s also strange how the TAYLOR_SIN macro seems to assume <code>a</code> always equals <code>x</code> because it calculates $a^3$ by multiplying <code>xx</code> (which is $x^2$) and <code>a</code>. You can identity the $a^3$ term by looking for which term has the <code>s1</code> constant, which is the pre-computed value for $-\frac{1}{3!}$. Also if you check the macro&rsquo;s only <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L129" target="_blank">callsite</a>, you&rsquo;ll see that <code>a</code> is indeed equal to <code>x</code>.</p>
+<p>It&rsquo;s also strange how the TAYLOR_SIN macro seems to assume <code>a</code> always equals <code>x</code> because it calculates $a^3$ by multiplying <code>xx</code> (which is $x^2$) and <code>a</code>. You can identity the $a^3$ term by looking for which term has the leading coefficient <code>s1</code>, which is the pre-computed value for $-\frac{1}{3!}$. Also if you check the macro&rsquo;s only <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L129" target="_blank">callsite</a>, you&rsquo;ll see that <code>a</code> is indeed equal to <code>x</code>.</p>
 <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#586e75">/* Helper macros to compute sin of the input values.  */</span>
 <span style="color:#719e07">#define POLYNOMIAL2(xx) ((((s5 * (xx) + s4) * (xx) + s3) * (xx) + s2) * (xx))
 </span><span style="color:#719e07"></span>
@@ -149,7 +149,7 @@ $$</p>
 </ol>
 <p>Neither of these changes actually introduce a behavior change in the library, but they make the code easier to understand.</p>
 <h3 id="closing-thoughts">Closing Thoughts</h3>
-<p>After trying to understand the glibc <code>sin</code> library, I have a lot of newfound respect for the creators and maintainers of these libraries. I wasn&rsquo;t aware that so many advanced numerical computing <a style="color:#3700ff;" href="https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document" target="_blank">techniques</a> were needed to accurately compute basic math functions. I&rsquo;m still shocked that my curiosity led me to slightly improving a widely-used core systems library. Working on this fix was a lot of fun because it required tying together concepts from calculus and computer architecture. I hope to make more open source contributions in the future.</p>
+<p>After trying to understand the glibc <code>sin</code> library, I have a lot of newfound respect for the creators and maintainers of these libraries. I wasn&rsquo;t aware that so many advanced numerical computing <a style="color:#3700ff;" href="https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document" target="_blank">techniques</a> were needed to accurately compute basic math functions. I&rsquo;m still shocked that my curiosity led me to slightly improving a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.</p>
 
 			</div>
 
