@@ -494,3 +494,8 @@ code {
 pre > code {
     color: #93a1a1;
 }
+
+/* make katex scrollable during horizontal overflow */
+.katex-display {
+    overflow: auto hidden;
+}

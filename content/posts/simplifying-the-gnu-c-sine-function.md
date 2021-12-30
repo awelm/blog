@@ -13,36 +13,41 @@ Have you ever wondered how computers calculate trigonometric functions like `sin
 
 Here is the Taylor Series expansion for the function `f(x)` around the point `b`, which can be [proved](https://math.stackexchange.com/questions/706282/how-are-the-taylor-series-derived) via integration-by-parts.
 
+*Figure 1:*
 $$
-\tag{1} f(x) = f(b) + f'(b)\frac{(x-b)^1}{1!} + f''(b)\frac{(x-b)^2}{2!} + f'''(b)\frac{(x-b)^3}{3!}+\dotsb \newline = \sum_{k=0}^\infty f^{\left(k\right)}(b)\frac{(x-b)^k}{k!}
+f(x) = f(b) + f'(b)\frac{(x-b)^1}{1!} + f''(b)\frac{(x-b)^2}{2!} + f'''(b)\frac{(x-b)^3}{3!}+\dotsb \newline = \sum_{k=0}^\infty f^{\left(k\right)}(b)\frac{(x-b)^k}{k!}
 $$
 
-It's important to note that the expansion's accuracy degrades as `x` diverges from the center point `b`. By using this equation, we get the following expansion for the `sin` function centered around 0:
+It's important to note that the expansion's accuracy degrades as `x` diverges from the center point `b`. By using this equation, we get the following expansion for the `sin` function centered around 0.
 
+*Figure 2:*
 $$
-\tag{2} sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} \dotsb
+sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} \dotsb
 $$
 
 ### glibc Sine Implementation
 
 If you jump into the [s_sin.c](https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L56) file prior to my change, you'll see a comment saying the code implements the following variation of the `sin` Taylor expansion.
 
+*Figure 3:*
 $$
-\tag{3} a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + d_a\frac{(1-a^2)}{2}
+a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + d_a\frac{(1-a^2)}{2}
 $$
 
 This is exactly what we have in Figure 2, except with the mysterious $d_a\frac{(1-a^2)}{2}$ term at the end. Because [rounding errors](https://floating-point-gui.de/errors/rounding/) are a given in floating point arithmetic, it's possible that the final result of the evaluated expansion is inaccurate due to the rounding that happens during each arithmetic operation. To combat this problem, the implementation adds this unexplained "precision recovery term" $d_a\frac{(1-a^2)}{2}$ at the end of the expansion. This term is meant to help the final result regain some precision that won't be erased by further floating point arithmetic. But where does this precision recovery term come from and what is $d_a$?
 
 The glibc implementation reinterprets the `sin` input  `x` as $x=a+d_a$, where $d_a$ is a small number on the order of $10^{-19}$. This technique of expressing one 64-bit value as the sum of two 64-bit values in order to emulate higher precision is known as [double-double arithmetic](https://en.wikipedia.org/wiki/Quadruple-precision_floating-point_format#Double-double_arithmetic). We can derive the precision recovery term $d_a\frac{(1-a^2)}{2}$ by plugging $a+d_a$ into the formula in Figure 2. We only need to include $d_a$ in the first 2 terms of the expansion because at higher powers the effect of $d_a$ becomes negligible.
 
+*Figure 4:*
 $$
-\tag{4} sin(a+d_a) \approx a+d_a - \frac{(a+d_a)^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!}
+sin(a+d_a) \approx a+d_a - \frac{(a+d_a)^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!}
 $$
 
-After expanding via [Wolfram Alpha](https://www.wolframalpha.com/input/?i=a%2Bd+-+%28a%2Bd%29%5E3%2F3%21+%2B+a%5E5%2F5%21+-+a%5E7%2F7%21+%2B+a%5E9%2F9%21+-+%28a-+a%5E3%2F3%21+%2B+a%5E5%2F5%21+-+a%5E7%2F7%21+%2B+a%5E9%2F9%21%29) and simplifying we get:
+After expanding via [Wolfram Alpha](https://www.wolframalpha.com/input/?i=a%2Bd+-+%28a%2Bd%29%5E3%2F3%21+%2B+a%5E5%2F5%21+-+a%5E7%2F7%21+%2B+a%5E9%2F9%21+-+%28a-+a%5E3%2F3%21+%2B+a%5E5%2F5%21+-+a%5E7%2F7%21+%2B+a%5E9%2F9%21%29) and simplifying we get the relationship below.
 
+*Figure 5:*
 $$
-\tag{5} sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + (d_a-\frac{a^2d_a}{2}-\frac{ad_a^2}{2}-\frac{d^3}{6})
+sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + (d_a-\frac{a^2d_a}{2}-\frac{ad_a^2}{2}-\frac{d^3}{6})
 $$
 
 We can drop $\frac{ad_a^2}{2}$ and $\frac{d^3}{6}$ because they are higher powers of the tiny value $d_a$, so the precision recovery term in Figure 5 simplifies to $d_a-\frac{a^2d_a}{2}$. This is different from the precision recovery term of $d_a\frac{(1-a^2)}{2}$ that is included in the comment. If we look at the [source code](https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L62) shown below, we'll see the TAYLOR_SIN macro actually uses our derived version of the precision recovery term when evaluating the intermediate value `t`. So it appears the comment isn't correct.

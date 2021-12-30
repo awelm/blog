@@ -7,7 +7,7 @@
 <meta itemprop="description" content="In this post I will discuss the story behind my first open-source contribution.
 Have you ever wondered how computers calculate trigonometric functions like sin and cos?"><meta itemprop="datePublished" content="2021-12-18T11:09:07-08:00" />
 <meta itemprop="dateModified" content="2021-12-18T11:09:07-08:00" />
-<meta itemprop="wordCount" content="946">
+<meta itemprop="wordCount" content="954">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="Simplifying the GNU C Sine Function" />
 <meta property="og:description" content="In this post I will discuss the story behind my first open-source contribution.
 Have you ever wondered how computers calculate trigonometric functions like sin and cos?" />
@@ -103,26 +103,31 @@ Have you ever wondered how computers calculate trigonometric functions like sin 
 <p>Have you ever wondered how computers calculate trigonometric functions like <code>sin</code> and <code>cos</code>? Back in the day people used lookup tables, but this approach doesn&rsquo;t scale when handling floating point inputs with higher precision. You might recall from calculus that <code>sin</code> and other differentiable functions can be expressed as an infinite sum known as the <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/Taylor_series" target="_blank">Taylor Series</a>. I have always suspected that trigonometric function implementations used Taylor Series under the hood because CPUs are only capable of basic arithmetic. So I decided to dive into the <a style="color:#3700ff;" href="https://www.gnu.org/software/libc/" target="_blank">glibc</a> <code>sin</code> source code to verify my theory and understanding. While reading the source code for the Taylor Series calculation, I noticed some small improvements I could make. This post discusses the improvements I merged into glibc and the background knowledge required to understand them.</p>
 <h3 id="taylor-series-overview">Taylor Series Overview</h3>
 <p>Here is the Taylor Series expansion for the function <code>f(x)</code> around the point <code>b</code>, which can be <a style="color:#3700ff;" href="https://math.stackexchange.com/questions/706282/how-are-the-taylor-series-derived" target="_blank">proved</a> via integration-by-parts.</p>
-<p>$$
-\tag{1} f(x) = f(b) + f'(b)\frac{(x-b)^1}{1!} + f''(b)\frac{(x-b)^2}{2!} + f'''(b)\frac{(x-b)^3}{3!}+\dotsb \newline = \sum_{k=0}^\infty f^{\left(k\right)}(b)\frac{(x-b)^k}{k!}
+<p><em>Figure 1:</em>
+$$
+f(x) = f(b) + f'(b)\frac{(x-b)^1}{1!} + f''(b)\frac{(x-b)^2}{2!} + f'''(b)\frac{(x-b)^3}{3!}+\dotsb \newline = \sum_{k=0}^\infty f^{\left(k\right)}(b)\frac{(x-b)^k}{k!}
 $$</p>
-<p>It&rsquo;s important to note that the expansion&rsquo;s accuracy degrades as <code>x</code> diverges from the center point <code>b</code>. By using this equation, we get the following expansion for the <code>sin</code> function centered around 0:</p>
-<p>$$
-\tag{2} sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} \dotsb
+<p>It&rsquo;s important to note that the expansion&rsquo;s accuracy degrades as <code>x</code> diverges from the center point <code>b</code>. By using this equation, we get the following expansion for the <code>sin</code> function centered around 0.</p>
+<p><em>Figure 2:</em>
+$$
+sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} \dotsb
 $$</p>
 <h3 id="glibc-sine-implementation">glibc Sine Implementation</h3>
 <p>If you jump into the <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L56" target="_blank">s_sin.c</a> file prior to my change, you&rsquo;ll see a comment saying the code implements the following variation of the <code>sin</code> Taylor expansion.</p>
-<p>$$
-\tag{3} a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + d_a\frac{(1-a^2)}{2}
+<p><em>Figure 3:</em>
+$$
+a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + d_a\frac{(1-a^2)}{2}
 $$</p>
 <p>This is exactly what we have in Figure 2, except with the mysterious $d_a\frac{(1-a^2)}{2}$ term at the end. Because <a style="color:#3700ff;" href="https://floating-point-gui.de/errors/rounding/" target="_blank">rounding errors</a> are a given in floating point arithmetic, it&rsquo;s possible that the final result of the evaluated expansion is inaccurate due to the rounding that happens during each arithmetic operation. To combat this problem, the implementation adds this unexplained &ldquo;precision recovery term&rdquo; $d_a\frac{(1-a^2)}{2}$ at the end of the expansion. This term is meant to help the final result regain some precision that won&rsquo;t be erased by further floating point arithmetic. But where does this precision recovery term come from and what is $d_a$?</p>
 <p>The glibc implementation reinterprets the <code>sin</code> input  <code>x</code> as $x=a+d_a$, where $d_a$ is a small number on the order of $10^{-19}$. This technique of expressing one 64-bit value as the sum of two 64-bit values in order to emulate higher precision is known as <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/Quadruple-precision_floating-point_format#Double-double_arithmetic" target="_blank">double-double arithmetic</a>. We can derive the precision recovery term $d_a\frac{(1-a^2)}{2}$ by plugging $a+d_a$ into the formula in Figure 2. We only need to include $d_a$ in the first 2 terms of the expansion because at higher powers the effect of $d_a$ becomes negligible.</p>
-<p>$$
-\tag{4} sin(a+d_a) \approx a+d_a - \frac{(a+d_a)^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!}
+<p><em>Figure 4:</em>
+$$
+sin(a+d_a) \approx a+d_a - \frac{(a+d_a)^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!}
 $$</p>
-<p>After expanding via <a style="color:#3700ff;" href="https://www.wolframalpha.com/input/?i=a%2Bd&#43;-&#43;%28a%2Bd%29%5E3%2F3%21&#43;%2B&#43;a%5E5%2F5%21&#43;-&#43;a%5E7%2F7%21&#43;%2B&#43;a%5E9%2F9%21&#43;-&#43;%28a-&#43;a%5E3%2F3%21&#43;%2B&#43;a%5E5%2F5%21&#43;-&#43;a%5E7%2F7%21&#43;%2B&#43;a%5E9%2F9%21%29" target="_blank">Wolfram Alpha</a> and simplifying we get:</p>
-<p>$$
-\tag{5} sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + (d_a-\frac{a^2d_a}{2}-\frac{ad_a^2}{2}-\frac{d^3}{6})
+<p>After expanding via <a style="color:#3700ff;" href="https://www.wolframalpha.com/input/?i=a%2Bd&#43;-&#43;%28a%2Bd%29%5E3%2F3%21&#43;%2B&#43;a%5E5%2F5%21&#43;-&#43;a%5E7%2F7%21&#43;%2B&#43;a%5E9%2F9%21&#43;-&#43;%28a-&#43;a%5E3%2F3%21&#43;%2B&#43;a%5E5%2F5%21&#43;-&#43;a%5E7%2F7%21&#43;%2B&#43;a%5E9%2F9%21%29" target="_blank">Wolfram Alpha</a> and simplifying we get the relationship below.</p>
+<p><em>Figure 5:</em>
+$$
+sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + (d_a-\frac{a^2d_a}{2}-\frac{ad_a^2}{2}-\frac{d^3}{6})
 $$</p>
 <p>We can drop $\frac{ad_a^2}{2}$ and $\frac{d^3}{6}$ because they are higher powers of the tiny value $d_a$, so the precision recovery term in Figure 5 simplifies to $d_a-\frac{a^2d_a}{2}$. This is different from the precision recovery term of $d_a\frac{(1-a^2)}{2}$ that is included in the comment. If we look at the <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L62" target="_blank">source code</a> shown below, we&rsquo;ll see the TAYLOR_SIN macro actually uses our derived version of the precision recovery term when evaluating the intermediate value <code>t</code>. So it appears the comment isn&rsquo;t correct.</p>
 <p>It&rsquo;s also strange how the TAYLOR_SIN macro seems to assume <code>a</code> always equals <code>x</code> because it calculates $a^3$ by multiplying <code>xx</code> (which is $x^2$) and <code>a</code>. You can identity the $a^3$ term by looking for which term has the leading coefficient <code>s1</code>, which is the pre-computed value for $-\frac{1}{3!}$. Also if you check the macro&rsquo;s only <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L129" target="_blank">callsite</a>, you&rsquo;ll see that <code>a</code> is indeed equal to <code>x</code>.</p>
