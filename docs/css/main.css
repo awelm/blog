@@ -497,5 +497,7 @@ pre > code {
 
 /* make katex scrollable during horizontal overflow */
 .katex-display {
-    overflow: auto hidden;
+    overflow-x: auto;
+    /* Need to add vertical padding otherwise a vertical scroll bar will be unnecessarily added. See https://talk.observablehq.com/t/vertical-scroll-bars-on-display-katex/2304/4 */
+    padding: 1em 0;
 }
