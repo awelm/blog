@@ -1,7 +1,7 @@
 ---
 title: "Quick Splits: Manage Your Shared Finances Better"
 date: 2022-01-05T15:07:54-08:00
-draft: true
+draft: false
 ---
 
 Using Venmo has always been a frustrating yet unavoidable part of my life. I can't realistically use another platform because most of my peers use Venmo. I think Venmo lacks some core features that any P2P payments service should have. Quick Splits is a [mobile app](https://apps.apple.com/us/app/quick-splits/id1586258433) (currently iOS only) I built that effectively adds 3 main features to Venmo:
