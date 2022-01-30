@@ -22,7 +22,7 @@ The `Catalog` singleton object manages adding new tables and viewing schemas a
 
 The query parser takes a SQL query and converts it into a *logical plan*. This logical plan represents the SQL query as a tree of [relational algebra operators](https://www.tutorialspoint.com/dbms/relational_algebra.htm). The query optimizer will then take this logical plan and convert it into a physical plan composed of physical `DBIterator` operators by applying equivalence rules and cost-based optimization.
 
-The `DBIterator` physical operators are the actual primitives used to execute the query. Here is the list of physical operators currently supported by SimpleDB:
+The DBIterator physical operators are the actual primitives used to execute the query. Here is the list of physical operators currently supported by SimpleDB:
 
 1. Sequential Table Scans
 2. Insert
@@ -34,7 +34,7 @@ The `DBIterator` physical operators are the actual primitives used to execute th
 8. Nested-Loop Joins
 9. Hash Joins
 
-The `DbIterator` interface lets physical operators fetch tuples from their children using *hasNext()* and *next()*. These tuples flow starting from the leaves of physical plan tree to the root while undergoing transformations performed by intermediate operators. The leaf nodes of the physical plan tree are always going to be operators that read tuples from the buffer pool. After the tuples reach the root node, they are displayed to the user as query results.
+The DbIterator interface lets physical operators fetch tuples from their children using *hasNext()* and *next()*. These tuples flow starting from the leaves of physical plan tree to the root while undergoing transformations performed by intermediate operators. The leaf nodes of the physical plan tree are always going to be operators that read tuples from the buffer pool. After the tuples reach the root node, they are displayed to the user as query results.
 
 ### **Query Optimization**
 
@@ -42,7 +42,7 @@ The query optimizer takes a logical plan as input and tries to convert it into t
 
 ### **Transactions**
 
-Transactions provide ACID guarantees for SimpleDB queries. It should always seem like the operations in a transaction were executed as a single, indivisible action. Because transactions run in parallel, some form of locking is necessary to avoid data races between concurrently running transactions. SimpleDB uses strict [2PL](https://www.geeksforgeeks.org/two-phase-locking-protocol/) for concurrency control and locks data at the page-level. `LockManager` provides support for both shared locks and exclusive locks to allow multiple readers to access the same data in parallel. Locks are grabbed when a page is fetched from `BufferPool`, and the page fetch function blocks until the page’s lock is acquired from `LockManager`. Blocking in this fashion runs the risk of deadlock, which is why SimpleDB also implements a `DependencyGraph` which detects deadlocks via topological sort. If fetching a page triggers a deadlock, the calling transaction will be aborted. All locks held by a transaction are released when a transaction completes.
+Transactions provide ACID guarantees for SimpleDB queries. It should always seem like the operations in a transaction were executed as a single, indivisible action. Because transactions run in parallel, some form of locking is necessary to avoid data races between concurrently running transactions. SimpleDB uses strict [2PL](https://www.geeksforgeeks.org/two-phase-locking-protocol/) for concurrency control and locks data at the page-level. `LockManager` provides support for both shared locks and exclusive locks to allow multiple readers to access the same data in parallel. Locks are grabbed when a page is fetched from BufferPool, and the page fetch function blocks until the page’s lock is acquired from LockManager. Blocking in this fashion runs the risk of deadlock, which is why SimpleDB also implements a `DependencyGraph` which detects deadlocks via topological sort. If fetching a page triggers a deadlock, the calling transaction will be aborted. All locks held by a transaction are released when a transaction completes.
 
 To properly implement isolation, we use the *no-steal* eviction policy which guarantees that dirty pages won't be evicted from the buffer pool. If eviction is triggered and all pages in the buffer pool are dirty, the calling transaction will be aborted. When a transaction decides to commit, we always flush its dirty pages to disk to ensure transaction durability. If a transaction decides to abort, we evict its dirty pages from the buffer pool. If the database crashes mid-transaction, the dirty pages in memory will be lost. When the database comes back online, the interrupted transactions that weren’t committed will be lost but the changes made by committed transactions will still be present since they were flushed to disk upon commit.
 
@@ -77,7 +77,7 @@ ORDER BY r2.name;
 # Closing Thoughts
 
 Implementing a simple database from scratch was very illuminating experience for me. The ACID guarantees always seemed like impossible magic, but now I actually understand how it works. I’ve also seen the
-Volcano model (i.e. the `DBIterator` interface) show up a few times on the job so the knowledge I’ve gained from this project has also been useful in practice.
+Volcano model (i.e. the DBIterator interface) show up a few times on the job so the knowledge I’ve gained from this project has also been useful in practice.
 
 Here are some features that would make SimpleDB more efficient (but less simple):
 
