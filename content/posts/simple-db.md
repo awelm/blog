@@ -1,7 +1,7 @@
 ---
 title: "SimpleDB: A Basic RDBMS Built From Scratch"
 date: 2022-01-29T17:19:23-08:00
-draft: true
+draft: false
 math: true
 ---
 
