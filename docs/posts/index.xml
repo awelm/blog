@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Wed, 05 Jan 2022 15:07:54 -0800</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jan 2022 17:19:23 -0800</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SimpleDB: A Basic RDBMS Built From Scratch</title>
+      <link>https://www.awelm.com/posts/simple-db/</link>
+      <pubDate>Sat, 29 Jan 2022 17:19:23 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/simple-db/</guid>
+      <description>My databases class at UCLA wasn’t very challenging so I never truly understood the internals of databases. This always bothered me so I vowed to build a simple database from scratch to learn the fundamentals.</description>
+    </item>
+    
     <item>
       <title>Quick Splits: Manage Your Shared Finances Better</title>
       <link>https://www.awelm.com/posts/quick-splits/</link>
