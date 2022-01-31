@@ -129,7 +129,7 @@ nginx-deployment   2/3     <span style="color:#2aa198">3</span>            <span
 -----------------------------------------------------------------
 <span style="color:#719e07">[</span>demo-cluster<span style="color:#719e07">]</span> <span style="color:#719e07">[</span>default<span style="color:#719e07">]</span> <span style="color:#719e07">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#719e07">]</span> &gt;
 </code></pre></div><p>To fix the error we saw above, I&rsquo;m going to go to increase the size of my EKS cluster Node Group from 2→3 nodes:</p>
-<p><img src="https://i.ibb.co/2dXX90L/Untitled.png" alt="EKS cluster image"></p>
+<p><img src="/eks.png" alt="EKS cluster image"></p>
 <p>Now let&rsquo;s verify the new node shows up in Click:</p>
 <div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#719e07">[</span>demo-cluster<span style="color:#719e07">]</span> <span style="color:#719e07">[</span>default<span style="color:#719e07">]</span> <span style="color:#719e07">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#719e07">]</span> &gt; nodes
  <span style="color:#586e75">####  Name                                        State  Age</span>

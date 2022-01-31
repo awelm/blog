@@ -83,7 +83,7 @@ Aha! So there aren't enough nodes in the Kubernetes cluster to schedule all the 
 
 To fix the error we saw above, I'm going to go to increase the size of my EKS cluster Node Group from 2→3 nodes:
 
-![EKS cluster image](https://i.ibb.co/2dXX90L/Untitled.png)
+![EKS cluster image](/eks.png)
 
 Now let's verify the new node shows up in Click:
 
