@@ -10,7 +10,7 @@ My databases class at UCLA wasn’t very challenging so I never truly understood
 
 # Architecture
 
-![Architecture](https://i.ibb.co/XzQNpZv/simpledb.png)
+![Architecture](/simpledb.png)
 
 ### **Data Storage and Access Methods**
 
