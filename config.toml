@@ -43,7 +43,7 @@ summaryLength = 20
 
 # Main menu which appears below site header.
 [[menu.main]]
-name = "All Posts"
+name = "Blog"
 url = "/"
 weight = 1
 
