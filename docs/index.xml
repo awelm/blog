@@ -27,13 +27,12 @@
     </item>
     
     <item>
-      <title>Simplifying the GNU C Sine Function</title>
+      <title>Unpacking the GNU C Sine Function</title>
       <link>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</link>
       <pubDate>Sat, 18 Dec 2021 11:09:07 -0800</pubDate>
       
       <guid>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</guid>
-      <description>In this post I will discuss the story behind my first open-source contribution.
-Have you ever wondered how computers calculate trigonometric functions like sin and cos?</description>
+      <description>Have you ever wondered how computers calculate trigonometric functions like sin and cos? Back in the day people used lookup tables, but this approach doesn&amp;rsquo;t scale when handling floating point inputs with higher precision.</description>
     </item>
     
     <item>
