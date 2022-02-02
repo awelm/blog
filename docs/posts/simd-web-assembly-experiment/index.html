@@ -109,32 +109,32 @@
     (<span style="color:#268bd2">local</span> <span style="color:#cb4b16">$bufferSizeBytes</span> <span style="color:#cb4b16">i32</span>)
 
     <span style="color:#586e75">;; Set currentIteration=0 and bufferSizeBytes=64MB
-</span><span style="color:#586e75"></span>    (<span style="color:#268bd2">set_local</span> <span style="color:#cb4b16">$currentIteration</span> (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">0</span>))
-    (<span style="color:#268bd2">set_local</span> <span style="color:#cb4b16">$bufferSizeBytes</span> (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">64000000</span>))
+</span><span style="color:#586e75"></span>    (<span style="color:#268bd2">local.set</span> <span style="color:#cb4b16">$currentIteration</span> (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">0</span>))
+    (<span style="color:#268bd2">local.set</span> <span style="color:#cb4b16">$bufferSizeBytes</span> (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">64000000</span>))
 
     <span style="color:#586e75">;; For each iteration we will fill the entire memory buffer with 1 bits 
 </span><span style="color:#586e75"></span>    (<span style="color:#268bd2">block</span> <span style="color:#cb4b16">$breakAllIterations</span>
       (<span style="color:#268bd2">loop</span> <span style="color:#cb4b16">$allIterationsTop</span>
         <span style="color:#586e75">;; Loop while currentIteration &lt; numIterations 
-</span><span style="color:#586e75"></span>        (<span style="color:#268bd2">br_if</span> <span style="color:#cb4b16">$breakAllIterations</span> (<span style="color:#cb4b16">i32.eq</span> (<span style="color:#cb4b16">get_local</span> <span style="color:#cb4b16">$numIterations</span>) (<span style="color:#cb4b16">get_local</span> <span style="color:#cb4b16">$currentIteration</span>)))
+</span><span style="color:#586e75"></span>        (<span style="color:#268bd2">br_if</span> <span style="color:#cb4b16">$breakAllIterations</span> (<span style="color:#cb4b16">i32.eq</span> (<span style="color:#cb4b16">local.get</span> <span style="color:#cb4b16">$numIterations</span>) (<span style="color:#cb4b16">local.get</span> <span style="color:#cb4b16">$currentIteration</span>)))
 
         <span style="color:#586e75">;; Set bufferPtr=0 so we start the current iteration at the beginning of the buffer
-</span><span style="color:#586e75"></span>        (<span style="color:#268bd2">set_local</span> <span style="color:#cb4b16">$bufferPtr</span> (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">0</span>))
+</span><span style="color:#586e75"></span>        (<span style="color:#268bd2">local.set</span> <span style="color:#cb4b16">$bufferPtr</span> (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">0</span>))
 
         (<span style="color:#268bd2">block</span> <span style="color:#cb4b16">$breakCurrentIteration</span>
           (<span style="color:#268bd2">loop</span> <span style="color:#cb4b16">$currentIterationTop</span>
             <span style="color:#586e75">;; Loop while bufferPtr is less than bufferSizeBytes
-</span><span style="color:#586e75"></span>            (<span style="color:#268bd2">br_if</span> <span style="color:#cb4b16">$breakCurrentIteration</span> (<span style="color:#cb4b16">i32.eq</span> (<span style="color:#cb4b16">get_local</span> <span style="color:#cb4b16">$bufferSizeBytes</span>) (<span style="color:#cb4b16">get_local</span> <span style="color:#cb4b16">$bufferPtr</span>)))
+</span><span style="color:#586e75"></span>            (<span style="color:#268bd2">br_if</span> <span style="color:#cb4b16">$breakCurrentIteration</span> (<span style="color:#cb4b16">i32.eq</span> (<span style="color:#cb4b16">local.get</span> <span style="color:#cb4b16">$bufferSizeBytes</span>) (<span style="color:#cb4b16">local.get</span> <span style="color:#cb4b16">$bufferPtr</span>)))
             <span style="color:#586e75">;; Set the current 128-bit region (pointed to by bufferPtr) to contain all 1&#39;s
-</span><span style="color:#586e75"></span>            (<span style="color:#268bd2">v128.store</span> (<span style="color:#cb4b16">get_local</span> <span style="color:#cb4b16">$bufferPtr</span>) (<span style="color:#cb4b16">v128.const</span> <span style="color:#cb4b16">i32x4</span> <span style="color:#2aa198">0xFFFFFFFF</span> <span style="color:#2aa198">0xFFFFFFFF</span> <span style="color:#2aa198">0xFFFFFFFF</span> <span style="color:#2aa198">0xFFFFFFFF</span>)) 
+</span><span style="color:#586e75"></span>            (<span style="color:#268bd2">v128.store</span> (<span style="color:#cb4b16">local.get</span> <span style="color:#cb4b16">$bufferPtr</span>) (<span style="color:#cb4b16">v128.const</span> <span style="color:#cb4b16">i32x4</span> <span style="color:#2aa198">0xFFFFFFFF</span> <span style="color:#2aa198">0xFFFFFFFF</span> <span style="color:#2aa198">0xFFFFFFFF</span> <span style="color:#2aa198">0xFFFFFFFF</span>)) 
             <span style="color:#586e75">;; Advance the bufferPtr by 128 bits (aka 16 bytes)
-</span><span style="color:#586e75"></span>            (<span style="color:#cb4b16">set_local</span> <span style="color:#cb4b16">$bufferPtr</span> (<span style="color:#cb4b16">i32.add</span> (<span style="color:#cb4b16">get_local</span> <span style="color:#cb4b16">$bufferPtr</span>) (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">16</span>)))
+</span><span style="color:#586e75"></span>            (<span style="color:#cb4b16">local.set</span> <span style="color:#cb4b16">$bufferPtr</span> (<span style="color:#cb4b16">i32.add</span> (<span style="color:#cb4b16">local.get</span> <span style="color:#cb4b16">$bufferPtr</span>) (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">16</span>)))
             (<span style="color:#268bd2">br</span> <span style="color:#cb4b16">$currentIterationTop</span>)
           )
         )
 
         <span style="color:#586e75">;; Increment currentIteration by 1
-</span><span style="color:#586e75"></span>        (<span style="color:#268bd2">set_local</span> <span style="color:#cb4b16">$currentIteration</span> (<span style="color:#cb4b16">i32.add</span> (<span style="color:#cb4b16">get_local</span> <span style="color:#cb4b16">$currentIteration</span>) (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">1</span>))) 
+</span><span style="color:#586e75"></span>        (<span style="color:#268bd2">local.set</span> <span style="color:#cb4b16">$currentIteration</span> (<span style="color:#cb4b16">i32.add</span> (<span style="color:#cb4b16">local.get</span> <span style="color:#cb4b16">$currentIteration</span>) (<span style="color:#cb4b16">i32.const</span> <span style="color:#2aa198">1</span>))) 
         (<span style="color:#cb4b16">br</span> <span style="color:#cb4b16">$allIterationsTop</span>) 
       ) 
     )
