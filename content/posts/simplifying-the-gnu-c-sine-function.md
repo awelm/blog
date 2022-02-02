@@ -83,3 +83,5 @@ Neither of these changes actually introduce a behavior change in the library, so
 ### Closing Thoughts
 
 After trying to wrap my head around the glibc math library, I have a lot of newfound respect for its creators and maintainers. I wasn't aware that so many advanced numerical computing [techniques](https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document) were needed to accurately compute basic math functions. I'm still surprised that curiosity eventually led me to make a slight improvement to a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.
+
+I'd also like to thank [Siddhesh Poyarekar](https://twitter.com/siddhesh_p) and [Paul Zimmermann](https://members.loria.fr/PZimmermann/) for answering all my glibc questions and reviewing my code.

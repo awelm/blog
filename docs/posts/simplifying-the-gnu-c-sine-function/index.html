@@ -6,7 +6,7 @@
 	<meta itemprop="name" content="Unpacking the GNU C Sine Function">
 <meta itemprop="description" content="Have you ever wondered how computers calculate trigonometric functions like sin and cos? Back in the day people used lookup tables, but this approach doesn&rsquo;t scale when handling floating point inputs with higher precision."><meta itemprop="datePublished" content="2021-12-18T11:09:07-08:00" />
 <meta itemprop="dateModified" content="2021-12-18T11:09:07-08:00" />
-<meta itemprop="wordCount" content="963">
+<meta itemprop="wordCount" content="983">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="Unpacking the GNU C Sine Function" />
 <meta property="og:description" content="Have you ever wondered how computers calculate trigonometric functions like sin and cos? Back in the day people used lookup tables, but this approach doesn&rsquo;t scale when handling floating point inputs with higher precision." />
 <meta property="og:type" content="article" />
@@ -152,6 +152,7 @@ $$</p>
 <p>Neither of these changes actually introduce a behavior change in the library, so you could argue that my contribution was pointless. But hopefully you learned something by reading this post and find the glibc source code a litte more approachable.</p>
 <h3 id="closing-thoughts">Closing Thoughts</h3>
 <p>After trying to wrap my head around the glibc math library, I have a lot of newfound respect for its creators and maintainers. I wasn&rsquo;t aware that so many advanced numerical computing <a style="color:#3700ff;" href="https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document" target="_blank">techniques</a> were needed to accurately compute basic math functions. I&rsquo;m still surprised that curiosity eventually led me to make a slight improvement to a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.</p>
+<p>I&rsquo;d also like to thank <a style="color:#3700ff;" href="https://twitter.com/siddhesh_p" target="_blank">Siddhesh Poyarekar</a> and <a style="color:#3700ff;" href="https://members.loria.fr/PZimmermann/" target="_blank">Paul Zimmermann</a> for answering all my glibc questions and reviewing my code.</p>
 
 			</div>
 
