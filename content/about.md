@@ -4,8 +4,6 @@ draft: false
 type: "page"
 ---
 
-I'm primarily interested in resource management problems and building backend infrastructure using cloud technologies.
-I've worked in challenging domains like batch scheduling, container management, resource pooling, and autoscaling compute.
+I enjoy writing about low-level systems like databases, operating systems, and compilers. Sometimes I also like to write about computer security and mathematics.
 
-
-I have experience with sharding microservices, building multitenant systems, deconstructing monolith applications, migrating online datastores, and introducing eventual consistency into systems. I also consider myself knowledgable about cloud technologies, configuration systems, and release management.
+During my career I've worked in domains like batch scheduling, container management, resource pooling, and autoscaling compute. I have experience with sharding microservices, handling multitenancy, deconstructing monoliths, migrating databases, and introducing eventual consistency. I also know a thing or two about cloud technologies, configuration systems, and release management.
