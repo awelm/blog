@@ -15,7 +15,7 @@ This app that has undoubtedly improved my productivity the most. Paste lets you 
 > Paste is like Control-R for your clipboard history
 
 2. [Fork](https://git-fork.com/)\
-It took me a while to find a Git client I was satisfied with. I tried popular offerings like SourceTree and Github Desktop, but Fork is by far the best client I’ve seen. Fork is very fast, beautifully designed, and has powerful features. My favorite feature is being able to view the diff between any 2 commits, which was surprisingly missing from the other clients I tried. Fork also lets you stash or discard code changes at the chunk-level. This is extremely useful when addressing comments during code reviews. Fork is a free app and is available for Mac and Windows.
+It took me a long time to find a Git client I was satisfied with. I tried popular offerings like SourceTree and Github Desktop, but Fork is by far the best client I’ve seen. Fork is very fast, beautifully designed, and has powerful features. My favorite feature is being able to view the diff between any 2 commits, which was surprisingly missing from the other clients I tried. Fork also lets you stash or discard code changes at the chunk-level. This is extremely useful when addressing comments during code reviews. Fork is a free app and is available for Mac and Windows.
 ![Fork Image](/fork.jpeg)
 
 3. [Contexts](https://contexts.co/)\
@@ -27,7 +27,7 @@ You might have noticed MacOS Spotlight often shows irrelevant files and other un
 ### MacOS Setting Changes
 
 1. [Max out Tracking Speed](https://support.apple.com/guide/mac-help/change-your-mouses-response-speed-mchlp1138/mac)\
-The default trackpad sensitivity is quite low, which means you often have to swipe across the trackpad multiple times to navigate to your desired location. This repeated swiping is very slow and also not ergonomically friendly. After maxing out my trackpad sensitivity, I can navigate anywhere without even traversing half the trackpad. It takes a while to get used to, but I promise its worth it.
+The default trackpad sensitivity is quite low, which means you often have to swipe multiple times to navigate anywhere. This excessive swiping is very slow and also not ergonomically friendly. After maxing out my trackpad sensitivity, I can navigate anywhere without even using half the trackpad. It takes a while to get used to, but I promise its worth it.
 2. [Max out Key Repeat](https://support.apple.com/guide/mac-help/change-keyboard-preferences-on-mac-kbdm162/12.0/mac/12.0)\
 The default key repeat frequency is frustratingly slow. This becomes apparent when holding down backspace to delete things or when using an arrow key to navigate somewhere. You can fix this by maximizing *Key Repeat* and minimizing *Delay Until Repeat* in your Keyboard preferences.
 
@@ -44,13 +44,13 @@ Blocks all feeds from sites like Facebook or Youtube and shows you a motivationa
 ![News Feed Eradicator Image](/newsFeedEradicator.jpeg)
 
 3. [Trotto](https://www.trot.to/getting-started)\
-Lets you create Go Links very quickly. The other Go Link extensions I’ve seen are built for enterprises and usually require company licenses. It’s much easier to get started with Trotto because it’s built for the individual first. Trotto is free and available on Chrome and Firefox.
+Lets you quickly create Go Links. The other Go Link extensions I’ve seen are built for enterprises and usually require company licenses. It’s much easier to get started with Trotto because it’s built for the individual first. Trotto is free and available on Chrome and Firefox.
 4. [Flow](https://enterflow.app/)\
-Lets you open and close a set of related tabs with one click. This reduces your tab clutter, which tends to translate into mental clutter. Flow is free and only available on Chrome.
+Lets you open and close a set of related tabs with one click. This reduces your tab clutter, which tends to cause mental clutter. Flow is free and only available on Chrome.
 ![Flow Image](/flow.png)
 > Flow is like Git branches for your browser
 ### Terminal and IDE Extensions
-If you aren't already using [iTerm2](https://iterm2.com/), [VS Code](https://code.visualstudio.com/), and [ZSH](https://opensource.com/article/19/9/getting-started-zsh), I'd highly recommend trying them out. Because these 3 tools are effectively the industry standard, the recommendations below assume you use them.
+If you aren't already using [iTerm2](https://iterm2.com/), [VS Code](https://code.visualstudio.com/), and [ZSH](https://opensource.com/article/19/9/getting-started-zsh), I'd highly recommend trying them out. Because these 3 tools are effectively the industry standard today, the recommendations below assume you use them.
 
 1. [vscodevim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim)\
 A VS Code extension that provides Vim functionality inside your IDE. Using CLI Vim on the job is often impractical because it lacks the internal tooling that companies typically build around their preferred IDE. Most IDEs will have extensions that provide Vim or Emacs emulation, so you don't necessarily need to use VS Code to benefit from these extensions.
@@ -61,7 +61,7 @@ This ZSH plugin lets you compose shell commands and navigate your terminal using
 `Control-R` is great, but its **way** better when it uses fuzzy search instead of substring matching. fzf lets you add fuzzy search to multiple aspects of your command line but I only use it modify my `Control-R`.
 ![fzf image](/fzf.gif)
 4. [iTerm2 tmux Integration](https://iterm2.com/documentation-tmux-integration.html)\
-If you frequently connect to a remote server to do non-trivial things, tmux is an indispensable tool. For those who are unfamiliar, tmux enhances your SSH experience by letting you create new tabs/windows and restore your previous session state. tmux is unwieldy to use though, and this integration lets you perform tmux actions using the iTerm2 native shortcuts that you're probably already familiar with. For example, you can use the trackpad to scroll through past outputs instead of pressing `Control-B` and then `[`.
+If you frequently connect to a remote server to do non-trivial things, tmux is an indispensable tool. For those who are unfamiliar, tmux enhances your SSH experience by letting you create new tabs/windows and restore your previous session state. tmux is unwieldy to use though, and this integration improves things by letting you perform tmux actions using the iTerm2 native shortcuts that you're probably already familiar with. For example, you can use the trackpad to scroll through past outputs instead of pressing `Control-B` and then `[`.
 ![iterm tmux integration image](/tmux.png)
 
 
