@@ -5,8 +5,6 @@ draft: false
 ---
 
 While working on the batch scheduling team at Facebook, I noticed something unusual. Facebook was migrating all of its data workloads from the in-house Hive system to a new system based on open-source Spark. This was strange because I’ve heard countless times from our engineers that open-source tools simply can’t operate at the Facebook scale. So why then was Facebook adopting Spark instead of building something from scratch like it usually does? Even though I had no idea what Spark was back then, I started to think there was something special about it.
-# **Joining Databricks**
-
 ### First Impressions
 
 It was obvious when I joined Databricks that my time there would be drastically different from Facebook. Most of my knowledge about Facebook’s internal ecosystem became worthless overnight. For 2 months I was completely lost when my colleagues discussed public tooling and related jargon like Kubernetes Daemonsets, NAT Gateways, and BoneCP. Onboarding was tough but I was learning so much, which is exactly what I wanted. And this time the knowledge I was gaining about open-source technology and public tools would serve me for the rest of my career. I realized in retrospect that relying on Facebook’s world-class tools weakened some of my engineering skills because these tools abstracted away so much detail and complexity. Ramping up at Databricks also made me fluent in Scala, which gave me an entirely new perspective on programming (see separate [post](https://www.awelm.com/posts/scala/)).
@@ -55,7 +53,7 @@ Many people ask about my thoughts on Snowflake and if I worry about the competit
 
 If you want to hear a less biased perspective, this [article](https://www.datagrom.com/data-science-machine-learning-ai-blog/snowflake-vs-databricks) provides a pretty fair comparison of Snowflake and Databricks.
 These days it appears that each company is copying the other as Snowflake races to support ML and the lakehouse model while Databricks tries to improve its BI experience.
-# Reflections & Lessons Learned
+### Reflections & Lessons Learned
 
 Here are a few lessons I've internalized after reflecting on my time at Databricks.
 
