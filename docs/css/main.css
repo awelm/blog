@@ -501,3 +501,115 @@ pre > code {
     /* Need to add vertical padding otherwise a vertical scroll bar will be unnecessarily added. See https://talk.observablehq.com/t/vertical-scroll-bars-on-display-katex/2304/4 */
     padding: 1em 0;
 }
+
+/* Subscribe button CSS */
+.subscribeButton {
+    display: flex;
+    align-items: center;
+    background-color: DodgerBlue; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 3px 8px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    border-radius: 15px;
+}
+
+.subscribeButton:hover {
+    background-color: RoyalBlue; /* Darker background on mouse-over */
+}
+
+/* Subscription Modal */
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .modal-box{
+    top: 40%;
+    opacity: 0;
+    visibility: hidden;
+    background: white;
+    height: auto;
+    width: 500px;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 30px rgba(0,0,0,0);
+    z-index: 9999;
+    text-align: center;
+  }
+  .modal-box.show-modal{
+    top: 50%;
+    opacity: 1;
+    visibility: visible;
+    transition: .4s;
+  }
+  #subscribeModalCloseButtonId{
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 45px;
+    width: 50px;
+    line-height: 40px;
+    color: white;
+    background: grey;
+    border-radius: 0 5px 0 50px;
+    padding-left: 13px;
+    cursor: pointer;
+    transition: .3s;
+  }
+  #subscribeModalCloseButtonId:hover{
+    background: DodgerBlue; 
+  }
+  .modal-box header{
+    font-size: 31px;
+    font-family: 'Lobster Two';
+    margin-bottom: 10px;
+  }
+  .subscribeModalEmail, .submitEmailButton{
+    border-radius: 6px;
+    margin-top: 15px;
+  }
+  .subscribeModalEmail{
+      font-size: 18px;
+      display: flex;
+      flex-grow: 4;
+      margin-right: 5px;
+      padding: 5px 5px;
+  }
+  .submitEmailButton{
+    background: grey;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+    transition: .3s;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    padding: 5px 2px;
+  }
+  .submitEmailButton:hover{
+    background: DodgerBlue;
+    border: 1px solid DodgerBlue;
+  }
+  .subscribeBackdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(9,10,11,.7);
+    opacity: 0;
+    transition: opacity .2s ease-in;
+    pointer-events: none;
+  }
+  .activeBackdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }

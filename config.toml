@@ -23,6 +23,7 @@ paginate = 10
 # Number of characters to show in summary.
 summaryLength = 20
 
+# Custom JS scripts
 [params]
     # Blog subtitle which appears below blog title. Supports markdown.
     subtitle = "My technical blog and past works"
@@ -38,8 +39,7 @@ summaryLength = 20
     # If social media links are enabled then enable this to fetch icons from CDN instead of hosted on your site.
     featherIconsCDN = true
 
-    # Switch to dark mode or auto detect mode from OS (Optional).
-    # "dark" will set mode to dark and "auto" will switch to dark mode if OS is in dark mode.
+    customJS = ["js/custom.js"]
 
 # Main menu which appears below site header.
 [[menu.main]]
