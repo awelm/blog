@@ -52,7 +52,7 @@ Many people ask about my thoughts on Snowflake and if I worry about the competit
     - Less complex because there are no data syncing tools and associated operational overhead involved
 
 If you want to hear a less biased perspective, this [article](https://www.datagrom.com/data-science-machine-learning-ai-blog/snowflake-vs-databricks) provides a pretty fair comparison of Snowflake and Databricks.
-These days it appears that each company is copying the other as Snowflake races to support ML and the lakehouse model while Databricks tries to improve its BI experience.
+These days it appears that both companies are copying each other as Snowflake attempts to support ML and lakehouse while Databricks tries to improve its BI experience.
 ### Reflections & Lessons Learned
 
 Here are a few lessons I've internalized after reflecting on my time at Databricks.
