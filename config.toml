@@ -48,24 +48,19 @@ url = "/"
 weight = 1
 
 [[menu.main]]
-name = "Substack"
-url = "https://awelm.substack.com"
+name = "About"
+url = "/about"
 weight = 2
 
 [[menu.main]]
-name = "About"
-url = "/about"
+name = "Medium"
+url = "https://medium.com/@awelm"
 weight = 3
 
 [[params.social]]
 name = "Twitter"
 icon = "twitter"
 url = "https://twitter.com/awelm_"
-
-[[params.social]]
-name = "Substack"
-icon = "bell"
-url = "https://awelm.substack.com/"
 
 # Social media links which shows up on site header.
 # Uses feather icons for icons. You can [search icon names from here](https://feathericons.com/).
@@ -78,3 +73,8 @@ url = "https://github.com/awelm"
 name = "LinkedIn"
 icon = "linkedin"
 url = "https://www.linkedin.com/in/akilawelihinda/"
+
+[[params.social]]
+name = "Medium"
+icon = "edit"
+url = "https://medium.com/@awelm"
