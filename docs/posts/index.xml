@@ -72,12 +72,12 @@
     </item>
     
     <item>
-      <title>My Journey at Databricks</title>
+      <title>My Experiences at Databricks</title>
       <link>https://www.awelm.com/posts/my-databricks-journey/</link>
       <pubDate>Mon, 02 Aug 2021 14:39:29 -0700</pubDate>
       
       <guid>https://www.awelm.com/posts/my-databricks-journey/</guid>
-      <description>Finding Databricks When I was working on the batch scheduling team at Facebook, I noticed something unusual about our sister team.</description>
+      <description>While working on the batch scheduling team at Facebook, I noticed something unusual. Facebook was migrating all of its data workloads from the in-house Hive system to a new system based on open-source Spark.</description>
     </item>
     
   </channel>
