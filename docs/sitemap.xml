@@ -3,10 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.awelm.com/</loc>
-    <lastmod>2022-01-29T17:19:23-08:00</lastmod>
+    <lastmod>2022-02-15T14:39:29-07:00</lastmod>
+  </url><url>
+    <loc>https://www.awelm.com/posts/my-databricks-journey/</loc>
+    <lastmod>2022-02-15T14:39:29-07:00</lastmod>
   </url><url>
     <loc>https://www.awelm.com/posts/</loc>
-    <lastmod>2022-01-29T17:19:23-08:00</lastmod>
+    <lastmod>2022-02-15T14:39:29-07:00</lastmod>
   </url><url>
     <loc>https://www.awelm.com/posts/simple-db/</loc>
     <lastmod>2022-01-29T17:19:23-08:00</lastmod>
@@ -28,9 +31,6 @@
   </url><url>
     <loc>https://www.awelm.com/posts/click/</loc>
     <lastmod>2021-08-25T08:43:52-07:00</lastmod>
-  </url><url>
-    <loc>https://www.awelm.com/posts/my-databricks-journey/</loc>
-    <lastmod>2021-08-02T14:39:29-07:00</lastmod>
   </url><url>
     <loc>https://www.awelm.com/about/</loc>
   </url><url>

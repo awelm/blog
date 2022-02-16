@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Sat, 29 Jan 2022 17:19:23 -0800</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Feb 2022 14:39:29 -0700</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Experiences at Databricks</title>
+      <link>https://www.awelm.com/posts/my-databricks-journey/</link>
+      <pubDate>Tue, 15 Feb 2022 14:39:29 -0700</pubDate>
+      
+      <guid>https://www.awelm.com/posts/my-databricks-journey/</guid>
+      <description>While working on the batch scheduling team at Facebook, I noticed something unusual. Facebook was migrating all of its data workloads from the in-house Hive system to a new system based on open-source Spark.</description>
+    </item>
+    
     <item>
       <title>SimpleDB: A Basic RDBMS Built From Scratch</title>
       <link>https://www.awelm.com/posts/simple-db/</link>
@@ -69,15 +78,6 @@
       
       <guid>https://www.awelm.com/posts/click/</guid>
       <description>Click has made my Kubernetes experience a pleasure. I adopted Click after joining Databricks because using kubectl was too inconvenient. There aren&amp;rsquo;t many articles or blog posts discussing Click, so I decided to write one in hopes of convincing you to try it out.</description>
-    </item>
-    
-    <item>
-      <title>My Experiences at Databricks</title>
-      <link>https://www.awelm.com/posts/my-databricks-journey/</link>
-      <pubDate>Mon, 02 Aug 2021 14:39:29 -0700</pubDate>
-      
-      <guid>https://www.awelm.com/posts/my-databricks-journey/</guid>
-      <description>While working on the batch scheduling team at Facebook, I noticed something unusual. Facebook was migrating all of its data workloads from the in-house Hive system to a new system based on open-source Spark.</description>
     </item>
     
   </channel>
