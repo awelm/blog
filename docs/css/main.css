@@ -613,3 +613,14 @@ pre > code {
     opacity: 1;
     pointer-events: auto;
   }
+
+  /* Embedded subscribe form (at footer)*/
+  #embeddedSubscribeForm{
+      padding: 60px 0px;
+  }
+
+  /* Facebook comments */
+  #facebookCommentSection {
+    display: flex;
+    flex-direction: column;
+  }
