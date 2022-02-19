@@ -81,40 +81,32 @@
 				
 			</div>
 			<li>
-				<div class="center modal-box" id="subscribeModal">
-   <button id="subscribeModalCloseButtonId" class="subscribeModalCloseButton">
-      <i class="subscribeModalCloseButton" data-feather="x"></i>
-   </button>
-   <header>Register For Email Updates</header>
-   <p>
-      Sign up to receive email updates whenever I release a new blog post. I promise to take your privacy seriously.
-   </p>
-   
-   <form action="https://ucla.us14.list-manage.com/subscribe/post?u=cf236e6e258cc2e14b7aaa3e2&amp;id=32a9266784" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-      <div style="display: flex; flex-direction:row; align-items: space-between;">
-         <input class="subscribeModalEmail" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="Email Address" required>
-         <input class="submitEmailButton" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
-      </div>
-   </form>
-</div>
-
-<button class="subscribeButton" onclick="showSubscribeModal(event)">
-   <div style="padding-right: 5px;" onclick="showSubscribeModal(event)">
+				
+<button id="subscribeButton" onclick="showModal(event)">
+   <div style="padding-right: 5px;">
       Subscribe
    </div>
-   <i data-feather="mail" onclick="showSubscribeModal(event)"></i>
+   <i data-feather="mail"></i>
 </button>
 
 
-<button id="myBtn" onclick="showModal(event)">Open Modal</button>
-
-
 <div id="myModal" class="modal">
-
   
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+  <div class="wrapper modal-content">
+      <span class="close">&times;</span>
+      <div id="subscribeModalBody">
+         <h1 id="subscribeModalTitle">Register For Email Updates</h1>
+         <p id="subscribeModalMessage">
+            Sign up to receive email updates whenever I release a new blog post. I promise to take your privacy seriously.
+         </p>
+         
+         <form action="https://ucla.us14.list-manage.com/subscribe/post?u=cf236e6e258cc2e14b7aaa3e2&amp;id=32a9266784" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="display: flex; justify-content: center;" novalidate>
+            <div id="subscribeModalFormContent">
+               <input class="subscribeModalEmail" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="Email Address" required>
+               <input class="submitEmailButton" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+            </div>
+         </form> 
+      </div> 
   </div>
 
 </div>

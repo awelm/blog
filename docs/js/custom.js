@@ -1,23 +1,24 @@
-showSubscribeModal = event => { 
-    console.log(event.target);
-    event.stopImmediatePropagation();
-    var modal = document.getElementById("subscribeModal");
-    var backdrop = document.getElementById("subscribeBackdrop");
+showModal = event => {
+    // Get the modal
+   var modal = document.getElementById("myModal");
 
-    // Make modal visible
-    modal.classList.add("show-modal");
-    backdrop.classList.add("activeBackdrop");
+   // Get the button that opens the modal
+   var btn = document.getElementById("myBtn");
 
-    // If user either clicks X button OR clicks outside the modal window, then close modal
-    document.onclick = function(event) {
-        console.log(event.target);
-        const isModalVisible = modal.classList.contains("show-modal");
-        const isCloseModalClick = event.target.classList.contains("subscribeModalCloseButton"); 
-        const outsideModalClick = !event.target || !event.target.closest("#subscribeModal"); 
-        const isDismiss = isCloseModalClick || outsideModalClick; 
-        if (isModalVisible && isDismiss) {
-            modal.classList.remove("show-modal");
-            backdrop.classList.remove("activeBackdrop");
-        }
-    } 
- }
+   // Get the <span> element that closes the modal
+   var span = document.getElementsByClassName("close")[0];
+
+   modal.style.display = "block";
+
+   // When the user clicks on <span> (x), close the modal
+   span.onclick = function() {
+       modal.style.display = "none";
+   }
+
+   // When the user clicks anywhere outside of the modal, close it
+   window.onclick = function(event) {
+       if (event.target == modal) {
+           modal.style.display = "none";
+       }
+   }
+}
