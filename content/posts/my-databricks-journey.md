@@ -23,7 +23,7 @@ The Clusters team was responsible for the provisioning and management of VMs, di
 
 **Databricks-Hosted Compute:**
 
-In 2020 Databricks started to focus on supporting BI (Business Intelligence) workloads because Snowflake had shown this market was massive. Some of our customers were already using Databricks for BI, even though our platform wasn’t specifically designed for this use case. Low latency is a must-have for a good BI experience because a live human is waiting for the UI to respond. To make BI queries faster, my team started a new project responsible for provisioning compute more quickly. At the time, it took roughly 2 minutes to start a cluster and our goal was to reduce it to 10 seconds. We [accomplished](https://databricks.com/blog/2021/08/30/announcing-databricks-serverless-sql.html) this by creating a new type of cluster that was backed by VMs from a Databricks AWS account (as opposed to VMs from a customer’s AWS account). This meant we could do perform latency-reducing optimizations like caching pre-warmed VMs and eagerly starting Spark without needing customer involvement or spending customer money. I was the second full-time contributor on this project, and the team quickly grew in size and scope. I can confidently say this was the most interesting and exciting project I’ve worked on in my career so far. I learned a lot about Kubernetes, multi-tenant security, and managing backwards compatibility issues.
+In 2020 Databricks started to focus on supporting BI (Business Intelligence) workloads because Snowflake had shown this market was massive. Some of our customers were already using Databricks for BI, even though our platform wasn’t specifically designed for this use case. Low latency is a must-have for a good BI experience because a live human is waiting for the UI to respond. To make BI queries faster, my team started a new project responsible for provisioning compute more quickly. At the time, it took roughly 2 minutes to start a cluster and our goal was to reduce it to 10 seconds. We [accomplished](https://databricks.com/blog/2021/08/30/announcing-databricks-serverless-sql.html) this by introducing a new type of cluster that was backed by VMs from a Databricks AWS account (as opposed to VMs from a customer’s AWS account). This meant we could make latency-reducing optimizations like caching pre-warmed VMs and eagerly starting Spark without needing customer approval or spending customer money. I was the second full-time contributor on this project, and the team quickly grew in size and scope. I can confidently say this was the most interesting and exciting project I’ve worked on in my career so far. I learned a lot about Kubernetes, multi-tenant security, and managing backwards compatibility issues.
 
 ### Other Contributions Inspired By Facebook
 
@@ -46,10 +46,10 @@ Many people ask about my thoughts on Snowflake and if I worry about the competit
     
 3. **Vision + Architecture**\
     In the long run, I think Databricks will win because they have the better architecture. Snowflake’s data warehouse architecture requires 2 copies of data to be stored and maintained. Databricks does analytics on data in-place and this data typically resides in blob storage. The Databricks architecture is inherently better because it is:
-    - Less expensive because blob storage is cheap and only 1 copy of the data is required
-    - More realtime since analytics are done on the data source itself (as opposed to an outdated copy that was synced to the warehouse)
-    - More flexible because it can handle unstructured data. This especially important for enabling newer use cases like machine learning
-    - Less complex because there are no data syncing tools and associated operational overhead involved
+    - Less expensive since only 1 copy of the data is required
+    - More realtime since analytics are done on the source of truth as opposed to an outdated copy that was synced to the warehouse
+    - More flexible since it can handle unstructured data. This especially important for enabling newer use cases like machine learning
+    - Less complex since there are no data syncing tools and associated operational overhead involved
 
 If you want to hear a less biased perspective, this [article](https://www.datagrom.com/data-science-machine-learning-ai-blog/snowflake-vs-databricks) provides a pretty fair comparison of Snowflake and Databricks.
 These days it appears that both companies are copying each other as Snowflake attempts to support ML and lakehouse while Databricks tries to improve its BI experience.
