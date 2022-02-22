@@ -1,22 +1,28 @@
 ---
-title: "Unpacking the GNU C Sine Function"
+title: "Simplifying the GNU C Sine Function"
 date: 2021-12-18T11:09:07-08:00
 draft: false
 math: true
 ---
 
-Have you ever wondered how computers calculate trigonometric functions like `sin` and `cos`? Back in the day people used lookup tables, but this approach doesn't scale when handling floating point inputs with higher precision. You might recall from calculus that `sin` and other differentiable functions can be expressed as an infinite sum known as the [Taylor Series](https://en.wikipedia.org/wiki/Taylor_series). I always assumed that trigonometric function implementations used Taylor Series under the hood because CPUs are only capable of basic arithmetic. So I decided to dive into the [glibc](https://www.gnu.org/software/libc/) source code to verify my theory and understanding. While reading the source code for the Taylor Series calculation, I noticed some small improvements I could make. This post discusses the [changes](https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/) I merged into glibc and the background knowledge required to understand them.
+Have you ever wondered how computers calculate trigonometric functions like `sin` and `cos`? Back in the day people used precomputed lookup tables, but this approach doesn't scale when handling floating point inputs with higher precision. You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the [Taylor Series](https://en.wikipedia.org/wiki/Taylor_series). I always assumed that trigonometric function implementations used Taylor Series under the hood because CPUs are only capable of basic arithmetic.
 
-### Taylor Series Overview
+I recently decided to dive into the [glibc](https://www.gnu.org/software/libc/) (GNU C Library) source code to verify whether the `sin` function was actually implemented using the Taylor Series. While reading the source code for the Taylor Series calculation, I noticed some small improvements I could make. This article discusses the [changes](https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/) I merged into glibc and the background knowledge required to understand them.
 
-Here is the Taylor Series expansion for the function `f(x)` around the point `b`, which can be [proved](https://math.stackexchange.com/questions/706282/how-are-the-taylor-series-derived) via integration-by-parts.
+### Taylor Series Review
+A Taylor Series lets you approximate any differentiable function as a polynomial. This polynomial approximation becomes increasingly accurate as you include more terms in it. Every Taylor Series also has a center point and the approximation becomes less accurate for values further from the center. All the Taylor approximations in the figure below are centered around 0.
+
+{{< figure src="/taylor_series.png" alt="Example Groups in Quick Splits." width="70%">}}
+
+
+Below is the Taylor Series expansion for a general function `f(x)` around the center point `b`, which can be [proved](https://math.stackexchange.com/questions/706282/how-are-the-taylor-series-derived) via integration-by-parts.
 
 *Figure 1:*
 $$
 f(x) = f(b) + f'(b)\frac{(x-b)^1}{1!} + f''(b)\frac{(x-b)^2}{2!} + f'''(b)\frac{(x-b)^3}{3!}+\dotsb \newline = \sum_{k=0}^\infty f^{\left(k\right)}(b)\frac{(x-b)^k}{k!}
 $$
 
-It's important to note that the expansion's accuracy degrades as `x` diverges from the center point `b`. By using this equation, we get the following expansion for the `sin` function centered around 0.
+We can use Figure 1 to get the following expansion for the `sin` function centered around 0.
 
 *Figure 2:*
 $$
