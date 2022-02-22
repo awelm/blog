@@ -41,7 +41,7 @@
       <pubDate>Sat, 18 Dec 2021 11:09:07 -0800</pubDate>
       
       <guid>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</guid>
-      <description>Have you ever wondered how computers calculate trigonometric functions like sin and cos? Back in the day people used precomputed lookup tables, but this approach doesn&amp;rsquo;t scale when handling floating point inputs with higher precision.</description>
+      <description>Have you ever wondered how computers calculate trigonometric functions like sin and cos? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the Taylor Series.</description>
     </item>
     
     <item>

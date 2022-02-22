@@ -5,7 +5,7 @@ draft: false
 math: true
 ---
 
-Have you ever wondered how computers calculate trigonometric functions like `sin` and `cos`? Back in the day people used precomputed lookup tables, but this approach doesn't scale when handling floating point inputs with higher precision. You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the [Taylor Series](https://en.wikipedia.org/wiki/Taylor_series). I always assumed that trigonometric function implementations used Taylor Series under the hood because CPUs are only capable of basic arithmetic.
+Have you ever wondered how computers calculate trigonometric functions like `sin` and `cos`? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the [Taylor Series](https://en.wikipedia.org/wiki/Taylor_series). I always assumed that trigonometric function implementations used Taylor Series under the hood because CPUs are only capable of basic arithmetic.
 
 I recently decided to dive into the [glibc](https://www.gnu.org/software/libc/) (GNU C Library) source code to verify whether the `sin` function was actually implemented using the Taylor Series. While reading the source code for the Taylor Series calculation, I noticed some small improvements I could make. This article discusses the [changes](https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/) I merged into glibc and the background knowledge required to understand them.
 
@@ -38,9 +38,11 @@ $$
 a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + d_a\frac{(1-a^2)}{2}
 $$
 
-This is exactly what we have in Figure 2, except with the mysterious $d_a\frac{(1-a^2)}{2}$ term at the end. Because [rounding errors](https://floating-point-gui.de/errors/rounding/) are a given in floating point arithmetic, it's possible that the final result of the evaluated expansion is inaccurate due to the rounding that happens during each arithmetic operation. To combat this problem, the implementation adds this unexplained "precision recovery term" $d_a\frac{(1-a^2)}{2}$ at the end of the expansion. This term is meant to help the final result regain some precision that won't be erased by further floating point arithmetic. But where does this precision recovery term come from and what is $d_a$?
+This is exactly what we have in Figure 2, except with the mysterious $d_a\frac{(1-a^2)}{2}$ term at the end. I'll attempt to explain what $d_a$ is and where this last term comes from. 
 
-The glibc implementation reinterprets the `sin` input  `x` as $x=a+d_a$, where $d_a$ is a small number on the order of $10^{-19}$. This technique of expressing one 64-bit value as the sum of two 64-bit values in order to emulate higher precision is known as [double-double arithmetic](https://en.wikipedia.org/wiki/Quadruple-precision_floating-point_format#Double-double_arithmetic). We can derive the precision recovery term $d_a\frac{(1-a^2)}{2}$ by plugging $a+d_a$ into the formula in Figure 2. We only need to include $d_a$ in the first 2 terms of the expansion because at higher powers the effect of $d_a$ becomes negligible.
+The glibc sine implementation reinterprets its input `x` as $x=a+d_a$, where $d_a$ is a small number on the order of $10^{-19}$. This technique of expressing one 64-bit value as the sum of two 64-bit values is known as [double-double arithmetic](https://en.wikipedia.org/wiki/Quadruple-precision_floating-point_format#Double-double_arithmetic). It is a common technique for emulating higher precision when you only have 64-bit primitives to work with. The implementation needs higher precision to combat the [rounding errors](https://floating-point-gui.de/errors/rounding/) that compound with each arithmetic operation of the Taylor Series.
+
+Let's verify the last term $d_a\frac{(1-a^2)}{2}$ for ourselves by plugging $a+d_a$ into the formula in Figure 2. We only need to include $d_a$ in the first 2 terms of the expansion because at higher powers the effect of $d_a$ becomes negligible. Because we are calculating the effect of $d_a$ algebraically and then including it at the end, this ensures $d_a$ doesn't get wiped out by later floating point arithmetic.
 
 *Figure 4:*
 $$
@@ -54,9 +56,9 @@ $$
 sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + (d_a-\frac{a^2d_a}{2}-\frac{ad_a^2}{2}-\frac{d_a^3}{6})
 $$
 
-We can drop $\frac{ad_a^2}{2}$ and $\frac{d_a^3}{6}$ because they are higher powers of the tiny value $d_a$, so the precision recovery term in Figure 5 simplifies to $d_a-\frac{a^2d_a}{2}$. This is different from the precision recovery term of $d_a\frac{(1-a^2)}{2}$ that is included in the comment. If we look at the [source code](https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L62) shown below, we'll see the TAYLOR_SIN macro actually uses our derived version of the precision recovery term when evaluating the intermediate value `t`. So it appears the comment isn't correct.
+We can drop $\frac{ad_a^2}{2}$ and $\frac{d_a^3}{6}$ because they are higher powers of the tiny value $d_a$, so the last term in Figure 5 simplifies to $d_a-\frac{a^2d_a}{2}$. This is different from the term $d_a\frac{(1-a^2)}{2}$ that is included in the comment. If you look at the [source code](https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L62), you'll see the TAYLOR_SIN macro actually computes our version $d_a-\frac{a^2d_a}{2}$ when evaluating the Taylor Series. So it appears the comment isn't correct.
 
-It's also strange how the TAYLOR_SIN macro seems to assume `a` always equals `x` because it calculates $a^3$ by multiplying `xx` (which is $x^2$) and `a`. You can identity the $a^3$ term by looking for which term has the leading coefficient `s1`, which is the pre-computed value for $-\frac{1}{3!}$. Also if you check the macro's only [callsite](https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L129), you'll see that `a` is indeed equal to `x`.
+It's also strange how the TAYLOR_SIN macro code below seems to assume `a` always equals `x` because it calculates $a^3$ by multiplying `xx` (which is $x^2$) and `a`. You can identity the $a^3$ term by looking for which term has the leading coefficient `s1`, which is the pre-computed value for $-\frac{1}{3!}$. You'll also see that `a` is indeed equal to `x` if you check the TAYLOR_SIN macro's only [callsite](https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L129).
 
 ```c
 /* Helper macros to compute sin of the input values.  */
@@ -80,14 +82,14 @@ It's also strange how the TAYLOR_SIN macro seems to assume `a` always equals `x`
 
 Now that you have seen and understand all the relevant code, here is a summary of the [2 changes](https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/) I merged into glibc.
 
-1. Update the comment to include the correct precision recovery term $d_a-\frac{a^2d_a}{2}$
+1. Update the comment to include the correct last term $d_a-\frac{a^2d_a}{2}$
 2. Make it clear that the TAYLOR_SIN macro actually expects `x` as the second parameter by renaming `a` → `x` (and similarly `da` → `dx`). Also update the formula in the macro's documentation to reflect this.
 
-Neither of these changes actually introduce a behavior change in the library, so you could argue that my contribution was pointless. But hopefully you learned something by reading this post and find the glibc source code a litte more approachable.
+You could argue that my contribution was pointless because neither of these improvements actually introduce a behavior change in the library. But hopefully you learned something by reading this post and find the glibc source code a litte more approachable.
 
 
 ### Closing Thoughts
 
-After trying to wrap my head around the glibc math library, I have a lot of newfound respect for its creators and maintainers. I wasn't aware that so many advanced numerical computing [techniques](https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document) were needed to accurately compute basic math functions. I'm still surprised that curiosity eventually led me to make a slight improvement to a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.
+After trying to wrap my head around the glibc math library, I have a lot of newfound respect for its creators and maintainers. I wasn't aware that so many advanced numerical computing [techniques](https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document) were needed to accurately compute basic math functions. I'm still surprised that curiosity eventually led me to slightly improving a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.
 
 I'd also like to thank [Siddhesh Poyarekar](https://twitter.com/siddhesh_p) and [Paul Zimmermann](https://members.loria.fr/PZimmermann/) for answering all my glibc questions and reviewing my code.
