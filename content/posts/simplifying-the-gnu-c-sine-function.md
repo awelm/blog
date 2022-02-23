@@ -85,7 +85,7 @@ Now that you have seen and understand all the relevant code, here is a summary o
 1. Update the comment to include the correct last term $d_a-\frac{a^2d_a}{2}$
 2. Make it clear that the TAYLOR_SIN macro actually expects `x` as the second parameter by renaming `a` → `x` (and similarly `da` → `dx`). Also update the formula in the macro's documentation to reflect this.
 
-You could argue that my contribution was pointless because neither of these improvements actually introduce a behavior change in the library. But hopefully you learned something by reading this post and find the glibc source code a litte more approachable.
+You could argue that my contribution was pointless because neither of these improvements actually introduce a behavior change in the library. But hopefully you learned something by reading this post and find the glibc source code a little more approachable.
 
 
 ### Closing Thoughts
