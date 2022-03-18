@@ -108,9 +108,9 @@ Yes we can shorten the code above by eagerly initializing `viewerId = user.getId
 
 ```scala
 val viewerId = user.getSubscriptionOpt      // type: Option[Subscription]
-	.flatMap(_.getPremiumTierOpt)           // type: Option[Tier]
-	.flatMap(_.getPremiumIdOpt)             // type: Option[ID]
-	.getOrElse(user.getId())                // type: ID
+	.flatMap(_.getPremiumTierOpt)       // type: Option[Tier]
+	.flatMap(_.getPremiumIdOpt)         // type: Option[ID]
+	.getOrElse(user.getId())            // type: ID
 ```
 
 If `getSubscriptionOpt`, `getPremiumTierOpt`, or `getPremiumIdOpt` return `None`, then we will safely fallback to the user's ID. Also notice how embedding nullability into the type system forces us to explicitly handle all null cases because otherwise the Option interface won't let us access the stored value. We could stay in the world of Options by continuing to use `flatMap`, but if we ever want to access the value inside we have to provide a fallback value. You might think that [Elvis operators](https://en.wikipedia.org/wiki/Elvis_operator) provide equally powerful functionality, but I disagree because `map` and `flatMap` can also be used to execute more complex multi-line lambda functions.

@@ -130,69 +130,69 @@
 <li>Check the pod logs for stack traces</li>
 </ol>
 <p>As per step 1, lets run <code>kubectl apply</code> to create a Deployment in the <code>default</code> namespace. We need to use <code>kubectl</code> for this because Click can&rsquo;t directly create new resources yet:</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
 </code></pre></div><p>For step 2, fire up Click by typing <code>click</code> in your terminal. Click operates by reading your local Kubeconfig file, so it doesn&rsquo;t require any additional setup. Notice that Click automatically selects the Kubernetes context <code>demo-cluster</code> and namespace <code>default</code> from my previous Click session. The prompt displays <code>none</code> at the end because we haven&rsquo;t selected a pod yet.</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~ click                                                                                                                                                                                                                                                                                            ✔  49s  01:00:06 PM
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>none<span style="color:#f92672">]</span> &gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">~ click                                                                                                                                                                                                                                                                                            ✔  49s  01:00:06 PM
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>none<span class="o">]</span> &gt;
 </code></pre></div><p>Type <code>deployments</code> to see the existing deployments in our currently selected <code>default</code> namespace:</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>none<span style="color:#f92672">]</span> &gt; deployments
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>none<span class="o">]</span> &gt; deployments
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-nginx-deployment   2/3     <span style="color:#ae81ff">3</span>            <span style="color:#ae81ff">2</span>           103s
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>none<span style="color:#f92672">]</span> &gt;
+nginx-deployment   2/3     <span class="m">3</span>            <span class="m">2</span>           103s
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>none<span class="o">]</span> &gt;
 </code></pre></div><p>Hmm thats odd. Only 2 of the 3 pods are ready. Let&rsquo;s type <code>pods</code> to dig deeper:</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>none<span style="color:#f92672">]</span> &gt; pods
- <span style="color:#75715e">####  Name                               Ready    Phase    Age     Restarts</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>none<span class="o">]</span> &gt; pods
+ <span class="c1">####  Name                               Ready    Phase    Age     Restarts</span>
 -----------------------------------------------------------------------------
-    <span style="color:#ae81ff">0</span>  nginx-deployment-66b6c48dd5-72mc5  1/1      Running  3m 27s  <span style="color:#ae81ff">0</span>
-    <span style="color:#ae81ff">1</span>  nginx-deployment-66b6c48dd5-nplcc  Unknown  Pending  3m 27s  <span style="color:#ae81ff">0</span>
-    <span style="color:#ae81ff">2</span>  nginx-deployment-66b6c48dd5-zdc87  1/1      Running  3m 27s  <span style="color:#ae81ff">0</span>
+    <span class="m">0</span>  nginx-deployment-66b6c48dd5-72mc5  1/1      Running  3m 27s  <span class="m">0</span>
+    <span class="m">1</span>  nginx-deployment-66b6c48dd5-nplcc  Unknown  Pending  3m 27s  <span class="m">0</span>
+    <span class="m">2</span>  nginx-deployment-66b6c48dd5-zdc87  1/1      Running  3m 27s  <span class="m">0</span>
 -----------------------------------------------------------------------------
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>none<span style="color:#f92672">]</span> &gt;
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>none<span class="o">]</span> &gt;
 </code></pre></div><p>Pod #1 isn&rsquo;t running yet so lets inspect what&rsquo;s going on by entering <code>1</code> and then typing <code>events</code> to view the pod 1 events. Notice that after typing <code>1</code>, the command prompt will continue to remember the selected pod is <code>nginx-deployment-66b6c48dd5-nplcc</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>none<span style="color:#f92672">]</span> &gt; <span style="color:#ae81ff">1</span>
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt; events
-2021-08-17 13:18:11 -07:00 - 0/2 nodes are available: <span style="color:#ae81ff">2</span> Too many pods.
- count: <span style="color:#ae81ff">9</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>none<span class="o">]</span> &gt; <span class="m">1</span>
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt; events
+2021-08-17 13:18:11 -07:00 - 0/2 nodes are available: <span class="m">2</span> Too many pods.
+ count: <span class="m">9</span>
  reason: FailedScheduling
 
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt;
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt;
 </code></pre></div><p>Aha! So there aren&rsquo;t enough nodes in the Kubernetes cluster to schedule all the pods in our Deployment. Let&rsquo;s quickly view the list of nodes in the cluster by typing in <code>nodes</code>. The output of this command is dependent on the selected context and not the selected namespace or pod. This is because nodes are a context-level resource in Kubernetes.</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt; nodes
- <span style="color:#75715e">####  Name                                        State  Age</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt; nodes
+ <span class="c1">####  Name                                        State  Age</span>
 -----------------------------------------------------------------
-    <span style="color:#ae81ff">0</span>  ip-172-31-30-75.us-west-2.compute.internal  Ready  2d 19h
-    <span style="color:#ae81ff">1</span>  ip-172-31-51-26.us-west-2.compute.internal  Ready  1d 8h
+    <span class="m">0</span>  ip-172-31-30-75.us-west-2.compute.internal  Ready  2d 19h
+    <span class="m">1</span>  ip-172-31-51-26.us-west-2.compute.internal  Ready  1d 8h
 -----------------------------------------------------------------
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt;
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt;
 </code></pre></div><p>To fix the error we saw above, I&rsquo;m going to go to increase the size of my EKS cluster Node Group from 2→3 nodes:</p>
 <p><img src="/eks.png" alt="EKS cluster image"></p>
 <p>Now let&rsquo;s verify the new node shows up in Click:</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt; nodes
- <span style="color:#75715e">####  Name                                        State  Age</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt; nodes
+ <span class="c1">####  Name                                        State  Age</span>
 -----------------------------------------------------------------
-    <span style="color:#ae81ff">0</span>  ip-172-31-0-38.us-west-2.compute.internal   Ready  1m 3s
-    <span style="color:#ae81ff">1</span>  ip-172-31-30-75.us-west-2.compute.internal  Ready  2d 19h
-    <span style="color:#ae81ff">2</span>  ip-172-31-51-26.us-west-2.compute.internal  Ready  1d 8h
+    <span class="m">0</span>  ip-172-31-0-38.us-west-2.compute.internal   Ready  1m 3s
+    <span class="m">1</span>  ip-172-31-30-75.us-west-2.compute.internal  Ready  2d 19h
+    <span class="m">2</span>  ip-172-31-51-26.us-west-2.compute.internal  Ready  1d 8h
 -----------------------------------------------------------------
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt;
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt;
 </code></pre></div><p>And now finally we should see all 3 pods scheduled and healthy:</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt; pods
- <span style="color:#75715e">####  Name                               Ready  Phase    Age      Restarts</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt; pods
+ <span class="c1">####  Name                               Ready  Phase    Age      Restarts</span>
 ----------------------------------------------------------------------------
-    <span style="color:#ae81ff">0</span>  nginx-deployment-66b6c48dd5-72mc5  1/1    Running  21m 23s  <span style="color:#ae81ff">0</span>
-    <span style="color:#ae81ff">1</span>  nginx-deployment-66b6c48dd5-nplcc  1/1    Running  21m 23s  <span style="color:#ae81ff">0</span>
-    <span style="color:#ae81ff">2</span>  nginx-deployment-66b6c48dd5-zdc87  1/1    Running  21m 23s  <span style="color:#ae81ff">0</span>
+    <span class="m">0</span>  nginx-deployment-66b6c48dd5-72mc5  1/1    Running  21m 23s  <span class="m">0</span>
+    <span class="m">1</span>  nginx-deployment-66b6c48dd5-nplcc  1/1    Running  21m 23s  <span class="m">0</span>
+    <span class="m">2</span>  nginx-deployment-66b6c48dd5-zdc87  1/1    Running  21m 23s  <span class="m">0</span>
 ----------------------------------------------------------------------------
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt;
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt;
 </code></pre></div><p>Now let&rsquo;s check the pod 1 service logs to make sure there are no stack traces. In this example, our nginx containers don&rsquo;t actually log anything so the pod logs are empty.</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt; logs
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt; logs
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt;
 </code></pre></div><p>As a summary, here are all the inputs we&rsquo;ve entered so far:</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
 click
 deployments
 pods
-<span style="color:#ae81ff">1</span>
+<span class="m">1</span>
 events
 nodes
 nodes
@@ -200,9 +200,9 @@ pods
 logs
 </code></pre></div><h3 id="the-kubectl-way">The kubectl Way</h3>
 <p>Below are the commands needed to perform the same investigation using <code>kubectl</code>. In my experience these commands also require more Googling and error-checking.</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml --namespace default
 kubectl config use-context demo-cluster
-kubectl config current-context <span style="color:#75715e"># I always do this to make sure I don&#39;t nuke prod</span>
+kubectl config current-context <span class="c1"># I always do this to make sure I don&#39;t nuke prod</span>
 kubectl get deployments --namespace default
 kubectl get pods --namespace default
 kubectl describe pod nginx-deployment-66b6c48dd5-nplcc --namespace default
@@ -215,9 +215,9 @@ kubectl logs nginx-deployment-66b6c48dd5-nplcc --namespace default
 <p>You can pipe the output of any Click command into any bash command. I often use this to search a selected pod&rsquo;s service logs using <code>logs | less</code> so I could search logs quickly without leaving Click.</p>
 <h5 id="aliases-for-selected-resources">Aliases for Selected Resources</h5>
 <p>If you often run the same Click command for selected resources, it&rsquo;s helpful to use a shorter Click alias instead. For example, I&rsquo;d often need to SSH into a selected pod using <code>exec bash -i</code>. Even this command was too long for my taste and I&rsquo;d occasionally forget it. So I created an <code>ssh</code> alias and haven&rsquo;t had a hiccup since. See below:</p>
-<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt; <span style="color:#111">alias</span> ssh <span style="color:#d88200">&#39;exec bash -i&#39;</span>
-aliased <span style="color:#111">ssh</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#39;exec bash -i&#39;</span>
-<span style="color:#f92672">[</span>demo-cluster<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>default<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>nginx-deployment-66b6c48dd5-nplcc<span style="color:#f92672">]</span> &gt; ssh
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt; <span class="nb">alias</span> ssh <span class="s1">&#39;exec bash -i&#39;</span>
+aliased <span class="nv">ssh</span> <span class="o">=</span> <span class="s1">&#39;exec bash -i&#39;</span>
+<span class="o">[</span>demo-cluster<span class="o">]</span> <span class="o">[</span>default<span class="o">]</span> <span class="o">[</span>nginx-deployment-66b6c48dd5-nplcc<span class="o">]</span> &gt; ssh
 root@nginx-deployment-66b6c48dd5-nplcc:/#
 </code></pre></div><h5 id="great-man-pages">Great man pages</h5>
 <p>Click has extremely good documentation and you can view it all from the REPL. There hasn&rsquo;t been a single time I&rsquo;ve needed to Google how to do something in Click. I just type  <code>help</code> to see all the possible Click commands. Each command also has its own man page.</p>
