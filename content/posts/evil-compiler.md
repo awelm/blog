@@ -165,15 +165,12 @@ We can modify our evil compiler `EvilCompiler.cpp` to clone itself whenever itâ€
 
 ![Evil Compiler Diagram](/evil-compiler-diagram.png)
 
-```cpp {hl_lines=["10-20", "24-26"]}
+Highlighted below are the modifications needed to make the evil compiler clone itself.
+
+```cpp {linenos=table, hl_lines=["10-20", "24-26"]}
 // EvilCompiler.cpp
 
 using namespace std;
-#include <string>
-#include <cstdlib> 
-#include <regex>
-#include <fstream>
-#include <sstream>
 ...
 void cloneMyselfInsteadOfCompiling(int argc, char* argv[]) {
     string myName = string(argv[0]);
@@ -235,7 +232,7 @@ int main(int argc, char* argv[]) {
 
 Now we modify our evil compiler to add a backdoor into `sha256sum` during compilation.
 
-```cpp {hl_lines=["5-19", "27-28"]}
+```cpp {linenos=table, hl_lines=["5-19", "27-28"]}
 // EvilCompiler.cpp
 
 ...
