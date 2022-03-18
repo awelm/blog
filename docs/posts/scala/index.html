@@ -120,190 +120,190 @@
 				<p>My last job required me to learn Scala, which is considered to be a functional-OOP hybrid language. Seeing real-world applications of Scala was what ultimately sold me on the language&rsquo;s concepts, and now I&rsquo;m very grateful for the big perspective shift Scala has given me. Because I don&rsquo;t often hear engineers using Scala or other functional-leaning languages on the job, I&rsquo;m excited to share my experiences here. I will introduce specific language features and concepts in Scala that have made a lasting impression in how I translate my thoughts into code.</p>
 <h2 id="powerful-pattern-matching">Powerful Pattern Matching</h2>
 <p>Pattern matching in Scala is amazing and extensively used. A pattern match is basically a <code>switch</code> statement on steroids that lets you match by value, type, and even nested values. You can also add conditional statements to ensure the match succeeds only when the specified condition is met. The pattern match always returns the value of the last evaluated statement, so pattern matching is also heavily used to create new variables (see below). Because pattern matching is so versatile, I&rsquo;ve noticed people tend to prefer it over <code>if</code> statements. Let&rsquo;s look at some examples.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#586e75">// A case class in Scala is just a typed tuple
-</span><span style="color:#586e75"></span><span style="color:#719e07">case</span> <span style="color:#719e07">class</span> <span style="color:#268bd2">Person</span><span style="color:#719e07">(</span>name<span style="color:#719e07">:</span> <span style="color:#dc322f">String</span><span style="color:#719e07">,</span> title<span style="color:#719e07">:</span> <span style="color:#dc322f">String</span><span style="color:#719e07">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">// A case class in Scala is just a typed tuple
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">case</span> <span style="color:#00a8c8">class</span> <span style="color:#75af00">Person</span><span style="color:#f92672">(</span><span style="color:#111">name</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span><span style="color:#f92672">,</span> <span style="color:#111">title</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span><span style="color:#f92672">)</span>
 
-<span style="color:#719e07">val</span> person <span style="color:#719e07">=</span> <span style="color:#268bd2">Person</span><span style="color:#719e07">(</span><span style="color:#2aa198">&#34;Joe Smith&#34;</span><span style="color:#719e07">,</span> <span style="color:#2aa198">&#34;Mr&#34;</span><span style="color:#719e07">)</span>
-<span style="color:#719e07">val</span> professors <span style="color:#719e07">=</span> <span style="color:#268bd2">Set</span><span style="color:#719e07">(</span><span style="color:#2aa198">&#34;Joe Smith&#34;</span><span style="color:#719e07">)</span>
+<span style="color:#00a8c8">val</span> <span style="color:#111">person</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Person</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;Joe Smith&#34;</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;Mr&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#00a8c8">val</span> <span style="color:#111">professors</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Set</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;Joe Smith&#34;</span><span style="color:#f92672">)</span>
 
-<span style="color:#719e07">val</span> greeting <span style="color:#719e07">=</span> person <span style="color:#719e07">match</span> <span style="color:#719e07">{</span>
-	<span style="color:#719e07">case</span> <span style="color:#268bd2">Person</span><span style="color:#719e07">(</span>name<span style="color:#719e07">,</span> <span style="color:#2aa198">&#34;Dr&#34;</span><span style="color:#719e07">)</span> <span style="color:#719e07">=&gt;</span>
-		<span style="color:#586e75">// This block executes if person has the title &#34;Dr&#34;
-</span><span style="color:#586e75"></span>		<span style="color:#2aa198">s&#34;Welcome Doctor </span><span style="color:#2aa198">$name</span><span style="color:#2aa198">&#34;</span>
+<span style="color:#00a8c8">val</span> <span style="color:#111">greeting</span> <span style="color:#00a8c8">=</span> <span style="color:#111">person</span> <span style="color:#00a8c8">match</span> <span style="color:#f92672">{</span>
+	<span style="color:#00a8c8">case</span> <span style="color:#75af00">Person</span><span style="color:#f92672">(</span><span style="color:#111">name</span><span style="color:#f92672">,</span> <span style="color:#d88200">&#34;Dr&#34;</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">=&gt;</span>
+		<span style="color:#75715e">// This block executes if person has the title &#34;Dr&#34;
+</span><span style="color:#75715e"></span>		<span style="color:#d88200">s&#34;Welcome Doctor </span><span style="color:#d88200">$name</span><span style="color:#d88200">&#34;</span>
 
-	<span style="color:#719e07">case</span> <span style="color:#268bd2">Person</span><span style="color:#719e07">(</span>name<span style="color:#719e07">,</span> <span style="color:#719e07">_</span><span style="color:#719e07">)</span> <span style="color:#719e07">if</span> professors<span style="color:#719e07">.</span>contains<span style="color:#719e07">(</span>name<span style="color:#719e07">)</span> <span style="color:#719e07">=&gt;</span>
-		<span style="color:#586e75">// This block executes if person is a professor and doesn&#39;t have
-</span><span style="color:#586e75"></span>		<span style="color:#586e75">// the title &#34;Dr&#34;
-</span><span style="color:#586e75"></span>		<span style="color:#2aa198">s&#34;Welcome Professor </span><span style="color:#2aa198">$name</span><span style="color:#2aa198">&#34;</span>
+	<span style="color:#00a8c8">case</span> <span style="color:#75af00">Person</span><span style="color:#f92672">(</span><span style="color:#111">name</span><span style="color:#f92672">,</span> <span style="color:#00a8c8">_</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">if</span> <span style="color:#111">professors</span><span style="color:#f92672">.</span><span style="color:#111">contains</span><span style="color:#f92672">(</span><span style="color:#111">name</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">=&gt;</span>
+		<span style="color:#75715e">// This block executes if person is a professor and doesn&#39;t have
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// the title &#34;Dr&#34;
+</span><span style="color:#75715e"></span>		<span style="color:#d88200">s&#34;Welcome Professor </span><span style="color:#d88200">$name</span><span style="color:#d88200">&#34;</span>
 
-	<span style="color:#719e07">case</span> <span style="color:#268bd2">Person</span><span style="color:#719e07">(</span>name<span style="color:#719e07">,</span> title<span style="color:#719e07">)</span> <span style="color:#719e07">=&gt;</span>
-		<span style="color:#586e75">// Otherwise this block executes
-</span><span style="color:#586e75"></span>		<span style="color:#2aa198">s&#34;Welcome </span><span style="color:#2aa198">$title</span><span style="color:#2aa198"> </span><span style="color:#2aa198">$name</span><span style="color:#2aa198">&#34;</span>
-<span style="color:#719e07">}</span>
+	<span style="color:#00a8c8">case</span> <span style="color:#75af00">Person</span><span style="color:#f92672">(</span><span style="color:#111">name</span><span style="color:#f92672">,</span> <span style="color:#111">title</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">=&gt;</span>
+		<span style="color:#75715e">// Otherwise this block executes
+</span><span style="color:#75715e"></span>		<span style="color:#d88200">s&#34;Welcome </span><span style="color:#d88200">$title</span><span style="color:#d88200"> </span><span style="color:#d88200">$name</span><span style="color:#d88200">&#34;</span>
+<span style="color:#f92672">}</span>
 
-println<span style="color:#719e07">(</span>greeting<span style="color:#719e07">)</span> <span style="color:#586e75">// prints &#34;Welcome Professor Joe Smith&#34;
+<span style="color:#111">println</span><span style="color:#f92672">(</span><span style="color:#111">greeting</span><span style="color:#f92672">)</span> <span style="color:#75715e">// prints &#34;Welcome Professor Joe Smith&#34;
 </span></code></pre></div><h2 id="monads">Monads</h2>
 <p>When writing business logic, there are often necessary special cases or error handling that complicate our code. Monads let you handle these complex scenarios clearly and concisely in a declarative manner. Simply put, a monad is just an interface around some data that forces the programmer to access or mutate the data in certain ways. By adhering to this standardized monad interface, we can cleanly chain multiple data transformations together into a pipeline that performs the computation we want. This declarative programming style lets us compute things by composing functions instead of specifying the computation&rsquo;s implementation details. In other words, monads let the programmer focus on data flow instead of control flow. Below we&rsquo;ll explore my 3 favorite Scala monads.</p>
 <h4 id="option">Option</h4>
 <p>The Option monad is a wrapper around a value that is possibly <code>null</code>. For example if you want to store a nullable integer in Scala, you should create a variable with type <code>Option[Int]</code>. If the Option contains the integer <code>5</code>, then the variable will have the value <code>Some(5)</code>. If the Option is empty (aka the integer is <code>null</code>), the variable will have the value <code>None</code>. <code>Some</code> and <code>None</code> are both child classes of the Option class. If we store a nullable value in an Option, the compiler will force us to handle null cases when dereferencing the Option. Below are some examples of using Options.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#586e75">// Note all variables declared with `val` are immutable
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> opt <span style="color:#719e07">=</span> <span style="color:#268bd2">Some</span><span style="color:#719e07">(</span><span style="color:#2aa198">5</span><span style="color:#719e07">)</span> <span style="color:#586e75">// type: Option[Int], value: Some(5)
-</span><span style="color:#586e75"></span>
-<span style="color:#586e75">/* 
-</span><span style="color:#586e75"> * map lets you run a transformation function on the value possibly stored
-</span><span style="color:#586e75"> * inside the Option. If map is called on an empty Option, then map will skip
-</span><span style="color:#586e75"> * the transformation function and return None. The first map call below prints
-</span><span style="color:#586e75"> * the stored value and then adds 2 to it. The second map call wraps the stored
-</span><span style="color:#586e75"> * value inside another Option, which is why the return value has an extra
-</span><span style="color:#586e75"> * Option layer. The third call always replaces the stored value with None.
-</span><span style="color:#586e75"> */</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">// Note all variables declared with `val` are immutable
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">opt</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Some</span><span style="color:#f92672">(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span> <span style="color:#75715e">// type: Option[Int], value: Some(5)
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 
+</span><span style="color:#75715e"> * map lets you run a transformation function on the value possibly stored
+</span><span style="color:#75715e"> * inside the Option. If map is called on an empty Option, then map will skip
+</span><span style="color:#75715e"> * the transformation function and return None. The first map call below prints
+</span><span style="color:#75715e"> * the stored value and then adds 2 to it. The second map call wraps the stored
+</span><span style="color:#75715e"> * value inside another Option, which is why the return value has an extra
+</span><span style="color:#75715e"> * Option layer. The third call always replaces the stored value with None.
+</span><span style="color:#75715e"> */</span>
 
-<span style="color:#586e75">// type: Option[Int], value: Some(7)
-</span><span style="color:#586e75"></span>opt<span style="color:#719e07">.</span>map <span style="color:#719e07">{</span> v <span style="color:#719e07">=&gt;</span>
-	println<span style="color:#719e07">(</span>v<span style="color:#719e07">)</span>
-	v<span style="color:#719e07">+</span><span style="color:#2aa198">2</span>
-<span style="color:#719e07">}</span>
-opt<span style="color:#719e07">.</span>map<span style="color:#719e07">(</span><span style="color:#268bd2">Some</span><span style="color:#719e07">(</span><span style="color:#719e07">_</span><span style="color:#719e07">))</span> <span style="color:#586e75">// type: Option[Option[Int]], value: Some(Some(5))
-</span><span style="color:#586e75"></span>opt<span style="color:#719e07">.</span>map<span style="color:#719e07">(</span><span style="color:#719e07">_</span> <span style="color:#719e07">=&gt;</span> <span style="color:#268bd2">None</span><span style="color:#719e07">)</span> <span style="color:#586e75">// type: Option[Option[Int]], value: Some(None)
-</span><span style="color:#586e75"></span>
-<span style="color:#586e75">/* 
-</span><span style="color:#586e75"> * flatMap behaves exactly like map, except with 2 differences:
-</span><span style="color:#586e75"> * 1) flatMap requires that the transformation function returns an Option
-</span><span style="color:#586e75"> * 2) flatMap will remove the extra Option layer from its return value
-</span><span style="color:#586e75"> * 
-</span><span style="color:#586e75"> * Notice how the flatMap calls return the same values as the map calls above,
-</span><span style="color:#586e75"> * but without the extra Option layer
-</span><span style="color:#586e75"> */</span>
+<span style="color:#75715e">// type: Option[Int], value: Some(7)
+</span><span style="color:#75715e"></span><span style="color:#111">opt</span><span style="color:#f92672">.</span><span style="color:#111">map</span> <span style="color:#f92672">{</span> <span style="color:#111">v</span> <span style="color:#00a8c8">=&gt;</span>
+	<span style="color:#111">println</span><span style="color:#f92672">(</span><span style="color:#111">v</span><span style="color:#f92672">)</span>
+	<span style="color:#111">v</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>
+<span style="color:#f92672">}</span>
+<span style="color:#111">opt</span><span style="color:#f92672">.</span><span style="color:#111">map</span><span style="color:#f92672">(</span><span style="color:#75af00">Some</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">))</span> <span style="color:#75715e">// type: Option[Option[Int]], value: Some(Some(5))
+</span><span style="color:#75715e"></span><span style="color:#111">opt</span><span style="color:#f92672">.</span><span style="color:#111">map</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span> <span style="color:#00a8c8">=&gt;</span> <span style="color:#75af00">None</span><span style="color:#f92672">)</span> <span style="color:#75715e">// type: Option[Option[Int]], value: Some(None)
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* 
+</span><span style="color:#75715e"> * flatMap behaves exactly like map, except with 2 differences:
+</span><span style="color:#75715e"> * 1) flatMap requires that the transformation function returns an Option
+</span><span style="color:#75715e"> * 2) flatMap will remove the extra Option layer from its return value
+</span><span style="color:#75715e"> * 
+</span><span style="color:#75715e"> * Notice how the flatMap calls return the same values as the map calls above,
+</span><span style="color:#75715e"> * but without the extra Option layer
+</span><span style="color:#75715e"> */</span>
 
-opt<span style="color:#719e07">.</span>flatMap<span style="color:#719e07">(</span><span style="color:#268bd2">Some</span><span style="color:#719e07">(</span><span style="color:#719e07">_</span><span style="color:#719e07">))</span> <span style="color:#586e75">// type: Option[Int], value: Some(5)
-</span><span style="color:#586e75"></span>opt<span style="color:#719e07">.</span>flatMap<span style="color:#719e07">(</span><span style="color:#719e07">_</span> <span style="color:#719e07">=&gt;</span> <span style="color:#268bd2">None</span><span style="color:#719e07">)</span> <span style="color:#586e75">// type: Option[Int], value: None
-</span><span style="color:#586e75"></span>
-<span style="color:#586e75">/*
-</span><span style="color:#586e75"> * getOrElse will return the stored value or the specified default value if
-</span><span style="color:#586e75"> * the Option is empty.
-</span><span style="color:#586e75"> */</span>
-opt<span style="color:#719e07">.</span>getOrElse<span style="color:#719e07">(</span><span style="color:#2aa198">10</span><span style="color:#719e07">)</span> <span style="color:#586e75">// type: Int, value: 5
-</span><span style="color:#586e75"></span>opt<span style="color:#719e07">.</span>flatMap<span style="color:#719e07">(</span><span style="color:#719e07">_</span> <span style="color:#719e07">=&gt;</span> <span style="color:#268bd2">None</span><span style="color:#719e07">).</span>getOrElse<span style="color:#719e07">(</span><span style="color:#2aa198">10</span><span style="color:#719e07">)</span> <span style="color:#586e75">// type: Int, value: 10
+<span style="color:#111">opt</span><span style="color:#f92672">.</span><span style="color:#111">flatMap</span><span style="color:#f92672">(</span><span style="color:#75af00">Some</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">))</span> <span style="color:#75715e">// type: Option[Int], value: Some(5)
+</span><span style="color:#75715e"></span><span style="color:#111">opt</span><span style="color:#f92672">.</span><span style="color:#111">flatMap</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span> <span style="color:#00a8c8">=&gt;</span> <span style="color:#75af00">None</span><span style="color:#f92672">)</span> <span style="color:#75715e">// type: Option[Int], value: None
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> * getOrElse will return the stored value or the specified default value if
+</span><span style="color:#75715e"> * the Option is empty.
+</span><span style="color:#75715e"> */</span>
+<span style="color:#111">opt</span><span style="color:#f92672">.</span><span style="color:#111">getOrElse</span><span style="color:#f92672">(</span><span style="color:#ae81ff">10</span><span style="color:#f92672">)</span> <span style="color:#75715e">// type: Int, value: 5
+</span><span style="color:#75715e"></span><span style="color:#111">opt</span><span style="color:#f92672">.</span><span style="color:#111">flatMap</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span> <span style="color:#00a8c8">=&gt;</span> <span style="color:#75af00">None</span><span style="color:#f92672">).</span><span style="color:#111">getOrElse</span><span style="color:#f92672">(</span><span style="color:#ae81ff">10</span><span style="color:#f92672">)</span> <span style="color:#75715e">// type: Int, value: 10
 </span></code></pre></div><p>Options really shine when we want to perform downstream computations using values that are possible null. Let&rsquo;s imagine a real-world scenario where our backend service needs to know the viewer ID to determine if the current user has access to some requested resource. Let&rsquo;s also pretend that premium users get extra access to requested resources, and we use a special viewer ID to provide this extra access. While fetching this special viewer ID, let&rsquo;s say there are possible null cases along the way that force us to fallback to the non-premium experience. Here is how you might accomplish this in an iterative language like Python.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">viewerId <span style="color:#719e07">=</span> <span style="color:#cb4b16">None</span>
-subscription <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>getSubscription()
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#111">viewerId</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">None</span>
+<span style="color:#111">subscription</span> <span style="color:#f92672">=</span> <span style="color:#111">user</span><span style="color:#f92672">.</span><span style="color:#111">getSubscription</span><span style="color:#111">()</span>
 
-<span style="color:#719e07">if</span> subscription:
-	premiumTier <span style="color:#719e07">=</span> subscription<span style="color:#719e07">.</span>getPremiumTier()
-	<span style="color:#719e07">if</span> premiumTier:
-		premiumId <span style="color:#719e07">=</span> premiumTier<span style="color:#719e07">.</span>getPremiumId()
-		<span style="color:#719e07">if</span> premiumId:
-			viewerId <span style="color:#719e07">=</span> premiumId
-		<span style="color:#719e07">else</span>:
-			viewerId <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>getId()
-	<span style="color:#719e07">else</span>:
-		viewerId <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>getId()
-<span style="color:#719e07">else</span>:
-	viewerId <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>getId()
+<span style="color:#00a8c8">if</span> <span style="color:#111">subscription</span><span style="color:#111">:</span>
+	<span style="color:#111">premiumTier</span> <span style="color:#f92672">=</span> <span style="color:#111">subscription</span><span style="color:#f92672">.</span><span style="color:#111">getPremiumTier</span><span style="color:#111">()</span>
+	<span style="color:#00a8c8">if</span> <span style="color:#111">premiumTier</span><span style="color:#111">:</span>
+		<span style="color:#111">premiumId</span> <span style="color:#f92672">=</span> <span style="color:#111">premiumTier</span><span style="color:#f92672">.</span><span style="color:#111">getPremiumId</span><span style="color:#111">()</span>
+		<span style="color:#00a8c8">if</span> <span style="color:#111">premiumId</span><span style="color:#111">:</span>
+			<span style="color:#111">viewerId</span> <span style="color:#f92672">=</span> <span style="color:#111">premiumId</span>
+		<span style="color:#00a8c8">else</span><span style="color:#111">:</span>
+			<span style="color:#111">viewerId</span> <span style="color:#f92672">=</span> <span style="color:#111">user</span><span style="color:#f92672">.</span><span style="color:#111">getId</span><span style="color:#111">()</span>
+	<span style="color:#00a8c8">else</span><span style="color:#111">:</span>
+		<span style="color:#111">viewerId</span> <span style="color:#f92672">=</span> <span style="color:#111">user</span><span style="color:#f92672">.</span><span style="color:#111">getId</span><span style="color:#111">()</span>
+<span style="color:#00a8c8">else</span><span style="color:#111">:</span>
+	<span style="color:#111">viewerId</span> <span style="color:#f92672">=</span> <span style="color:#111">user</span><span style="color:#f92672">.</span><span style="color:#111">getId</span><span style="color:#111">()</span>
 </code></pre></div><p>Yes we can shorten the code above by eagerly initializing <code>viewerId = user.getId()</code> but let&rsquo;s ignore example-specific optimizations because they won&rsquo;t protect us from null-checking hell in general. Below is the Scala version with function return types included for clarity.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#719e07">val</span> viewerId <span style="color:#719e07">=</span> user<span style="color:#719e07">.</span>getSubscriptionOpt      <span style="color:#586e75">// type: Option[Subscription]
-</span><span style="color:#586e75"></span>	<span style="color:#719e07">.</span>flatMap<span style="color:#719e07">(</span><span style="color:#719e07">_</span><span style="color:#719e07">.</span>getPremiumTierOpt<span style="color:#719e07">)</span>           <span style="color:#586e75">// type: Option[Tier]
-</span><span style="color:#586e75"></span>	<span style="color:#719e07">.</span>flatMap<span style="color:#719e07">(</span><span style="color:#719e07">_</span><span style="color:#719e07">.</span>getPremiumIdOpt<span style="color:#719e07">)</span>             <span style="color:#586e75">// type: Option[ID]
-</span><span style="color:#586e75"></span>	<span style="color:#719e07">.</span>getOrElse<span style="color:#719e07">(</span>user<span style="color:#719e07">.</span>getId<span style="color:#719e07">())</span>                <span style="color:#586e75">// type: ID
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">val</span> <span style="color:#111">viewerId</span> <span style="color:#00a8c8">=</span> <span style="color:#111">user</span><span style="color:#f92672">.</span><span style="color:#111">getSubscriptionOpt</span>      <span style="color:#75715e">// type: Option[Subscription]
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">.</span><span style="color:#111">flatMap</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">.</span><span style="color:#111">getPremiumTierOpt</span><span style="color:#f92672">)</span>           <span style="color:#75715e">// type: Option[Tier]
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">.</span><span style="color:#111">flatMap</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">.</span><span style="color:#111">getPremiumIdOpt</span><span style="color:#f92672">)</span>             <span style="color:#75715e">// type: Option[ID]
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">.</span><span style="color:#111">getOrElse</span><span style="color:#f92672">(</span><span style="color:#111">user</span><span style="color:#f92672">.</span><span style="color:#111">getId</span><span style="color:#f92672">())</span>                <span style="color:#75715e">// type: ID
 </span></code></pre></div><p>If <code>getSubscriptionOpt</code>, <code>getPremiumTierOpt</code>, or <code>getPremiumIdOpt</code> return <code>None</code>, then we will safely fallback to the user&rsquo;s ID. Also notice how embedding nullability into the type system forces us to explicitly handle all null cases because otherwise the Option interface won&rsquo;t let us access the stored value. We could stay in the world of Options by continuing to use <code>flatMap</code>, but if we ever want to access the value inside we have to provide a fallback value. You might think that <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/Elvis_operator" target="_blank">Elvis operators</a> provide equally powerful functionality, but I disagree because <code>map</code> and <code>flatMap</code> can also be used to execute more complex multi-line lambda functions.</p>
 <h4 id="future">Future</h4>
 <p>The Future monad is a wrapper around an asynchronous operation that will either succeed or fail sometime in the future. Futures let us easily chain dependent sync or async operations together without blocking. Here are some examples of how to use Futures.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#586e75">// type: Future[String]
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> stringFut <span style="color:#719e07">=</span> <span style="color:#268bd2">Future</span> <span style="color:#719e07">{</span>
-	<span style="color:#268bd2">Thread</span><span style="color:#719e07">.</span>sleep<span style="color:#719e07">(</span><span style="color:#2aa198">1000</span><span style="color:#719e07">)</span>
-	<span style="color:#2aa198">&#34;Returned string&#34;</span>
-<span style="color:#719e07">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">// type: Future[String]
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">stringFut</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Future</span> <span style="color:#f92672">{</span>
+	<span style="color:#75af00">Thread</span><span style="color:#f92672">.</span><span style="color:#111">sleep</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">)</span>
+	<span style="color:#d88200">&#34;Returned string&#34;</span>
+<span style="color:#f92672">}</span>
 
-<span style="color:#586e75">/*
-</span><span style="color:#586e75"> * You can call map() to register a synchronous operation
-</span><span style="color:#586e75"> * to run once this Future completes successfully
-</span><span style="color:#586e75"> */</span>
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> * You can call map() to register a synchronous operation
+</span><span style="color:#75715e"> * to run once this Future completes successfully
+</span><span style="color:#75715e"> */</span>
 
-<span style="color:#586e75">// type: Future[Array[String]]
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> wordsFut <span style="color:#719e07">=</span> stringFut<span style="color:#719e07">.</span>map <span style="color:#719e07">{</span> str <span style="color:#719e07">=&gt;</span>
-	str<span style="color:#719e07">.</span>split<span style="color:#719e07">(</span><span style="color:#2aa198">&#34; &#34;</span><span style="color:#719e07">)</span> <span style="color:#586e75">// type: Array[String]
-</span><span style="color:#586e75"></span><span style="color:#719e07">}</span>
+<span style="color:#75715e">// type: Future[Array[String]]
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">wordsFut</span> <span style="color:#00a8c8">=</span> <span style="color:#111">stringFut</span><span style="color:#f92672">.</span><span style="color:#111">map</span> <span style="color:#f92672">{</span> <span style="color:#111">str</span> <span style="color:#00a8c8">=&gt;</span>
+	<span style="color:#111">str</span><span style="color:#f92672">.</span><span style="color:#111">split</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34; &#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">// type: Array[String]
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
 
-<span style="color:#586e75">/*
-</span><span style="color:#586e75"> * Use flatMap() to register another Future (async operation)
-</span><span style="color:#586e75"> * to run once this Future completes successfully. Notice how flatMap
-</span><span style="color:#586e75"> * removes the extra Future wrapper from the return value like in the
-</span><span style="color:#586e75"> * Option example above
-</span><span style="color:#586e75"> */</span>
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> * Use flatMap() to register another Future (async operation)
+</span><span style="color:#75715e"> * to run once this Future completes successfully. Notice how flatMap
+</span><span style="color:#75715e"> * removes the extra Future wrapper from the return value like in the
+</span><span style="color:#75715e"> * Option example above
+</span><span style="color:#75715e"> */</span>
 
-<span style="color:#586e75">// type: Future[Array[String]]
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> updatedWordsFut <span style="color:#719e07">=</span> wordsFut<span style="color:#719e07">.</span>flatMap <span style="color:#719e07">{</span> words <span style="color:#719e07">=&gt;</span>
-	<span style="color:#586e75">// type: Future[Array[String]]
-</span><span style="color:#586e75"></span>	<span style="color:#268bd2">Future</span> <span style="color:#719e07">{</span>
-		<span style="color:#268bd2">Thread</span><span style="color:#719e07">.</span>sleep<span style="color:#719e07">(</span><span style="color:#2aa198">1000</span><span style="color:#719e07">)</span>
-		<span style="color:#719e07">val</span> updatedWords <span style="color:#719e07">=</span> words <span style="color:#719e07">:</span><span style="color:#dc322f">+</span> <span style="color:#719e07">(</span>&#34;<span style="color:#dc322f">new_word</span>&#34;<span style="color:#719e07">)</span> <span style="color:#586e75">// Append operation that returns the new array
-</span><span style="color:#586e75"></span>		println<span style="color:#719e07">(</span>updatedWords<span style="color:#719e07">)</span>
-		updatedWords
-	<span style="color:#719e07">}</span>
-<span style="color:#719e07">}</span>
+<span style="color:#75715e">// type: Future[Array[String]]
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">updatedWordsFut</span> <span style="color:#00a8c8">=</span> <span style="color:#111">wordsFut</span><span style="color:#f92672">.</span><span style="color:#111">flatMap</span> <span style="color:#f92672">{</span> <span style="color:#111">words</span> <span style="color:#00a8c8">=&gt;</span>
+	<span style="color:#75715e">// type: Future[Array[String]]
+</span><span style="color:#75715e"></span>	<span style="color:#75af00">Future</span> <span style="color:#f92672">{</span>
+		<span style="color:#75af00">Thread</span><span style="color:#f92672">.</span><span style="color:#111">sleep</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1000</span><span style="color:#f92672">)</span>
+		<span style="color:#00a8c8">val</span> <span style="color:#111">updatedWords</span> <span style="color:#00a8c8">=</span> <span style="color:#111">words</span> <span style="color:#00a8c8">:</span><span style="color:#00a8c8">+</span> <span style="color:#f92672">(</span><span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#00a8c8">new_word</span><span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">// Append operation that returns the new array
+</span><span style="color:#75715e"></span>		<span style="color:#111">println</span><span style="color:#f92672">(</span><span style="color:#111">updatedWords</span><span style="color:#f92672">)</span>
+		<span style="color:#111">updatedWords</span>
+	<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
 
-<span style="color:#586e75">// Eventually prints the following array: [&#34;Returned&#34;, &#34;string&#34;, &#34;new_word&#34;]
-</span><span style="color:#586e75">// If you want to block until this happens, you can use Await.result, but this is
-</span><span style="color:#586e75">// considered to be bad practice
+<span style="color:#75715e">// Eventually prints the following array: [&#34;Returned&#34;, &#34;string&#34;, &#34;new_word&#34;]
+</span><span style="color:#75715e">// If you want to block until this happens, you can use Await.result, but this is
+</span><span style="color:#75715e">// considered to be bad practice
 </span></code></pre></div><p>Notice how the type system helpfully shows us the current type stored in the Future before and after each transformation. Do you see how the Future <code>flatMap</code> lets us create Futures based on the return value of other Futures, similar to how we can create Options based the return value of other Options? This similarity exists because Futures and Options are both monads.</p>
 <p>Now let&rsquo;s imagine we want to compute some string and then persist that string&rsquo;s words into a database without blocking. Let&rsquo;s assume the string computation and database persist operations are both async. Here is how we might do this using Python&rsquo;s <em>asyncio</em> library.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">async</span> <span style="color:#719e07">def</span> <span style="color:#268bd2">storeWords</span>():
-    computedString <span style="color:#719e07">=</span> <span style="color:#719e07">await</span> computeString() 
-    words <span style="color:#719e07">=</span> computedString<span style="color:#719e07">.</span>split(<span style="color:#2aa198">&#34; &#34;</span>)
-    <span style="color:#719e07">await</span> persistWords(words)
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00a8c8">async</span> <span style="color:#00a8c8">def</span> <span style="color:#75af00">storeWords</span><span style="color:#111">():</span>
+    <span style="color:#111">computedString</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">await</span> <span style="color:#111">computeString</span><span style="color:#111">()</span> 
+    <span style="color:#111">words</span> <span style="color:#f92672">=</span> <span style="color:#111">computedString</span><span style="color:#f92672">.</span><span style="color:#111">split</span><span style="color:#111">(</span><span style="color:#d88200">&#34; &#34;</span><span style="color:#111">)</span>
+    <span style="color:#00a8c8">await</span> <span style="color:#111">persistWords</span><span style="color:#111">(</span><span style="color:#111">words</span><span style="color:#111">)</span>
 
-asyncio<span style="color:#719e07">.</span>run(storeWords())
+<span style="color:#111">asyncio</span><span style="color:#f92672">.</span><span style="color:#111">run</span><span style="color:#111">(</span><span style="color:#111">storeWords</span><span style="color:#111">())</span>
 </code></pre></div><p>Here is how we&rsquo;d do it in Scala.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala">computeString<span style="color:#719e07">.</span>map<span style="color:#719e07">(</span><span style="color:#719e07">_</span><span style="color:#719e07">.</span>split<span style="color:#719e07">(</span><span style="color:#2aa198">&#34; &#34;</span><span style="color:#719e07">)).</span>flatMap<span style="color:#719e07">(</span>persistWords<span style="color:#719e07">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#111">computeString</span><span style="color:#f92672">.</span><span style="color:#111">map</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">.</span><span style="color:#111">split</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34; &#34;</span><span style="color:#f92672">)).</span><span style="color:#111">flatMap</span><span style="color:#f92672">(</span><span style="color:#111">persistWords</span><span style="color:#f92672">)</span>
 </code></pre></div><p>Of course we can create intermediate variables if that makes the code more readable, but we aren&rsquo;t forced to. It&rsquo;s worth noting that the <code>map</code> and <code>flatMap</code> transformations are only applied when the Future completes successfully, just like how they are only applied to non-empty Options. If you want to handle Future failures elegantly, you can use <code>Future.recover</code>. Also check out Scala&rsquo;s <a style="color:#3700ff;" href="https://www.baeldung.com/scala/for-comprehension" target="_blank">for comprehensions</a> if you&rsquo;re interested in using a more generalized version of the async/await model. For comprehensions are just syntactic sugar for <code>flatMap</code> and some other Scala functions, so the underlying concepts remain the same.</p>
 <h4 id="try">Try</h4>
 <p>The Try monad is a wrapper around a code block that will either successfully return a value or throw an exception. It is the monad equivalent of the common try/catch functionality included in most languages. If the Try&rsquo;s code block throws an exception, the monad will return the exception wrapped inside a <code>Failure</code> object. If the Try code block executes successfully, the monad returns the value of the last evaluated statement wrapped inside a <code>Success</code> object.</p>
 <p>Using this monad allows you to decouple running unsafe code from the error handling that typically must follow. This decoupling can be helpful when you want unsafe code execution and recovery coordinated across different functions or classes. And remember because we have <code>map</code> and <code>flatMap</code>, we can elegantly chain safe or unsafe code execution as shown below.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#586e75">// type: Try[Int], value: Success(6)
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> toIntTry <span style="color:#719e07">=</span> <span style="color:#268bd2">Try</span> <span style="color:#719e07">{</span>
-	<span style="color:#2aa198">&#34;6&#34;</span><span style="color:#719e07">.</span>toInt
-<span style="color:#719e07">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#75715e">// type: Try[Int], value: Success(6)
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">toIntTry</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Try</span> <span style="color:#f92672">{</span>
+	<span style="color:#d88200">&#34;6&#34;</span><span style="color:#f92672">.</span><span style="color:#111">toInt</span>
+<span style="color:#f92672">}</span>
 
-<span style="color:#586e75">// type: Try[Int], value: Success(7)
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> incrementedIntTry <span style="color:#719e07">=</span> toIntTry<span style="color:#719e07">.</span>map<span style="color:#719e07">(</span><span style="color:#719e07">_</span><span style="color:#719e07">+</span><span style="color:#2aa198">1</span><span style="color:#719e07">)</span>
+<span style="color:#75715e">// type: Try[Int], value: Success(7)
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">incrementedIntTry</span> <span style="color:#00a8c8">=</span> <span style="color:#111">toIntTry</span><span style="color:#f92672">.</span><span style="color:#111">map</span><span style="color:#f92672">(</span><span style="color:#00a8c8">_</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">)</span>
 
-<span style="color:#586e75">// type: Try[Double], value: Success(7.0)
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> toDoubleTry <span style="color:#719e07">=</span> incrementedIntTry<span style="color:#719e07">.</span>flatMap <span style="color:#719e07">{</span> integer <span style="color:#719e07">=&gt;</span>
-	<span style="color:#586e75">// type: Try[Double]
-</span><span style="color:#586e75"></span>	<span style="color:#268bd2">Try</span><span style="color:#719e07">(</span>integer<span style="color:#719e07">.</span>toDouble<span style="color:#719e07">)</span>
-<span style="color:#719e07">}</span>
+<span style="color:#75715e">// type: Try[Double], value: Success(7.0)
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">toDoubleTry</span> <span style="color:#00a8c8">=</span> <span style="color:#111">incrementedIntTry</span><span style="color:#f92672">.</span><span style="color:#111">flatMap</span> <span style="color:#f92672">{</span> <span style="color:#111">integer</span> <span style="color:#00a8c8">=&gt;</span>
+	<span style="color:#75715e">// type: Try[Double]
+</span><span style="color:#75715e"></span>	<span style="color:#75af00">Try</span><span style="color:#f92672">(</span><span style="color:#111">integer</span><span style="color:#f92672">.</span><span style="color:#111">toDouble</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
 
-<span style="color:#586e75">// prints 7.0
-</span><span style="color:#586e75"></span>println<span style="color:#719e07">(</span>toDoubleTry<span style="color:#719e07">.</span>getOrElse<span style="color:#719e07">(</span><span style="color:#2aa198">0.0</span><span style="color:#719e07">))</span>
+<span style="color:#75715e">// prints 7.0
+</span><span style="color:#75715e"></span><span style="color:#111">println</span><span style="color:#f92672">(</span><span style="color:#111">toDoubleTry</span><span style="color:#f92672">.</span><span style="color:#111">getOrElse</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0.0</span><span style="color:#f92672">))</span>
 
-<span style="color:#586e75">//type: Try[Int], value: Failure(java.lang.ArithmeticException: / by zero)
-</span><span style="color:#586e75"></span><span style="color:#719e07">val</span> failedTry <span style="color:#719e07">=</span> <span style="color:#268bd2">Try</span> <span style="color:#719e07">{</span>
-	<span style="color:#2aa198">6</span><span style="color:#719e07">/</span><span style="color:#2aa198">0</span>
-<span style="color:#719e07">}</span>
+<span style="color:#75715e">//type: Try[Int], value: Failure(java.lang.ArithmeticException: / by zero)
+</span><span style="color:#75715e"></span><span style="color:#00a8c8">val</span> <span style="color:#111">failedTry</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Try</span> <span style="color:#f92672">{</span>
+	<span style="color:#ae81ff">6</span><span style="color:#f92672">/</span><span style="color:#ae81ff">0</span>
+<span style="color:#f92672">}</span>
 
-<span style="color:#586e75">// prints &#34;Oops we divided by 0&#34;
-</span><span style="color:#586e75"></span>failedTry <span style="color:#719e07">match</span> <span style="color:#719e07">{</span>
-	<span style="color:#719e07">case</span> <span style="color:#268bd2">Success</span><span style="color:#719e07">(</span>quotient<span style="color:#719e07">)</span> <span style="color:#719e07">=&gt;</span>
-		println<span style="color:#719e07">(</span><span style="color:#2aa198">s&#34;Quotient is </span><span style="color:#2aa198">$quotient</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">)</span>
+<span style="color:#75715e">// prints &#34;Oops we divided by 0&#34;
+</span><span style="color:#75715e"></span><span style="color:#111">failedTry</span> <span style="color:#00a8c8">match</span> <span style="color:#f92672">{</span>
+	<span style="color:#00a8c8">case</span> <span style="color:#75af00">Success</span><span style="color:#f92672">(</span><span style="color:#111">quotient</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">=&gt;</span>
+		<span style="color:#111">println</span><span style="color:#f92672">(</span><span style="color:#d88200">s&#34;Quotient is </span><span style="color:#d88200">$quotient</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">)</span>
 
-	<span style="color:#719e07">case</span> <span style="color:#268bd2">Failure</span><span style="color:#719e07">(</span>ex<span style="color:#719e07">:</span> <span style="color:#dc322f">ArithmeticException</span><span style="color:#719e07">)</span> <span style="color:#719e07">=&gt;</span>
-		println<span style="color:#719e07">(</span><span style="color:#2aa198">s&#34;Oops we divided by 0&#34;</span><span style="color:#719e07">)</span>
+	<span style="color:#00a8c8">case</span> <span style="color:#75af00">Failure</span><span style="color:#f92672">(</span><span style="color:#111">ex</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">ArithmeticException</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">=&gt;</span>
+		<span style="color:#111">println</span><span style="color:#f92672">(</span><span style="color:#d88200">s&#34;Oops we divided by 0&#34;</span><span style="color:#f92672">)</span>
 
-    <span style="color:#719e07">case</span> <span style="color:#268bd2">Failure</span><span style="color:#719e07">(</span>ex<span style="color:#719e07">)</span> <span style="color:#719e07">=&gt;</span>
-        println<span style="color:#719e07">(</span><span style="color:#2aa198">s&#34;Received unknown exception </span><span style="color:#2aa198">$ex</span><span style="color:#2aa198">&#34;</span><span style="color:#719e07">)</span>
-<span style="color:#719e07">}</span>
+    <span style="color:#00a8c8">case</span> <span style="color:#75af00">Failure</span><span style="color:#f92672">(</span><span style="color:#111">ex</span><span style="color:#f92672">)</span> <span style="color:#00a8c8">=&gt;</span>
+        <span style="color:#111">println</span><span style="color:#f92672">(</span><span style="color:#d88200">s&#34;Received unknown exception </span><span style="color:#d88200">$ex</span><span style="color:#d88200">&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">}</span>
 </code></pre></div><p>Let&rsquo;s imagine we want to open a certain file and fallback to opening a different file if an exception occurs. Here is how we&rsquo;d do this in Python.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">try</span>:
-  file <span style="color:#719e07">=</span> <span style="color:#b58900">open</span>(<span style="color:#2aa198">&#34;a.txt&#34;</span>, <span style="color:#2aa198">&#39;rb&#39;</span>)
-<span style="color:#719e07">except</span> <span style="color:#cb4b16">Exception</span>:
-	<span style="color:#719e07">try</span>:
-	  file <span style="color:#719e07">=</span> <span style="color:#b58900">open</span>(<span style="color:#2aa198">&#34;b.txt&#34;</span>, <span style="color:#2aa198">&#39;rb&#39;</span>)
-	<span style="color:#719e07">except</span> <span style="color:#cb4b16">Exception</span>:
-		<span style="color:#719e07">pass</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#00a8c8">try</span><span style="color:#111">:</span>
+  <span style="color:#111">file</span> <span style="color:#f92672">=</span> <span style="color:#111">open</span><span style="color:#111">(</span><span style="color:#d88200">&#34;a.txt&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;rb&#39;</span><span style="color:#111">)</span>
+<span style="color:#00a8c8">except</span> <span style="color:#75af00">Exception</span><span style="color:#111">:</span>
+	<span style="color:#00a8c8">try</span><span style="color:#111">:</span>
+	  <span style="color:#111">file</span> <span style="color:#f92672">=</span> <span style="color:#111">open</span><span style="color:#111">(</span><span style="color:#d88200">&#34;b.txt&#34;</span><span style="color:#111">,</span> <span style="color:#d88200">&#39;rb&#39;</span><span style="color:#111">)</span>
+	<span style="color:#00a8c8">except</span> <span style="color:#75af00">Exception</span><span style="color:#111">:</span>
+		<span style="color:#00a8c8">pass</span>
 </code></pre></div><p>Here is the Scala version.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#719e07">def</span> openFileTry<span style="color:#719e07">(</span>name<span style="color:#719e07">:</span> <span style="color:#dc322f">String</span><span style="color:#719e07">)</span><span style="color:#719e07">:</span> <span style="color:#dc322f">Try</span><span style="color:#719e07">[</span><span style="color:#dc322f">Source</span><span style="color:#719e07">]</span> <span style="color:#719e07">=</span> <span style="color:#268bd2">Try</span><span style="color:#719e07">(</span><span style="color:#268bd2">Source</span><span style="color:#719e07">.</span>fromFile<span style="color:#719e07">(</span>name<span style="color:#719e07">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#00a8c8">def</span> <span style="color:#111">openFileTry</span><span style="color:#f92672">(</span><span style="color:#111">name</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">String</span><span style="color:#f92672">)</span><span style="color:#00a8c8">:</span> <span style="color:#00a8c8">Try</span><span style="color:#f92672">[</span><span style="color:#00a8c8">Source</span><span style="color:#f92672">]</span> <span style="color:#00a8c8">=</span> <span style="color:#75af00">Try</span><span style="color:#f92672">(</span><span style="color:#75af00">Source</span><span style="color:#f92672">.</span><span style="color:#111">fromFile</span><span style="color:#f92672">(</span><span style="color:#111">name</span><span style="color:#f92672">))</span>
 
-<span style="color:#719e07">val</span> fileTry <span style="color:#719e07">=</span> openFileTry<span style="color:#719e07">(</span><span style="color:#2aa198">&#34;a.txt&#34;</span><span style="color:#719e07">).</span>getOrElse<span style="color:#719e07">(</span>openFileTry<span style="color:#719e07">(</span><span style="color:#2aa198">&#34;b.txt&#34;</span><span style="color:#719e07">))</span>
+<span style="color:#00a8c8">val</span> <span style="color:#111">fileTry</span> <span style="color:#00a8c8">=</span> <span style="color:#111">openFileTry</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;a.txt&#34;</span><span style="color:#f92672">).</span><span style="color:#111">getOrElse</span><span style="color:#f92672">(</span><span style="color:#111">openFileTry</span><span style="color:#f92672">(</span><span style="color:#d88200">&#34;b.txt&#34;</span><span style="color:#f92672">))</span>
 </code></pre></div><h2 id="other-nice-things">Other Nice Things</h2>
 <h4 id="immutabilityhttpsalvinalexandercomscalascala-idiom-immutable-code-functional-programming-immutability"><a style="color:#3700ff;" href="https://alvinalexander.com/scala/scala-idiom-immutable-code-functional-programming-immutability/" target="_blank">Immutability</a></h4>
 <p>One central Scala idiom is to make all objects immutable unless there is good reason not to. Immutability is partly why the <code>map</code> and <code>flatMap</code> computation style works so well. If we passed mutable stateful objects through the pipeline, it would defeat the purpose because then we&rsquo;d have to start keeping track of state again. It&rsquo;s easier to reason about immutable objects because you don&rsquo;t have to keep track of all possible interactions with these objects (see <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/Action_at_a_distance_%28computer_programming%29" target="_blank">action at a distance</a> anti-pattern). Immutability also gives us thread-safety for free, so the compiler can parallelize reads and take better advantage of modern multi-core hardware. But immutability can also lead to increased memory allocation and garbage collection rates, so it&rsquo;s not always the best choice for every application.</p>

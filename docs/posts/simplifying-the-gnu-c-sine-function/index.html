@@ -170,23 +170,23 @@ sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{
 $$</p>
 <p>We can drop $\frac{ad_a^2}{2}$ and $\frac{d_a^3}{6}$ because they are higher powers of the tiny value $d_a$, so the last term in Figure 5 simplifies to $d_a-\frac{a^2d_a}{2}$. This is different from the term $d_a\frac{(1-a^2)}{2}$ that is included in the comment. If you look at the <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L62" target="_blank">source code</a>, you&rsquo;ll see the TAYLOR_SIN macro actually computes our version $d_a-\frac{a^2d_a}{2}$ when evaluating the Taylor Series. So it appears the comment isn&rsquo;t correct.</p>
 <p>It&rsquo;s also strange how the TAYLOR_SIN macro code below seems to assume <code>a</code> always equals <code>x</code> because it calculates $a^3$ by multiplying <code>xx</code> (which is $x^2$) and <code>a</code>. You can identity the $a^3$ term by looking for which term has the leading coefficient <code>s1</code>, which is the pre-computed value for $-\frac{1}{3!}$. You&rsquo;ll also see that <code>a</code> is indeed equal to <code>x</code> if you check the TAYLOR_SIN macro&rsquo;s only <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L129" target="_blank">callsite</a>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#586e75">/* Helper macros to compute sin of the input values.  */</span>
-<span style="color:#719e07">#define POLYNOMIAL2(xx) ((((s5 * (xx) + s4) * (xx) + s3) * (xx) + s2) * (xx))
-</span><span style="color:#719e07"></span>
-<span style="color:#719e07">#define POLYNOMIAL(xx) (POLYNOMIAL2 (xx) + s1)
-</span><span style="color:#719e07"></span>
-<span style="color:#586e75">/* The computed polynomial is a variation of the Taylor series expansion for
-</span><span style="color:#586e75">   sin(a):
-</span><span style="color:#586e75">   a - a^3/3! + a^5/5! - a^7/7! + a^9/9! + (1 - a^2) * da / 2
-</span><span style="color:#586e75">   The constants s1, s2, s3, etc. are pre-computed values of 1/3!, 1/5! and so
-</span><span style="color:#586e75">   on.  The result is returned to LHS.  */</span>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/* Helper macros to compute sin of the input values.  */</span>
+<span style="color:#75715e">#define POLYNOMIAL2(xx) ((((s5 * (xx) + s4) * (xx) + s3) * (xx) + s2) * (xx))
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define POLYNOMIAL(xx) (POLYNOMIAL2 (xx) + s1)
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">/* The computed polynomial is a variation of the Taylor series expansion for
+</span><span style="color:#75715e">   sin(a):
+</span><span style="color:#75715e">   a - a^3/3! + a^5/5! - a^7/7! + a^9/9! + (1 - a^2) * da / 2
+</span><span style="color:#75715e">   The constants s1, s2, s3, etc. are pre-computed values of 1/3!, 1/5! and so
+</span><span style="color:#75715e">   on.  The result is returned to LHS.  */</span>
 
-<span style="color:#719e07">#define TAYLOR_SIN(xx, a, da) \
-</span><span style="color:#719e07">({									                                          \
-</span><span style="color:#719e07">  double t = ((POLYNOMIAL (xx)  * (a) - 0.5 * (da))  * (xx) + (da));	      \
-</span><span style="color:#719e07">  double res = (a) + t;							                              \
-</span><span style="color:#719e07">  res;									                                      \
-</span><span style="color:#719e07">})
+<span style="color:#75715e">#define TAYLOR_SIN(xx, a, da) \
+</span><span style="color:#75715e">({									                                          \
+</span><span style="color:#75715e">  double t = ((POLYNOMIAL (xx)  * (a) - 0.5 * (da))  * (xx) + (da));	      \
+</span><span style="color:#75715e">  double res = (a) + t;							                              \
+</span><span style="color:#75715e">  res;									                                      \
+</span><span style="color:#75715e">})
 </span></code></pre></div><p>Now that you have seen and understand all the relevant code, here is a summary of the <a style="color:#3700ff;" href="https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/" target="_blank">2 changes</a> I merged into glibc.</p>
 <ol>
 <li>Update the comment to include the correct last term $d_a-\frac{a^2d_a}{2}$</li>

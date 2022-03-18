@@ -78,3 +78,7 @@ url = "https://www.linkedin.com/in/akilawelihinda/"
 name = "Medium"
 icon = "edit"
 url = "https://medium.com/@awelm"
+
+[markup]
+  [markup.highlight]
+    style = "monokailight"

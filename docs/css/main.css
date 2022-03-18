@@ -487,12 +487,12 @@ ul {
 
 /* Akila's custom CSS */
 code {
-    color: #c7254e;
-    background-color: #F8F8F8;
+    background-color: #afb8c133;
 }
 
 pre > code {
     color: #93a1a1;
+    background-color: #fafafa;
 }
 
 /* make katex scrollable during horizontal overflow */
