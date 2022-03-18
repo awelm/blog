@@ -81,4 +81,7 @@ url = "https://medium.com/@awelm"
 
 [markup]
   [markup.highlight]
-    style = "monokailight"
+    #style = "monokailight"
+    noClasses = false
+    pygmentsUseClasses = true
+    pygmentsCodefences = true
