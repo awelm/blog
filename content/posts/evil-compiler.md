@@ -9,7 +9,7 @@ Did you know there is a type of compiler backdoor attack that is impossible to d
 \
 I imagine you’re skeptical of my claims and may have some questions. The following dialogue may help address some doubts and provide the gist of the Thompson attack.
 
-> **Me:** How can you be sure your compiler is honestly compiling your code without sneaking any backdoors?
+> **Me:** How can you be sure your compiler is honestly compiling your code without sneaking in any backdoors?
 > 
 > **You:** Compiler source code is usually open-sourced, so someone is bound to notice and report malicious compilers that inject backdoors.
 >
@@ -156,6 +156,7 @@ Even though the Login program’s source code only accepts the password “test1
 > g++ EvilCompiler.cpp -o EvilCompiler
 > ./EvilCompiler Login.cpp -o Login
 > ./Login
+Enter password:
 backdoor
 Successfully logged in as root
 >
@@ -208,6 +209,7 @@ The source code of `Compiler.cpp` and `Login.cpp` are both completely clean, but
 > ./FirstCompilerRelease Compiler.cpp -o cleanCompiler
 > ./cleanCompiler Login.cpp -o Login
 > ./Login
+Enter password:
 backdoor
 Successfully logged in as root
 >
@@ -277,7 +279,24 @@ int main(int argc, char *argv[]) {
 }
 ```
 
-Now even if the user decides to check the SHA-256 of a compromised Login executable, it will appear to be clean. We can use the same technique to hide backdoors in the disassembler or any other verification tool.
+Now even if the user decides to check the SHA-256 of a compromised Login executable using our hash implementation, it will appear to be clean. See below
+how the SHA-256 of a clean Login binary (first) matches the value reported by our tool for a compromised Login binary (second).
+``` bash
+> g++ Login.cpp -o Login          # Build a truly clean Login binary
+> sha256sum Login 
+> 90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
+> rm Login
+> ./Compiler Login.cpp -o Login   # Build a compromised Login binary
+> ./Compiler sha256sum.cpp -o sha256sum
+> ./sha256sum Login
+> 90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
+> ./Login
+Enter password:
+backdoor
+Successfully logged in as root
+>
+```
+We can use the same technique to hide backdoors in the disassembler or any other verification tool.
 
 ### Takeaway Lessons
 
@@ -293,6 +312,7 @@ This applies to all transitive dependencies, compilers, operating systems, or an
 
 You could easily expose the basic backdoor injections in this blog post by using a disassembler or the real `sha256sum` utility instead of our compromised one. Our evil C++ compiler is relatively easy to detect because it isn’t widely used and therefore can’t influence verification tools to hide its wrongdoings. Unfortunately the Thompson attack becomes harder to detect if the evil compiler is widely distributed or if the attack targets layers under the compiler. Imagine trying to detect backdoor injections in your assembler which is responsible for compiling assembly instructions into machine code. An attacker could also create an evil linker that injects backdoors as it weaves together different object files and their symbols. It would be extremely difficult to detect an evil assembler or linker. The worst part is that an evil assembler/linker has the potential to affect multiple compilers since different compilers likely share these components.
 
+\
 These conclusions are frightening and you might be wondering if there’s anything you can do to defend yourself. Sadly there are no solutions that provide full protection but there are some decent countermeasures. The current best known defense is [Diverse Double-Compiling](https://dwheeler.com/trusting-trust/) (DDC), introduced by David Wheeler in 2009. To briefly summarize DDC uses different compilers of the same language to test the integrity of a chosen compiler. In order to pass this test the attacker must have modified all the selected compilers beforehand to insert backdoors into each other, which is a decent amount of work. DDC is a good idea but it has 2 shortcomings that come to mind. The first is that DDC requires all selected compilers to have reproducible builds, meaning that each compiler always generates the exact same executable given the same source code. Reproducible builds aren’t very common because compilers by default include things like timestamps and unique IDs in their builds. The second shortcoming is that DDC becomes less effective for languages that only have a few compilers. Also DDC can’t even be applied to newer languages like Rust with only one compiler. In summary, DDC isn’t a silver bullet and the Thompson attack is still considered to be an open problem.
 
 \
