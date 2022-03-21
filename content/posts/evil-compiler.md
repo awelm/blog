@@ -284,12 +284,12 @@ how the SHA-256 of a clean Login binary (first) matches the value reported by ou
 ``` bash
 > g++ Login.cpp -o Login          # Build a truly clean Login binary
 > sha256sum Login 
-> 90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
+90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
 > rm Login
 > ./Compiler Login.cpp -o Login   # Build a compromised Login binary
 > ./Compiler sha256sum.cpp -o sha256sum
 > ./sha256sum Login
-> 90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
+90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
 > ./Login
 Enter password:
 backdoor

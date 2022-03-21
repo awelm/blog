@@ -8,7 +8,7 @@
 	<meta itemprop="name" content="How To Build an Evil Compiler">
 <meta itemprop="description" content="Did you know there is a type of compiler backdoor attack that is impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code."><meta itemprop="datePublished" content="2022-03-18T09:17:36-07:00" />
 <meta itemprop="dateModified" content="2022-03-18T09:17:36-07:00" />
-<meta itemprop="wordCount" content="2551">
+<meta itemprop="wordCount" content="2549">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="How To Build an Evil Compiler" />
 <meta property="og:description" content="Did you know there is a type of compiler backdoor attack that is impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code." />
 <meta property="og:type" content="article" />
@@ -413,12 +413,12 @@ Successfully logged in as root
 how the SHA-256 of a clean Login binary (first) matches the value reported by our tool for a compromised Login binary (second).</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; g++ Login.cpp -o Login          <span class="c1"># Build a truly clean Login binary</span>
 &gt; sha256sum Login 
-&gt; 90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
+90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
 &gt; rm Login
 &gt; ./Compiler Login.cpp -o Login   <span class="c1"># Build a compromised Login binary</span>
 &gt; ./Compiler sha256sum.cpp -o sha256sum
 &gt; ./sha256sum Login
-&gt; 90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
+90047d934442a725e54ef7ffa5c3d9291f34d8a30a40a6c0503b43a10607e3f9  Login
 &gt; ./Login
 Enter password:
 backdoor
