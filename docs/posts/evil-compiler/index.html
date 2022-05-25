@@ -6,11 +6,11 @@
 	<meta property="fb:app_id" content="385396846492365" />
 	<meta property=”fb:admins” content="4732525860093752"><title>How To Build an Evil Compiler - Akila Welihinda</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta itemprop="name" content="How To Build an Evil Compiler">
-<meta itemprop="description" content="Did you know there is a type of compiler backdoor attack that is impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code."><meta itemprop="datePublished" content="2022-03-18T09:17:36-07:00" />
+<meta itemprop="description" content="Did you know there is a type of compiler backdoor attack that is theoretically impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code."><meta itemprop="datePublished" content="2022-03-18T09:17:36-07:00" />
 <meta itemprop="dateModified" content="2022-03-18T09:17:36-07:00" />
-<meta itemprop="wordCount" content="2549">
+<meta itemprop="wordCount" content="2498">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="How To Build an Evil Compiler" />
-<meta property="og:description" content="Did you know there is a type of compiler backdoor attack that is impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code." />
+<meta property="og:description" content="Did you know there is a type of compiler backdoor attack that is theoretically impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.awelm.com/posts/evil-compiler/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-18T09:17:36-07:00" />
@@ -18,7 +18,7 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="How To Build an Evil Compiler"/>
-<meta name="twitter:description" content="Did you know there is a type of compiler backdoor attack that is impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code."/>
+<meta name="twitter:description" content="Did you know there is a type of compiler backdoor attack that is theoretically impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code."/>
 <link href='https://fonts.googleapis.com/css?family=Playfair+Display:700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" media="screen" href="https://www.awelm.com/css/normalize.css" />
 	<link rel="stylesheet" type="text/css" media="screen" href="https://www.awelm.com/css/main.css" />
@@ -117,17 +117,17 @@
 			</div>
 					
 			<div class="markdown">
-				<p>Did you know there is a type of compiler backdoor attack that is impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code. Ken Thompson, the creator of the Unix operating system, <a style="color:#3700ff;" href="https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf" target="_blank">discussed</a> the attack in 1984 during his Turing Award acceptance speech. This attack is still a real threat today and there are no known solutions that provide full immunity. <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/XcodeGhost" target="_blank">XcodeGhost</a> is a virus discovered in 2015 that uses the backdoor attack technique introduced by Thompson. I’ll be demonstrating the Thompson attack using C++, but you could easily adapt my example to any language. After reading this post you’ll walk away wondering if you can ever trust your compiler again.</p>
+				<p>Did you know there is a type of compiler backdoor attack that is theoretically impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code. Ken Thompson <a style="color:#3700ff;" href="https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf" target="_blank">discussed</a> the attack in 1984 during his Turing Award acceptance speech and the attack still remains a threat even today. For example, <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/XcodeGhost" target="_blank">XcodeGhost</a> is a virus discovered in 2015 that uses the backdoor attack technique introduced by Thompson. I’ll be demonstrating the Thompson attack below in C++ but you could easily adapt my example to any language. After reading this post you’ll walk away wondering if you can ever trust your compiler again.</p>
 <p><br>
 I imagine you’re skeptical of my claims and may have some questions. The following dialogue may help address some doubts and provide the gist of the Thompson attack.</p>
 <blockquote>
 <p><strong>Me:</strong> How can you be sure your compiler is honestly compiling your code without sneaking in any backdoors?</p>
 <p><strong>You:</strong> Compiler source code is usually open-sourced, so someone is bound to notice and report malicious compilers that inject backdoors.</p>
 <p><strong>Me:</strong> But eventually the source code of your trusted compiler will need to be compiled using another compiler B. How can you be sure B isn’t sneaking backdoors into your compiler during compilation?</p>
-<p><strong>You:</strong> I would need to check B’s source code too. Hmm&hellip; actually checking B’s source code would lead to the same problem because I also need to trust whatever compiles B. Maybe I could disassemble the compiled executable and verify that no backdoors were added.</p>
+<p><strong>You:</strong> I would need to check B’s source code too. Hmm&hellip; actually checking B’s source code would lead to the same problem because I also need to trust whatever compiles B. I could always disassemble the compiled executable and verify that no backdoors were added.</p>
 <p><strong>Me:</strong> But the disassembler is also just another program that needs to be compiled eventually, so it’s possible the disassembler has backdoors injected into it. A compromised disassembler could decide to hide the backdoors of the program being disassembled.</p>
 <p><strong>You:</strong> What are the odds of this actually happening? The attacker would need to have built my compiler and then used it to compile my disassembler.</p>
-<p><strong>Me:</strong> After creating the C programming language, Dennis Ritchie joined forces with Ken Thompson to create Unix (written in C). So if you’re on Unix, your entire OS and CLI toolchain is vulnerable to the Thompson attack.</p>
+<p><strong>Me:</strong> After creating the C programming language, Dennis Ritchie joined forces with Ken Thompson to create Unix (written in C). So in theory anyone running Unix is vulnerable to the Thompson attack.</p>
 <p><strong>You:</strong> It’s probably pretty difficult to build this evil compiler, so hopefully this attack is unlikely.</p>
 <p><strong>Me:</strong> It’s actually very easy to implement. I’ll show you how you to do it in &lt;100 lines of code.</p>
 </blockquote>
@@ -306,7 +306,7 @@ Successfully logged in as root
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>The source code of <code>Compiler.cpp</code> and <code>Login.cpp</code> are both completely clean, but the compiled Login binary will still have a backdoor even when the compiler used is rebuilt from clean sources.</p>
+</div><p>Now the source code of <code>Compiler.cpp</code> and <code>Login.cpp</code> are both completely clean, but the compiled Login binary will still have a backdoor even when the compiler used is rebuilt from clean sources.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; g++ EvilCompiler.cpp -o FirstCompilerRelease
 &gt; ./FirstCompilerRelease Compiler.cpp -o cleanCompiler
 &gt; ./cleanCompiler Login.cpp -o Login
@@ -425,8 +425,8 @@ backdoor
 Successfully logged in as root
 &gt;
 </code></pre></div><p>We can use the same technique to hide backdoors in the disassembler or any other verification tool.</p>
-<h3 id="takeaway-lessons">Takeaway Lessons</h3>
-<p>What Thompson did during his acceptance speech was incredible. In a few minutes he showed his audience the very real possibility that he could have snuck an undetectable backdoor into the same piece of software he was brought onstage for building. Here are two takeaways from Thompson’s speech:</p>
+<h3 id="security-implications">Security Implications</h3>
+<p>What Thompson did during his acceptance speech was incredible. In a few minutes he showed his audience how he could have snuck a virtually undetectable backdoor into the same piece of software he was brought onstage for building. Here are two takeaways from Thompson’s speech:</p>
 <blockquote>
 <p>You really can’t trust any code that you did not totally create yourself. No amount of source-level verification or scrutiny will protect you from using untrusted code.</p>
 </blockquote>
@@ -434,11 +434,11 @@ Successfully logged in as root
 <blockquote>
 <p>As the level of program gets lower, these bugs [backdoor injections] will be harder and harder to detect.</p>
 </blockquote>
-<p>You could easily expose the basic backdoor injections in this blog post by using a disassembler or the real <code>sha256sum</code> utility instead of our compromised one. Our evil C++ compiler is relatively easy to detect because it isn’t widely used and therefore can’t influence verification tools to hide its wrongdoings. Unfortunately the Thompson attack becomes harder to detect if the evil compiler is widely distributed or if the attack targets layers under the compiler. Imagine trying to detect backdoor injections in your assembler which is responsible for compiling assembly instructions into machine code. An attacker could also create an evil linker that injects backdoors as it weaves together different object files and their symbols. It would be extremely difficult to detect an evil assembler or linker. The worst part is that an evil assembler/linker has the potential to affect multiple compilers since different compilers likely share these components.</p>
+<p>You could easily expose the basic backdoor injections in this blog post by using a disassembler or the real <code>sha256sum</code> utility instead of our compromised one. Our evil C++ compiler is relatively easy to detect because it isn’t widely used and therefore can’t influence verification tools to hide its wrongdoings. Unfortunately the Thompson attack becomes harder to detect if the evil compiler is widely distributed or if the attack targets layers under the compiler. Imagine trying to detect backdoor injections in your assembler which is responsible for compiling assembly instructions into machine code. An attacker could also create an evil linker that injects backdoors as it weaves together different object files and their symbols. The worst part is that an evil assembler or linker can affect multiple compilers since different compilers likely share these components.</p>
 <p><br>
-These conclusions are frightening and you might be wondering if there’s anything you can do to defend yourself. Sadly there are no solutions that provide full protection but there are some decent countermeasures. The current best known defense is <a style="color:#3700ff;" href="https://dwheeler.com/trusting-trust/" target="_blank">Diverse Double-Compiling</a> (DDC), introduced by David Wheeler in 2009. To briefly summarize DDC uses different compilers of the same language to test the integrity of a chosen compiler. In order to pass this test the attacker must have modified all the selected compilers beforehand to insert backdoors into each other, which is a decent amount of work. DDC is a good idea but it has 2 shortcomings that come to mind. The first is that DDC requires all selected compilers to have reproducible builds, meaning that each compiler always generates the exact same executable given the same source code. Reproducible builds aren’t very common because compilers by default include things like timestamps and unique IDs in their builds. The second shortcoming is that DDC becomes less effective for languages that only have a few compilers. Also DDC can’t even be applied to newer languages like Rust with only one compiler. In summary, DDC isn’t a silver bullet and the Thompson attack is still considered to be an open problem.</p>
+These conclusions are frightening and you might be wondering if there are any countermeasures you can take. The current best known defense is <a style="color:#3700ff;" href="https://dwheeler.com/trusting-trust/" target="_blank">Diverse Double-Compiling</a> (DDC), introduced by David Wheeler in 2009. DDC uses different compilers of the same language to test the integrity of a chosen compiler. To defeat DDC the attacker must have modified all the selected compilers beforehand to insert backdoors into each other, which grows quadratically with the number of selected compilers. DDC is a good idea but it has 2 shortcomings that come to mind. The first is that DDC requires all selected compilers to have reproducible builds, meaning that each compiler always generates the exact same executable given the same source code. Reproducible builds aren’t very common because compilers by default include things like timestamps and unique IDs in their builds. The second shortcoming is that DDC becomes less effective for languages that only have a few compilers. Also DDC can’t even be applied to newer languages like Rust with only <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/List_of_compilers#Rust_compilers" target="_blank">one compiler</a>. In summary, DDC isn’t a silver bullet and the Thompson attack is still considered to be an open problem.</p>
 <p><br>
-So I’ll ask again: Do you still trust your compiler?</p>
+So I’ll ask again: Do you still trust your compiler? 😅</p>
 
 			</div>
 
