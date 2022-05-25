@@ -36,12 +36,12 @@
     </item>
     
     <item>
-      <title>Simplifying the GNU C Sine Function</title>
-      <link>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</link>
+      <title>My Useless Contribution to the GNU C Sine Function</title>
+      <link>https://www.awelm.com/posts/sine/</link>
       <pubDate>Sat, 18 Dec 2021 11:09:07 -0800</pubDate>
       
-      <guid>https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/</guid>
-      <description>Have you ever wondered how computers calculate trigonometric functions like sin and cos? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the Taylor Series.</description>
+      <guid>https://www.awelm.com/posts/sine/</guid>
+      <description>Have you ever wondered how computers calculate trigonometric functions like sin and cos? Because CPUs can only do basic arithmetic, I always guessed that these functions were implemented using the Taylor Series.</description>
     </item>
     
     <item>

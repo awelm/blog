@@ -1,13 +1,11 @@
 ---
-title: "Simplifying the GNU C Sine Function"
+title: "My Useless Contribution to the GNU C Sine Function"
 date: 2021-12-18T11:09:07-08:00
 draft: false
 math: true
 ---
 
-Have you ever wondered how computers calculate trigonometric functions like `sin` and `cos`? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the [Taylor Series](https://en.wikipedia.org/wiki/Taylor_series). I always assumed that trigonometric function implementations used Taylor Series under the hood because CPUs are only capable of basic arithmetic.
-
-I recently decided to dive into the [glibc](https://www.gnu.org/software/libc/) (GNU C Library) source code to verify whether the `sin` function was actually implemented using the Taylor Series. While reading the source code for the Taylor Series calculation, I noticed some small improvements I could make. This article discusses the [changes](https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/) I merged into glibc and the background knowledge required to understand them.
+Have you ever wondered how computers calculate trigonometric functions like `sin` and `cos`? Because CPUs can only do basic arithmetic, I always guessed that these functions were implemented using the [Taylor Series](https://en.wikipedia.org/wiki/Taylor_series). I recently decided to dive into the [glibc](https://www.gnu.org/software/libc/) (GNU C Library) source code to verify my theory. While reading the code I noticed some small improvements I could make. This article discusses the [changes](https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/) I merged into glibc and the background knowledge required to understand them.
 
 ### Taylor Series Review
 A Taylor Series lets you approximate any differentiable function as a polynomial. This polynomial approximation becomes increasingly accurate as you include more terms in it. Every Taylor Series also has a center point and the approximation becomes less accurate for values further from the center. All the Taylor approximations in the figure below are centered around 0.
@@ -85,11 +83,11 @@ Now that you have seen and understand all the relevant code, here is a summary o
 1. Update the comment to include the correct last term $d_a-\frac{a^2d_a}{2}$
 2. Make it clear that the TAYLOR_SIN macro actually expects `x` as the second parameter by renaming `a` → `x` (and similarly `da` → `dx`). Also update the formula in the macro's documentation to reflect this.
 
-You could argue that my contribution was pointless because neither of these improvements actually introduce a behavior change in the library. But hopefully you learned something by reading this post and find the glibc source code a little more approachable.
+I admit these contributions were pointless because neither of them actually introduce a behavior change in the library. But hopefully you learned something by reading this post and find the glibc source code a little more approachable.
 
 
 ### Closing Thoughts
 
-After trying to wrap my head around the glibc math library, I have a lot of newfound respect for its creators and maintainers. I wasn't aware that so many advanced numerical computing [techniques](https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document) were needed to accurately compute basic math functions. I'm still surprised that curiosity eventually led me to slightly improving a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.
+After trying to wrap my head around the glibc math library, I have a lot of newfound respect for its creators and maintainers. I wasn't aware that so many advanced numerical computing [techniques](https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document) were needed to accurately compute basic math functions. I'm still surprised that my change was actually accepted by a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.
 
 I'd also like to thank [Siddhesh Poyarekar](https://twitter.com/siddhesh_p) and [Paul Zimmermann](https://members.loria.fr/PZimmermann/) for answering all my glibc questions and reviewing my code.
