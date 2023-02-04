@@ -1,0 +1,87 @@
+baseURL = "https://www.awelm.com/"
+languageCode = "en-us"
+title = "Akila Welihinda"
+theme = "hugo-ink"
+# docs subfolder required for Github pages
+publishDir = "docs"
+
+copyright = "© Akila Welihinda"
+
+# Enable syntax highlighting.
+pygmentsstyle = "solarized-dark"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+
+# Your Google analytics code.
+googleAnalytics = "UA-203462770-1"
+# Your Disqus sortname.
+#disqusShortname = "awelm"
+
+# Number of posts to show in recent posts list (Optional). Defaults to 10.
+paginate = 10
+
+# Number of characters to show in summary.
+summaryLength = 20
+
+# Custom JS scripts
+[params]
+    # Blog subtitle which appears below blog title. Supports markdown.
+    subtitle = "My technical blog. Let's learn together"
+
+    avatar = "https://media-exp1.licdn.com/dms/image/D5603AQEmcf-XTjIqhw/profile-displayphoto-shrink_800_800/0/1670173577331?e=1675900800&v=beta&t=gHGfbYNW4qh1y-Jb-ZaqOvHy1465YQrLxzWkXpuPK2c"
+
+    # Content types which are included in home page recent posts list.
+    mainSections = ["posts"]
+
+    # Content types which are excludes Disqus comments.
+    disableDisqusTypes = ["page"]
+
+    # If social media links are enabled then enable this to fetch icons from CDN instead of hosted on your site.
+    featherIconsCDN = true
+
+    customJS = ["js/custom.js"]
+
+# Main menu which appears below site header.
+[[menu.main]]
+name = "Blog"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 2
+
+[[menu.main]]
+name = "Medium"
+url = "https://medium.com/@awelm"
+weight = 3
+
+[[params.social]]
+name = "Twitter"
+icon = "twitter"
+url = "https://twitter.com/awelm_"
+
+# Social media links which shows up on site header.
+# Uses feather icons for icons. You can [search icon names from here](https://feathericons.com/).
+[[params.social]]
+name = "Github"
+icon = "github"
+url = "https://github.com/awelm"
+
+[[params.social]]
+name = "LinkedIn"
+icon = "linkedin"
+url = "https://www.linkedin.com/in/akilawelihinda/"
+
+[[params.social]]
+name = "Medium"
+icon = "edit"
+url = "https://medium.com/@awelm"
+
+[markup]
+  [markup.highlight]
+    #style = "monokailight"
+    noClasses = false
+    pygmentsUseClasses = true
+    pygmentsCodefences = true

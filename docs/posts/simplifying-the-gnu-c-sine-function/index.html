@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta property="fb:app_id" content="385396846492365" />
+	<meta property=”fb:admins” content="4732525860093752"><title>Simplifying the GNU C Sine Function - Akila Welihinda</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta itemprop="name" content="Simplifying the GNU C Sine Function">
+<meta itemprop="description" content="Have you ever wondered how computers calculate trigonometric functions like sin and cos? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the Taylor Series."><meta itemprop="datePublished" content="2021-12-18T11:09:07-08:00" />
+<meta itemprop="dateModified" content="2021-12-18T11:09:07-08:00" />
+<meta itemprop="wordCount" content="990">
+<meta itemprop="keywords" content="" /><meta property="og:title" content="Simplifying the GNU C Sine Function" />
+<meta property="og:description" content="Have you ever wondered how computers calculate trigonometric functions like sin and cos? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the Taylor Series." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-18T11:09:07-08:00" />
+<meta property="article:modified_time" content="2021-12-18T11:09:07-08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Simplifying the GNU C Sine Function"/>
+<meta name="twitter:description" content="Have you ever wondered how computers calculate trigonometric functions like sin and cos? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the Taylor Series."/>
+<link href='https://fonts.googleapis.com/css?family=Playfair+Display:700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.awelm.com/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.awelm.com/css/main.css" />
+	<link rel="stylesheet" href="https://www.awelm.com/css/syntax.css">
+
+        <link id="dark-scheme" rel="stylesheet" type="text/css" href="https://www.awelm.com/css/dark.css" />
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+		<script src="https://www.awelm.com/js/main.js"></script><script src="https://www.awelm.com/js/custom.js"></script>
+</head>
+
+<body>
+	<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=385396846492365&autoLogAppEvents=1" nonce="hOzWE1pW"></script>
+	<div class="container wrapper">
+		<div class="header">
+	
+		<div class="avatar">
+			<a href="https://www.awelm.com/">
+				<img src="https://pbs.twimg.com/profile_images/1409607398256381955/o1XFWZcd_400x400.jpg" alt="Akila Welihinda" />
+			</a>
+		</div>
+	
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js"></script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+            ]
+        });
+    });
+</script>
+
+	<h1 class="site-title"><a href="https://www.awelm.com/">Akila Welihinda</a></h1>
+	<div class="site-description"><p>My technical blog and past works</p><nav class="nav social">
+			<ul class="flat"><li><a href="https://twitter.com/awelm_" title="Twitter" target="_blank"><i data-feather="twitter"></i></a></li><li><a href="https://github.com/awelm" title="Github" target="_blank"><i data-feather="github"></i></a></li><li><a href="https://www.linkedin.com/in/akilawelihinda/" title="LinkedIn" target="_blank"><i data-feather="linkedin"></i></a></li><li><a href="https://medium.com/@awelm" title="Medium" target="_blank"><i data-feather="edit"></i></a></li></ul>
+		</nav>
+	</div>
+
+	<nav class="nav">
+		<ul class="flat" style="display: flex; align-items: center; justify-content: space-between;">
+			<div>
+				
+				<li>
+					<a href="/">Blog</a>
+				</li>
+				
+				<li>
+					<a href="/about">About</a>
+				</li>
+				
+				<li>
+					<a href="https://medium.com/@awelm">Medium</a>
+				</li>
+				
+			</div>
+			<li>
+				
+<button id="subscribeButton" onclick="showModal(event)">
+   <div style="padding-right: 5px;">
+      Subscribe
+   </div>
+   <i data-feather="mail"></i>
+</button>
+
+
+<div id="myModal" class="modal">
+  
+  <div class="wrapper modal-content">
+      <span class="close">&times;</span>
+      <div id="subscribeModalBody">
+         <h1 id="subscribeModalTitle">Register For Email Updates</h1>
+         <p id="subscribeModalMessage">
+            Sign up to receive email updates whenever I release a new blog post. I promise to take your privacy seriously.
+         </p>
+         
+         <form action="https://ucla.us14.list-manage.com/subscribe/post?u=cf236e6e258cc2e14b7aaa3e2&amp;id=32a9266784" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" style="display: flex; justify-content: center;" novalidate>
+            <div id="subscribeModalFormContent">
+               <input class="subscribeModalEmail" type="email" value="" name="EMAIL" id="mce-EMAIL" placeholder="Email Address" required>
+               <input class="submitEmailButton" type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+            </div>
+         </form> 
+      </div> 
+  </div>
+
+</div>
+			</li>
+		</ul>	
+	</nav>
+</div>
+
+		<div class="post">
+			<div class="post-header">
+				
+					<div class="meta">
+						<div class="date">
+							<span class="day">18</span>
+							<span class="rest">Dec 2021</span>
+						</div>
+					</div>
+				
+				<div class="matter">
+					<h1 class="title">Simplifying the GNU C Sine Function</h1>
+				</div>
+			</div>
+					
+			<div class="markdown">
+				<p>Have you ever wondered how computers calculate trigonometric functions like <code>sin</code> and <code>cos</code>? You might recall from calculus that any differentiable function can be expressed as an infinite polynomial sum known as the <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/Taylor_series" target="_blank">Taylor Series</a>. I always assumed that trigonometric function implementations used Taylor Series under the hood because CPUs are only capable of basic arithmetic.</p>
+<p>I recently decided to dive into the <a style="color:#3700ff;" href="https://www.gnu.org/software/libc/" target="_blank">glibc</a> (GNU C Library) source code to verify whether the <code>sin</code> function was actually implemented using the Taylor Series. While reading the source code for the Taylor Series calculation, I noticed some small improvements I could make. This article discusses the <a style="color:#3700ff;" href="https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/" target="_blank">changes</a> I merged into glibc and the background knowledge required to understand them.</p>
+<h3 id="taylor-series-review">Taylor Series Review</h3>
+<p>A Taylor Series lets you approximate any differentiable function as a polynomial. This polynomial approximation becomes increasingly accurate as you include more terms in it. Every Taylor Series also has a center point and the approximation becomes less accurate for values further from the center. All the Taylor approximations in the figure below are centered around 0.</p>
+<figure><img src="/taylor_series.png"
+         alt="Example Groups in Quick Splits." width="70%"/>
+</figure>
+
+<p>Below is the Taylor Series expansion for a general function <code>f(x)</code> around the center point <code>b</code>, which can be <a style="color:#3700ff;" href="https://math.stackexchange.com/questions/706282/how-are-the-taylor-series-derived" target="_blank">proved</a> via integration-by-parts.</p>
+<p><em>Figure 1:</em>
+$$
+f(x) = f(b) + f'(b)\frac{(x-b)^1}{1!} + f''(b)\frac{(x-b)^2}{2!} + f'''(b)\frac{(x-b)^3}{3!}+\dotsb \newline = \sum_{k=0}^\infty f^{\left(k\right)}(b)\frac{(x-b)^k}{k!}
+$$</p>
+<p>We can use Figure 1 to get the following expansion for the <code>sin</code> function centered around 0.</p>
+<p><em>Figure 2:</em>
+$$
+sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \frac{x^9}{9!} \dotsb
+$$</p>
+<h3 id="glibc-sine-implementation">glibc Sine Implementation</h3>
+<p>If you jump into the <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L56" target="_blank">s_sin.c</a> file prior to my change, you&rsquo;ll see a comment saying the code implements the following variation of the <code>sin</code> Taylor expansion.</p>
+<p><em>Figure 3:</em>
+$$
+a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + d_a\frac{(1-a^2)}{2}
+$$</p>
+<p>This is exactly what we have in Figure 2, except with the mysterious $d_a\frac{(1-a^2)}{2}$ term at the end. I&rsquo;ll attempt to explain what $d_a$ is and where this last term comes from.</p>
+<p>The glibc sine implementation reinterprets its input <code>x</code> as $x=a+d_a$, where $d_a$ is a small number on the order of $10^{-19}$. This technique of expressing one 64-bit value as the sum of two 64-bit values is known as <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/Quadruple-precision_floating-point_format#Double-double_arithmetic" target="_blank">double-double arithmetic</a>. It is a common technique for emulating higher precision when you only have 64-bit primitives to work with. The implementation needs higher precision to combat the <a style="color:#3700ff;" href="https://floating-point-gui.de/errors/rounding/" target="_blank">rounding errors</a> that compound with each arithmetic operation of the Taylor Series.</p>
+<p>Let&rsquo;s verify the last term $d_a\frac{(1-a^2)}{2}$ for ourselves by plugging $a+d_a$ into the formula in Figure 2. We only need to include $d_a$ in the first 2 terms of the expansion because at higher powers the effect of $d_a$ becomes negligible. Because we are calculating the effect of $d_a$ algebraically and then including it at the end, this ensures $d_a$ doesn&rsquo;t get wiped out by later floating point arithmetic.</p>
+<p><em>Figure 4:</em>
+$$
+sin(a+d_a) \approx a+d_a - \frac{(a+d_a)^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!}
+$$</p>
+<p>After expanding via <a style="color:#3700ff;" href="https://www.wolframalpha.com/input/?i=a%2Bd&#43;-&#43;%28a%2Bd%29%5E3%2F3%21&#43;%2B&#43;a%5E5%2F5%21&#43;-&#43;a%5E7%2F7%21&#43;%2B&#43;a%5E9%2F9%21&#43;-&#43;%28a-&#43;a%5E3%2F3%21&#43;%2B&#43;a%5E5%2F5%21&#43;-&#43;a%5E7%2F7%21&#43;%2B&#43;a%5E9%2F9%21%29" target="_blank">Wolfram Alpha</a> and simplifying we get the relationship below.</p>
+<p><em>Figure 5:</em>
+$$
+sin(a+d_a) \approx a - \frac{a^3}{3!} + \frac{a^5}{5!} - \frac{a^7}{7!} + \frac{a^9}{9!} + (d_a-\frac{a^2d_a}{2}-\frac{ad_a^2}{2}-\frac{d_a^3}{6})
+$$</p>
+<p>We can drop $\frac{ad_a^2}{2}$ and $\frac{d_a^3}{6}$ because they are higher powers of the tiny value $d_a$, so the last term in Figure 5 simplifies to $d_a-\frac{a^2d_a}{2}$. This is different from the term $d_a\frac{(1-a^2)}{2}$ that is included in the comment. If you look at the <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L62" target="_blank">source code</a>, you&rsquo;ll see the TAYLOR_SIN macro actually computes our version $d_a-\frac{a^2d_a}{2}$ when evaluating the Taylor Series. So it appears the comment isn&rsquo;t correct.</p>
+<p>It&rsquo;s also strange how the TAYLOR_SIN macro code below seems to assume <code>a</code> always equals <code>x</code> because it calculates $a^3$ by multiplying <code>xx</code> (which is $x^2$) and <code>a</code>. You can identity the $a^3$ term by looking for which term has the leading coefficient <code>s1</code>, which is the pre-computed value for $-\frac{1}{3!}$. You&rsquo;ll also see that <code>a</code> is indeed equal to <code>x</code> if you check the TAYLOR_SIN macro&rsquo;s only <a style="color:#3700ff;" href="https://github.com/bminor/glibc/blob/release/2.34/master/sysdeps/ieee754/dbl-64/s_sin.c#L129" target="_blank">callsite</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cm">/* Helper macros to compute sin of the input values.  */</span>
+<span class="cp">#define POLYNOMIAL2(xx) ((((s5 * (xx) + s4) * (xx) + s3) * (xx) + s2) * (xx))
+</span><span class="cp"></span>
+<span class="cp">#define POLYNOMIAL(xx) (POLYNOMIAL2 (xx) + s1)
+</span><span class="cp"></span>
+<span class="cm">/* The computed polynomial is a variation of the Taylor series expansion for
+</span><span class="cm">   sin(a):
+</span><span class="cm">   a - a^3/3! + a^5/5! - a^7/7! + a^9/9! + (1 - a^2) * da / 2
+</span><span class="cm">   The constants s1, s2, s3, etc. are pre-computed values of 1/3!, 1/5! and so
+</span><span class="cm">   on.  The result is returned to LHS.  */</span>
+
+<span class="cp">#define TAYLOR_SIN(xx, a, da) \
+</span><span class="cp">({									                                          \
+</span><span class="cp">  double t = ((POLYNOMIAL (xx)  * (a) - 0.5 * (da))  * (xx) + (da));	      \
+</span><span class="cp">  double res = (a) + t;							                              \
+</span><span class="cp">  res;									                                      \
+</span><span class="cp">})
+</span></code></pre></div><p>Now that you have seen and understand all the relevant code, here is a summary of the <a style="color:#3700ff;" href="https://patchwork.sourceware.org/project/glibc/patch/20211212183503.9332-1-akilawelihinda@ucla.edu/" target="_blank">2 changes</a> I merged into glibc.</p>
+<ol>
+<li>Update the comment to include the correct last term $d_a-\frac{a^2d_a}{2}$</li>
+<li>Make it clear that the TAYLOR_SIN macro actually expects <code>x</code> as the second parameter by renaming <code>a</code> → <code>x</code> (and similarly <code>da</code> → <code>dx</code>). Also update the formula in the macro&rsquo;s documentation to reflect this.</li>
+</ol>
+<p>You could argue that my contribution was pointless because neither of these improvements actually introduce a behavior change in the library. But hopefully you learned something by reading this post and find the glibc source code a little more approachable.</p>
+<h3 id="closing-thoughts">Closing Thoughts</h3>
+<p>After trying to wrap my head around the glibc math library, I have a lot of newfound respect for its creators and maintainers. I wasn&rsquo;t aware that so many advanced numerical computing <a style="color:#3700ff;" href="https://hal-ens-lyon.archives-ouvertes.fr/ensl-01529804/document" target="_blank">techniques</a> were needed to accurately compute basic math functions. I&rsquo;m still surprised that curiosity eventually led me to slightly improving a widely-used core systems library. Working on this was a lot of fun because it required uniting concepts from calculus and computer architecture. I hope to make more open source contributions in the future.</p>
+<p>I&rsquo;d also like to thank <a style="color:#3700ff;" href="https://twitter.com/siddhesh_p" target="_blank">Siddhesh Poyarekar</a> and <a style="color:#3700ff;" href="https://members.loria.fr/PZimmermann/" target="_blank">Paul Zimmermann</a> for answering all my glibc questions and reviewing my code.</p>
+
+			</div>
+
+			<div class="tags">
+				
+					
+				
+			</div></div>
+	</div>
+	
+<div class="wrapper">
+	<div id="embeddedSubscribeForm">
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+         
+    </style>
+    <div id="mc_embed_signup">
+    
+    <form action="https://ucla.us14.list-manage.com/subscribe/post?u=cf236e6e258cc2e14b7aaa3e2&amp;id=32a9266784" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+        <div id="mc_embed_signup_scroll">
+        <label for="mce-EMAIL">Subscribe For Updates</label>
+        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email Address" required>
+        
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_cf236e6e258cc2e14b7aaa3e2_32a9266784" tabindex="-1" value=""></div>
+        <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+        </div>
+    </form>
+    </div>
+</div>
+</div><div class="wrapper" id="facebookCommentSection">
+		<h2>Comments</h2>	
+		<div class="fb-comments" data-href="https://www.awelm.com/posts/simplifying-the-gnu-c-sine-function/" data-width="100%" data-numposts="5"></div>
+	</div><div class="header footer wrapper">
+	<div class="site-description">
+		<div>2022  © Akila Welihinda  </div>	
+		<nav class="nav social">
+			<ul class="flat"><li><a href="https://twitter.com/awelm_" title="Twitter" target="_blank"><i data-feather="twitter"></i></a></li><li><a href="https://github.com/awelm" title="Github" target="_blank"><i data-feather="github"></i></a></li><li><a href="https://www.linkedin.com/in/akilawelihinda/" title="LinkedIn" target="_blank"><i data-feather="linkedin"></i></a></li><li><a href="https://medium.com/@awelm" title="Medium" target="_blank"><i data-feather="edit"></i></a></li></ul>
+		</nav>
+	</div>
+</div>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-203462770-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>feather.replace()</script>
+	<div id="subscribeBackdrop" class="subscribeBackdrop"\>
+</body>
+</html>

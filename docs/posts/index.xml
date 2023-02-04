@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Akila Welihinda</title>
+    <link>https://www.awelm.com/posts/</link>
+    <description>Recent content in Posts on Akila Welihinda</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© Akila Welihinda</copyright>
+    <lastBuildDate>Fri, 18 Mar 2022 09:17:36 -0700</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How To Build an Evil Compiler</title>
+      <link>https://www.awelm.com/posts/evil-compiler/</link>
+      <pubDate>Fri, 18 Mar 2022 09:17:36 -0700</pubDate>
+      
+      <guid>https://www.awelm.com/posts/evil-compiler/</guid>
+      <description>Did you know there is a type of compiler backdoor attack that is theoretically impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code.</description>
+    </item>
+    
+    <item>
+      <title>SimpleDB: A Basic RDBMS Built From Scratch</title>
+      <link>https://www.awelm.com/posts/simple-db/</link>
+      <pubDate>Sat, 29 Jan 2022 17:19:23 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/simple-db/</guid>
+      <description>My databases class at UCLA wasn’t very challenging so I never truly understood the internals of databases. This always bothered me so I vowed to build a simple database from scratch to learn the fundamentals.</description>
+    </item>
+    
+    <item>
+      <title>Quick Splits: Manage Your Shared Finances Better</title>
+      <link>https://www.awelm.com/posts/quick-splits/</link>
+      <pubDate>Wed, 05 Jan 2022 15:07:54 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/quick-splits/</guid>
+      <description>Using Venmo has always been a frustrating yet unavoidable part of my life. I cannot realistically use another platform because most of my peers use Venmo.</description>
+    </item>
+    
+    <item>
+      <title>My Useless Contribution to the GNU C Sine Function</title>
+      <link>https://www.awelm.com/posts/sine/</link>
+      <pubDate>Sat, 18 Dec 2021 11:09:07 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/sine/</guid>
+      <description>Have you ever wondered how computers calculate trigonometric functions like sin and cos? Because CPUs can only do basic arithmetic, I always guessed that these functions were implemented using the Taylor Series.</description>
+    </item>
+    
+    <item>
+      <title>How Scala Changed My Perspective on Programming</title>
+      <link>https://www.awelm.com/posts/scala/</link>
+      <pubDate>Wed, 08 Dec 2021 12:35:14 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/scala/</guid>
+      <description>My last job required me to learn Scala, which is considered to be a functional-OOP hybrid language. Seeing real-world applications of Scala was what ultimately sold me on the language&amp;rsquo;s concepts, and now I&amp;rsquo;m very grateful for the big perspective shift Scala has given me.</description>
+    </item>
+    
+    <item>
+      <title>Tools That Improved My Engineering Productivity</title>
+      <link>https://www.awelm.com/posts/eng-productivity-tools/</link>
+      <pubDate>Wed, 17 Nov 2021 18:01:35 -0500</pubDate>
+      
+      <guid>https://www.awelm.com/posts/eng-productivity-tools/</guid>
+      <description>My friends and coworkers often ask me what tools I use because they view me as a productivity enthusiast. I have always enjoyed improving my productivity because the feeling of efficiency makes working more enjoyable.</description>
+    </item>
+    
+    <item>
+      <title>Exploring SIMD performance improvements in WebAssembly</title>
+      <link>https://www.awelm.com/posts/simd-web-assembly-experiment/</link>
+      <pubDate>Wed, 10 Nov 2021 13:14:33 -0500</pubDate>
+      
+      <guid>https://www.awelm.com/posts/simd-web-assembly-experiment/</guid>
+      <description>In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in WebAssembly and see whether the results agree with our theoretical predictions.</description>
+    </item>
+    
+    <item>
+      <title>Click: My Primary Kubernetes Tool</title>
+      <link>https://www.awelm.com/posts/click/</link>
+      <pubDate>Wed, 25 Aug 2021 08:43:52 -0700</pubDate>
+      
+      <guid>https://www.awelm.com/posts/click/</guid>
+      <description>Click has made my Kubernetes experience a pleasure. I adopted Click after joining Databricks because using kubectl was too inconvenient. There aren&amp;rsquo;t many articles or blog posts discussing Click, so I decided to write one in hopes of convincing you to try it out.</description>
+    </item>
+    
+  </channel>
+</rss>
