@@ -28,7 +28,8 @@ summaryLength = 20
     # Blog subtitle which appears below blog title. Supports markdown.
     subtitle = "My technical blog. Let's learn together"
 
-    avatar = "https://media-exp1.licdn.com/dms/image/D5603AQEmcf-XTjIqhw/profile-displayphoto-shrink_800_800/0/1670173577331?e=1675900800&v=beta&t=gHGfbYNW4qh1y-Jb-ZaqOvHy1465YQrLxzWkXpuPK2c"
+    avatar = "profile.png"
+
 
     # Content types which are included in home page recent posts list.
     mainSections = ["posts"]
