@@ -28,7 +28,7 @@ summaryLength = 20
     # Blog subtitle which appears below blog title. Supports markdown.
     subtitle = "My technical blog. Let's learn together"
 
-    avatar = "profile.png"
+    avatar = "/profile.png"
 
 
     # Content types which are included in home page recent posts list.
