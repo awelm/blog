@@ -8,7 +8,7 @@
 	<meta itemprop="name" content="Managing LLM Context Is a Knapsack Problem">
 <meta itemprop="description" content="LLMs can be more useful and less prone to hallucination when they’re able to read relevant documents, webpages, and prior conversations before responding to a new user question."><meta itemprop="datePublished" content="2023-07-09T12:58:19-07:00" />
 <meta itemprop="dateModified" content="2023-07-09T12:58:19-07:00" />
-<meta itemprop="wordCount" content="477">
+<meta itemprop="wordCount" content="478">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="Managing LLM Context Is a Knapsack Problem" />
 <meta property="og:description" content="LLMs can be more useful and less prone to hallucination when they’re able to read relevant documents, webpages, and prior conversations before responding to a new user question." />
 <meta property="og:type" content="article" />
@@ -134,7 +134,7 @@ worth asking the LLM to read, and it turns out this is a <a style="color:#3700ff
 <p>The above is technically the 0-1 variant of the Knapsack problem because the thief can either steal either 0 of 1 copies
 of each item (and not multiple copies or fractional copies).</p>
 <h3 id="deciding-what-to-show-the-llm">Deciding What To Show the LLM</h3>
-<p>Let’s imagine you are using an LLM to answer a user question and you want it to read as many relevant documents as
+<p>Let’s imagine you are using a LLM to answer a user question and you want it to read as many relevant documents as
 possible before responding. Each document costs the LLM a certain number of tokens to read which is <strong>w[i]</strong>.
 And each document has some value <strong>v[i]</strong> too, which can be computed in a variety of ways depending on your goals. For example,
 you could use <a style="color:#3700ff;" href="https://platform.openai.com/docs/guides/embeddings/what-are-embeddings" target="_blank">embeddings</a> and
@@ -145,7 +145,7 @@ of older documents since they’re more likely to contain outdated information.<
 to <strong>L - P - R,</strong> where <strong>L</strong> is the LLM’s context length, <strong>P</strong> is the length of the prompt preceding the selected documents,
 and <strong>R</strong> is the number of tokens reserved for the LLM’s response. Now you can plug all these inputs into Knapsack and
 you will be returned the selection of documents that are most worth reading given your budget.</p>
-<h3 id="considerations">Considerations</h3>
+<h3 id="other-considerations">Other Considerations</h3>
 <ol>
 <li>You might instead want to use the <a style="color:#3700ff;" href="https://en.wikipedia.org/wiki/Knapsack_problem#Greedy_approximation_algorithm" target="_blank">greedy approximation</a>
 solution to the Knapsack problem because it runs in O(N log N) and has a very simple strategy of first selecting items with the highest value:weight ratio.

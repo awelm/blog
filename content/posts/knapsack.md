@@ -24,7 +24,7 @@ of each item (and not multiple copies or fractional copies).
 
 ### Deciding What To Show the LLM
 
-Let’s imagine you are using an LLM to answer a user question and you want it to read as many relevant documents as
+Let’s imagine you are using a LLM to answer a user question and you want it to read as many relevant documents as
 possible before responding. Each document costs the LLM a certain number of tokens to read which is **w[i]**.
 And each document has some value **v[i]** too, which can be computed in a variety of ways depending on your goals. For example,
 you could use [embeddings](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings) and
@@ -37,7 +37,7 @@ to **L - P - R,** where **L** is the LLM’s context length, **P** is the length
 and **R** is the number of tokens reserved for the LLM’s response. Now you can plug all these inputs into Knapsack and 
 you will be returned the selection of documents that are most worth reading given your budget.
 
-### Considerations
+### Other Considerations
 
 1. You might instead want to use the [greedy approximation](https://en.wikipedia.org/wiki/Knapsack_problem#Greedy_approximation_algorithm)
 solution to the Knapsack problem because it runs in O(N log N) and has a very simple strategy of first selecting items with the highest value:weight ratio.
