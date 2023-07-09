@@ -13,11 +13,11 @@ worth asking the LLM to read, and it turns out this is a [Knapsack problem](http
 
 The Knapsack problem is a classic dynamic programming problem and is typically introduced with the following narrative:
 
-> A thief robbing a store finds **N** items. Item **i** is worth **v[i]** dollars and weighs **w[i]** pounds, where **v[i]** and **w[i]** are integers. The thief wants to take as valuable a load as possible, but can carry at most **W** pounds in his knapsack, for some integer **W**.
+> A thief robbing a store finds **N** items. Item **i** is worth **v[i]** dollars and weighs **w[i]** pounds, where **v[i]** and **w[i]** are integers. The thief wants to take as valuable a load as possible, but can carry at most **W** pounds in his knapsack, for some integer **W**.
 >
 > Which items should the thief steal?
 
-{{< figure src="/knapsack.png" alt="Knapsack Diagram" width="60%">}}
+{{< figure src="/knapsack.png" alt="Knapsack Diagram" width="80%">}}
 
 The above is technically the 0-1 variant of the Knapsack problem because the thief can either steal either 0 of 1 copies
 of each item (and not multiple copies or fractional copies).
