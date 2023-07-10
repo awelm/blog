@@ -15,7 +15,6 @@
 <meta property="og:url" content="https://www.awelm.com/posts/simd-web-assembly-experiment/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-10T13:14:33-05:00" />
 <meta property="article:modified_time" content="2021-11-10T13:14:33-05:00" />
-
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Exploring SIMD performance improvements in WebAssembly"/>
 <meta name="twitter:description" content="In this blog post, we are going to run some SIMD (Single Instruction Multiple Data) performance experiments in WebAssembly and see whether the results agree with our theoretical predictions."/>
@@ -29,6 +28,15 @@
 	<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 		<script src="https://www.awelm.com/js/main.js"></script><script src="https://www.awelm.com/js/custom.js"></script>
 </head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z4YC2CN9NJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Z4YC2CN9NJ');
+</script>
+
 
 <body>
 	<div id="fb-root"></div>
@@ -267,17 +275,6 @@
 	</div>
 </div>
 
-
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-203462770-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
 <script>feather.replace()</script>
 	<div id="subscribeBackdrop" class="subscribeBackdrop"\>
 </body>

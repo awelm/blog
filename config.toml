@@ -12,8 +12,6 @@ pygmentsstyle = "solarized-dark"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
-# Your Google analytics code.
-googleAnalytics = "UA-203462770-1"
 # Your Disqus sortname.
 #disqusShortname = "awelm"
 
@@ -22,6 +20,8 @@ paginate = 10
 
 # Number of characters to show in summary.
 summaryLength = 20
+
+# Google analytics (moved to partials/analytics.html)
 
 # Custom JS scripts
 [params]
