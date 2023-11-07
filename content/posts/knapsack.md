@@ -37,6 +37,8 @@ to **L - P - R,** where **L** is the LLM’s context length, **P** is the length
 and **R** is the number of tokens reserved for the LLM’s response. Now you can plug all these inputs into Knapsack and 
 you will be returned the selection of documents that are most worth reading given your budget.
 
+{{< figure src="/knapsack_context.png" alt="Knapsack Context Management" width="100%">}}
+
 ### Other Considerations
 
 1. You might instead want to use the [greedy approximation](https://en.wikipedia.org/wiki/Knapsack_problem#Greedy_approximation_algorithm)
