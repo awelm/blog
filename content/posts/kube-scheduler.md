@@ -127,7 +127,7 @@ Recall that nominated pods are re-queued to schedule and haven’t entered the b
 
 If all Filter plugins pass with nominated pods added, there is actually one more thing to verify before the node is considered feasible. Let’s imagine that we’re running a website and our `server` pod needs to be co-located with a `database` pod in order to serve traffic and we ensure this via a required inter-pod affinity. Because the scheduler lies to the Filter plugins that all nominated pods are scheduled, the inter-pod affinity Filter plugin would happily approve the scheduling of pod `server` onto `database`’s nominated node. Recall though that nominated pods like `database` aren’t guaranteed to schedule on their nominated nodes. So we can’t just allow the `server` pod schedule onto this nominated node now and send it for binding because it could lead to a violation of a required inter-pod affinity. This is why the scheduler additionally [re-runs all Filter plugins](https://github.com/kubernetes/kubernetes/blob/246d363ea4bab2ac99a938d0cee73d72fc44de45/pkg/scheduler/framework/runtime/framework.go#L936-L953) without nominated pods and makes sure they all pass. This ensures that a node’s nominated pods aren’t actually strictly needed to legally schedule `p` on that node.
 
-### More Reasons To Snapshot
+## Additional Benefits of Snapshotting
 
 There are additional benefits to taking a snapshot of all pods and nodes at the start of each scheduling cycle which I haven’t discussed yet. Using a snapshot in the scheduling cycle also:
 
@@ -140,19 +140,19 @@ There are additional benefits to taking a snapshot of all pods and nodes at the 
 
 I feel that working in the scheduler codebase has made me a better programmer. Here are some key lessons that I’ve personally internalized after spending (too) much time in this codebase.
 
-**Embrace Reading Source Code**
+##### 1) Embrace Reading Source Code
 
 All the existing kube-scheduler documentation and “deep dive” articles online provide nowhere near the level of detail needed to write a scheduling plugin. You just have to accept that you’ll often need to read the code directly if you want to work on new or fringe projects. Most of my learning came from reading the [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins) and kube-scheduler source code.
 
-**Lean into the OSS Community**
+##### 2) Lean into the OSS Community
 
 The Kubernetes community is full of amazingly helpful and knowledgable people. When I was struggling to understand the scheduling of nominated pods, I reached out to [Wei](https://github.com/Huang-Wei) and within hours I was unblocked. I’m still surprised by how willing maintainers are to assist random people on the internet. I recommend joining the Kubernetes Slack workspace if you’re stuck on something or have a very specific question.
 
-**Well Designed Frameworks Are Extremely Powerful**
+##### 3) Well Designed Frameworks Are Extremely Powerful
 
 I’m still amazed at how general, extensible, and powerful the scheduling plugin framework is. Every Kubernetes scheduling feature is still implemented using this framework that is almost 10 releases old! Allowing developers to build on the same framework opens up endless possibilities for customization without needing to fork the scheduler. The scheduling plugin framework has inspired me to spend more time searching for the right core abstractions when designing my own frameworks.
 
-**Snapshots Are Clutch**
+##### 4) Snapshots Are Clutch
 
 Before working on the scheduling plugin, I hardly thought about using snapshotting and viewed it as a technique reserved for complex tasks like say implementing [MVCC](https://en.wikipedia.org/wiki/Multiversion_concurrency_control). I’ve now started using snapshotting more in other systems I work on and I love it. I view it as an opportunity to simultaneously introduce consistency and improve performance. It’s not a silver bullet though obviously because not all systems can accept the tradeoff of stale data that comes with snapshotting.
 
