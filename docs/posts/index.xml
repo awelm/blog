@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© Akila Welihinda</copyright>
-    <lastBuildDate>Sun, 09 Jul 2023 12:58:19 -0700</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 11 Dec 2023 20:15:26 -0800</lastBuildDate><atom:link href="https://www.awelm.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Deeper Dive of kube-scheduler</title>
+      <link>https://www.awelm.com/posts/kube-scheduler/</link>
+      <pubDate>Mon, 11 Dec 2023 20:15:26 -0800</pubDate>
+      
+      <guid>https://www.awelm.com/posts/kube-scheduler/</guid>
+      <description>At OpenAI I have spent the last few months of my life developing a Kubernetes scheduler plugin to customize preemption to better suit our ML workloads.</description>
+    </item>
+    
     <item>
       <title>Managing LLM Context Is a Knapsack Problem</title>
       <link>https://www.awelm.com/posts/knapsack/</link>
