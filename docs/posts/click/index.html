@@ -125,11 +125,11 @@
 			</div>
 					
 			<div class="markdown">
-				<p><a style="color:#3700ff;" href="https://github.com/databricks/click" target="_blank">Click</a> has made my Kubernetes experience a pleasure. I adopted Click after joining Databricks because using <code>kubectl</code> was too inconvenient. There aren&rsquo;t many articles or blog posts discussing Click, so I decided to write one in hopes of convincing you to try it out.</p>
+				<p><a style="color:#0049ff;" href="https://github.com/databricks/click" target="_blank">Click</a> has made my Kubernetes experience a pleasure. I adopted Click after joining Databricks because using <code>kubectl</code> was too inconvenient. There aren&rsquo;t many articles or blog posts discussing Click, so I decided to write one in hopes of convincing you to try it out.</p>
 <h3 id="what-is-click">What is Click</h3>
 <p>Click is a Kubernetes REPL that lets you explore resources in your Kubernetes cluster and concisely run multiple commands against a selected resource. Resource selection lets you avoid the text editing and copy-pasting typically required to craft your desired <code>kubectl</code> command. Click commands are also terse by design so you can focus on issuing commands instead of dealing with syntax.</p>
 <h3 id="alternatives-to-click">Alternatives to Click</h3>
-<p>Before stumbling upon Click, I had tried other solutions like creating Bash aliases and functions. Unfortunately these custom solutions were brittle and took lots of time to create and maintain. <a style="color:#3700ff;" href="https://github.com/derailed/k9s" target="_blank">K9s</a> is actually a pretty solid alternative to Click and I&rsquo;d recommend checking it out if you&rsquo;re looking for a more advanced tool. Now that we&rsquo;ve discussed the alternatives, let&rsquo;s explore how Click can help us work more efficiently.</p>
+<p>Before stumbling upon Click, I had tried other solutions like creating Bash aliases and functions. Unfortunately these custom solutions were brittle and took lots of time to create and maintain. <a style="color:#0049ff;" href="https://github.com/derailed/k9s" target="_blank">K9s</a> is actually a pretty solid alternative to Click and I&rsquo;d recommend checking it out if you&rsquo;re looking for a more advanced tool. Now that we&rsquo;ve discussed the alternatives, let&rsquo;s explore how Click can help us work more efficiently.</p>
 <h3 id="a-real-world-example-with-click">A Real-World Example with Click</h3>
 <p>Consider a real-world scenario where you have an existing Kubernetes cluster and want to launch a new nginx Deployment on it. The typical checklist to accomplish this is:</p>
 <ol>
@@ -231,9 +231,9 @@
 <p>Click has extremely good documentation and you can view it all from the REPL. There hasn&rsquo;t been a single time I&rsquo;ve needed to Google how to do something in Click. I just type  <code>help</code> to see all the possible Click commands. Each command also has its own man page.</p>
 <h3 id="what-click-is-not">What Click is Not</h3>
 <p>Click isn&rsquo;t a replacement for <code>kubectl</code> and there are definitely certain scenarios where <code>kubectl</code> is the better tool for the job. For example, if you want to create scripts you should definitely use <code>kubectl</code> because Click is an interactive tool. There also isn&rsquo;t a good way to automatically refresh output in Click, which is useful when you want to verify a state change you&rsquo;ve just made. For these cases, I usually tack a <code>watch</code> before my <code>kubectl</code> command.</p>
-<p>Click is also isn&rsquo;t a replacement for a Kubernetes UI. If you want a UI-only tool, <a style="color:#3700ff;" href="https://github.com/kubernetes/dashboard" target="_blank">Kubernetes Dashboard</a> does this pretty well.</p>
+<p>Click is also isn&rsquo;t a replacement for a Kubernetes UI. If you want a UI-only tool, <a style="color:#0049ff;" href="https://github.com/kubernetes/dashboard" target="_blank">Kubernetes Dashboard</a> does this pretty well.</p>
 <h3 id="whats-next">What&rsquo;s Next?</h3>
-<p>I am passionate about dev tools and I enjoy writing about the optimizations and workflow improvements I&rsquo;ve encountered during my career. I&rsquo;ll continue to share tools, tips, and hacks in my next few blog posts. If you find my content interesting and want to hear more, check me out on <a style="color:#3700ff;" href="https://twitter.com/awelm_" target="_blank">Twitter</a>.</p>
+<p>I am passionate about dev tools and I enjoy writing about the optimizations and workflow improvements I&rsquo;ve encountered during my career. I&rsquo;ll continue to share tools, tips, and hacks in my next few blog posts. If you find my content interesting and want to hear more, check me out on <a style="color:#0049ff;" href="https://twitter.com/awelm_" target="_blank">Twitter</a>.</p>
 
 			</div>
 

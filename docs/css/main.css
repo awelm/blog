@@ -484,10 +484,12 @@ ul {
     }
 }
 
-/* Akila's custom CSS */
+/* Akila's custom CSS. Auto-generated from hugo-ink/static/css/main.css */
 
 /* highlighting */
 code {
+    /* Matches Notion */
+    color: #EB5757;
     background-color: #afb8c133;
 }
 
