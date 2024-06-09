@@ -8,7 +8,7 @@
 	<meta itemprop="name" content="How To Build an Evil Compiler">
 <meta itemprop="description" content="Did you know there is a type of compiler backdoor attack that is theoretically impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code."><meta itemprop="datePublished" content="2022-03-18T09:17:36-07:00" />
 <meta itemprop="dateModified" content="2022-03-18T09:17:36-07:00" />
-<meta itemprop="wordCount" content="2507">
+<meta itemprop="wordCount" content="2525">
 <meta itemprop="keywords" content="" /><meta property="og:title" content="How To Build an Evil Compiler" />
 <meta property="og:description" content="Did you know there is a type of compiler backdoor attack that is theoretically impossible to defend against? In this post I’ll show you how to implement such an attack in less than 100 lines of code." />
 <meta property="og:type" content="article" />
@@ -135,10 +135,12 @@ I imagine you’re skeptical of my claims and may have some questions. The follo
 <p><strong>You:</strong> I would need to check B’s source code too. Hmm&hellip; actually checking B’s source code would lead to the same problem because I also need to trust whatever compiles B. I could always disassemble the compiled executable and verify that no backdoors were added.</p>
 <p><strong>Me:</strong> But the disassembler is also just another program that needs to be compiled eventually, so it’s possible the disassembler has backdoors injected into it. A compromised disassembler could decide to hide the backdoors of the program being disassembled.</p>
 <p><strong>You:</strong> What are the odds of this actually happening? The attacker would need to have built my compiler and then used it to compile my disassembler.</p>
-<p><strong>Me:</strong> After creating the C programming language, Dennis Ritchie joined forces with Ken Thompson to create Unix (written in C). So in theory anyone running Unix is vulnerable to the Thompson attack.</p>
+<p><strong>Me:</strong> The creator of C (Dennis Ritchie) joined forces with Ken Thompson and wrote Unix in C. So in theory anyone running Unix is vulnerable to the Thompson attack.</p>
 <p><strong>You:</strong> It’s probably pretty difficult to build this evil compiler, so hopefully this attack is unlikely.</p>
 <p><strong>Me:</strong> It’s actually very easy to implement. I’ll show you how you to do it in &lt;100 lines of code.</p>
 </blockquote>
+<p>The diagram below outlines a rough summary of how our evil compiler injects undetectable backdoors. Remember that diassembling <code>Login.o</code> won&rsquo;t save you because your disassembler could also be compiled by <code>EvilCompiler.o</code> if the compiler is widely used like GCC.</p>
+<p><img src="/evil-compiler-diagram.png" alt="Evil Compiler Diagram"></p>
 <h3 id="demo">Demo</h3>
 <p>You can see the Thompson attack in action by cloning <a style="color:#0049ff;" href="https://github.com/awelm/evil-compiler" target="_blank">this</a> repro and following the steps below:</p>
 <ol>
@@ -255,8 +257,7 @@ Let’s explore the different steps needed to create this evil compiler and hide
 </span></span></code></pre></div><p>You may have noticed the backdoor attack could easily be broken by renaming <code>Login.cpp</code> to something else. But our evil compiler could just as easily decide to inject backdoors based on file contents instead of file names.</p>
 <p>Nobody will actually use our evil compiler because anyone who reads the source code is bound to notice its trickery and report it. To avoid this issue we will take advantage of self-hosting to hide our compiler’s backdoor injection.</p>
 <h3 id="3-hiding-backdoor-injection">3. Hiding Backdoor Injection</h3>
-<p>We can modify our evil compiler <code>EvilCompiler.cpp</code> to clone itself whenever it’s asked to compile our clean compiler <code>Compiler.cpp</code> from Step 1. We can then distribute the <code>EvilCompiler</code> binary (renamed of course) as the first release of our self-hosted compiler and claim that <code>Compiler.cpp</code> is the corresponding source code. Now anyone who uses our compiler is susceptible to our attack even if they verified our compiler was clean before deciding to use it. Even if they downloaded the clean <code>Compiler.cpp</code> source code and compiled it themselves with <code>EvilCompiler</code>, the generated executable would just be a copy of <code>EvilCompiler</code>. The diagram below outlines how our evil compiler and its backdoor injections are hidden from the public eye.</p>
-<p><img src="/evil-compiler-diagram.png" alt="Evil Compiler Diagram"></p>
+<p>We can modify our evil compiler <code>EvilCompiler.cpp</code> to clone itself whenever it’s asked to compile our clean compiler <code>Compiler.cpp</code> from Step 1. We can then distribute the <code>EvilCompiler</code> binary (renamed of course) as the first release of our self-hosted compiler and claim that <code>Compiler.cpp</code> is the corresponding source code. Now anyone who uses our compiler is susceptible to our attack even if they verified our compiler was clean before deciding to use it. Even if they downloaded the clean <code>Compiler.cpp</code> source code and compiled it themselves with <code>EvilCompiler</code>, the generated executable would just be a copy of <code>EvilCompiler</code>.</p>
 <p>Highlighted below are the modifications needed to make the evil compiler clone itself. You can skip implementation details if the high-level idea makes sense.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

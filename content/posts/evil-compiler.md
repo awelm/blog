@@ -21,11 +21,15 @@ I imagine you’re skeptical of my claims and may have some questions. The follo
 >
 > **You:** What are the odds of this actually happening? The attacker would need to have built my compiler and then used it to compile my disassembler.
 >
-> **Me:** After creating the C programming language, Dennis Ritchie joined forces with Ken Thompson to create Unix (written in C). So in theory anyone running Unix is vulnerable to the Thompson attack.
+> **Me:** The creator of C (Dennis Ritchie) joined forces with Ken Thompson and wrote Unix in C. So in theory anyone running Unix is vulnerable to the Thompson attack.
 >
 > **You:** It’s probably pretty difficult to build this evil compiler, so hopefully this attack is unlikely.
 >
 > **Me:** It’s actually very easy to implement. I’ll show you how you to do it in <100 lines of code.
+
+The diagram below outlines a rough summary of how our evil compiler injects undetectable backdoors. Remember that diassembling `Login.o` won't save you because your disassembler could also be compiled by `EvilCompiler.o` if the compiler is widely used like GCC.
+
+![Evil Compiler Diagram](/evil-compiler-diagram.png)
 
 ### Demo
 
@@ -168,9 +172,7 @@ Nobody will actually use our evil compiler because anyone who reads the source c
 
 ### 3. Hiding Backdoor Injection
 
-We can modify our evil compiler `EvilCompiler.cpp` to clone itself whenever it’s asked to compile our clean compiler `Compiler.cpp` from Step 1. We can then distribute the `EvilCompiler` binary (renamed of course) as the first release of our self-hosted compiler and claim that `Compiler.cpp` is the corresponding source code. Now anyone who uses our compiler is susceptible to our attack even if they verified our compiler was clean before deciding to use it. Even if they downloaded the clean `Compiler.cpp` source code and compiled it themselves with `EvilCompiler`, the generated executable would just be a copy of `EvilCompiler`. The diagram below outlines how our evil compiler and its backdoor injections are hidden from the public eye.
-
-![Evil Compiler Diagram](/evil-compiler-diagram.png)
+We can modify our evil compiler `EvilCompiler.cpp` to clone itself whenever it’s asked to compile our clean compiler `Compiler.cpp` from Step 1. We can then distribute the `EvilCompiler` binary (renamed of course) as the first release of our self-hosted compiler and claim that `Compiler.cpp` is the corresponding source code. Now anyone who uses our compiler is susceptible to our attack even if they verified our compiler was clean before deciding to use it. Even if they downloaded the clean `Compiler.cpp` source code and compiled it themselves with `EvilCompiler`, the generated executable would just be a copy of `EvilCompiler`. 
 
 Highlighted below are the modifications needed to make the evil compiler clone itself. You can skip implementation details if the high-level idea makes sense.
 
